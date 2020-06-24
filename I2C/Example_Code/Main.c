@@ -29,6 +29,13 @@ void ALARMhandler(int sig)
     flag = 5;
 }
 
+void BreakDeal(int sig)
+{
+    clearDisplay();
+    usleep(1000000);    
+    Display();
+    exit(0);
+}
 int main()
 {
     /* Initialize I2C bus and connect to the I2C Device */
@@ -44,8 +51,9 @@ int main()
 
     /* Register the Alarm Handler */
     signal(SIGALRM, ALARMhandler);
-
-    /* Run SDD1306 Initialization Sequence */
+    signal(SIGINT, BreakDeal);
+    signal(SIGTERM, BreakDeal);    
+/* Run SDD1306 Initialization Sequence */
     display_Init_seq();
 
     /* Clear display */
@@ -144,25 +152,18 @@ int main()
     Display();
 */
     while(1){
-	// draw a white circle, 10 pixel radius
+
 	testdrawroundrect();
 	usleep(1000000);
 	clearDisplay();
-
-
-	// Fill triangles
-	testfillrect();
-    	usleep(1000000);
-    	clearDisplay();
-
-
 	
-	for(int i=1;i<60;i++){   //show for 60s then screensavor
+	for(int i=1;i<60;i++){
         	testprintinfo();
         	Display();
         	usleep(1000000);
         	clearDisplay();
 	}
+	usleep(3000000);
     }
 
 }
