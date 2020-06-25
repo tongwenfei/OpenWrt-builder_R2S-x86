@@ -254,7 +254,7 @@ void testdrawchar()
     unsigned char i = 0;
     setTextSize(1);
     setTextColor(WHITE);
-    setCursor(0,0);
+    setCursor(5,0);
 
     for (i=0; i < 168; i++)
     {
@@ -391,7 +391,7 @@ void deeplyembedded_credits()
 {
     setTextSize(1);
     setTextColor(WHITE);
-    setCursor(1,0);
+    setCursor(5,0);
     print_strln("deeplyembedded.org");
     println();
     print_strln("Author:Vinay Divakar");
@@ -412,7 +412,7 @@ void testprintinfo()
 
     setTextSize(1);
     setTextColor(WHITE); 
-    setCursor(0,0);    
+    setCursor(5,0);    
 //DATE
    
     time_t rawtime;
@@ -420,7 +420,7 @@ void testprintinfo()
     uint8_t timebuff[TIMESIZE];
     curtime = time(NULL);
     time(&rawtime);
-    strftime(timebuff,80,"%Y-%m-%d_%w %H:%M:%S",localtime(&rawtime));
+    strftime(timebuff,80,"%Y/%m/%d %H:%M:%S",localtime(&rawtime));
     sprintf(buf,"%s",timebuff);
     print_strln(buf);
     
@@ -431,6 +431,7 @@ void testprintinfo()
         fclose(fp);
         //ipbuff[strlen(ipbuff)-1]=32;
         sprintf(buf,"IP:%s",content_buff);
+        setCursor(5,8);
         print_strln(buf);
     }
 
@@ -439,7 +440,8 @@ void testprintinfo()
     {
         fgets(content_buff,FREQSIZE,fp);
         fclose(fp);
-        sprintf(buf,"CPU freq:%d Mhz ",atoi(content_buff)/1000);
+        sprintf(buf,"CPU FREQ:%d Mhz ",atoi(content_buff)/1000);
+        setCursor(5,16);
         print_strln(buf);
     }
 
@@ -448,7 +450,8 @@ void testprintinfo()
     {
         fgets(content_buff,TEMPSIZE,fp);
         fclose(fp);
-        sprintf(buf,"CPU temp:%.2f C",atoi(content_buff)/100.0);
+        sprintf(buf,"CPU TEMP:%.2f C",atoi(content_buff)/100.0);
+        setCursor(5,24);
         print_strln(buf);
     }
 
