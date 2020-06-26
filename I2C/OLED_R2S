@@ -5,6 +5,6 @@ start() {
 	while :; do
 		nohup /usr/bin/i2c_ssd 1>/dev/null 2>&1 &
 		sleep 15m
-		ps -w | grep i2c_ssd | awk '{print $1}' | xargs kill -9
+		killall -q -9 i2c_ssd
 	done
 }
