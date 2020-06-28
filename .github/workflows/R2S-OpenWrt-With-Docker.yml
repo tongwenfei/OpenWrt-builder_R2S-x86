@@ -10,7 +10,6 @@ on:
 
 env:
   UPLOAD_FIRMWARE: true
-  WITH_GCC: true
   TZ: Asia/Hong_Kong
 
 jobs:
