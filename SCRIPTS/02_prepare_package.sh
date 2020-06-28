@@ -13,6 +13,9 @@ sed -i 's/O2/O3/g' ./rules.mk
 ./scripts/feeds update -a && ./scripts/feeds install -a
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+# GCC
+rm -rf ./feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
