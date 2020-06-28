@@ -1060,8 +1060,8 @@ index 0000000000..2b75aab533
 +
 +case "$(board_name)" in
 +friendlyarm,nanopi-r2s)
-+	ucidef_set_led_netdev "wan" "WAN" "nanopi:green:wan" "eth0"
-+	ucidef_set_led_netdev "lan" "LAN" "nanopi:green:lan" "eth1"
++	ucidef_set_led_netdev "wan" "WAN" "nanopi:green:wan" "eth1"
++	ucidef_set_led_netdev "lan" "LAN" "nanopi:green:lan" "eth0"
 +	;;
 +esac
 +board_config_flush
@@ -1076,7 +1076,7 @@ index b436110f42..ed14d58a4f 100755
  
  case "$(board_name)" in
 +friendlyarm,nanopi-r2s)
-+	ucidef_set_interfaces_lan_wan "eth1" "eth0"
++	ucidef_set_interfaces_lan_wan "eth0" "eth1"
 +	;;
  radxa,rock-pi-e)
  	ucidef_set_interfaces_lan_wan "eth1" "eth0"
