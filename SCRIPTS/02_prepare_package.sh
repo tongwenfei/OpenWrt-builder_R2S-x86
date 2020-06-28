@@ -138,8 +138,8 @@ sed -i "s,boardinfo.system,'ARMv8',g" feeds/luci/modules/luci-mod-status/htdocs/
 mkdir package/base-files/files/usr/bin
 cp -f ../PATCH/irq_optimize.sh package/base-files/files/usr/bin/irq_optimize.sh
 cp -f ../PATCH/irq_optimize package/base-files/files/etc/init.d/irq_optimize
-#删除已有配置
+# 删除已有配置
 rm -rf .config
-#授予权限
+# 授予权限
 chmod -R 755 ./
 exit 0
