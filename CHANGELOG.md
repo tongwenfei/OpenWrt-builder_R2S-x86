@@ -1,4 +1,6 @@
 ## 变更历史
+### 2020/06/28 build 26
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/9d02e66fcfdd16f0b96ed38149047f6b8cfbcf29)。
 ### 2020/06/24 build 25
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/a9ef544c7c5f986c43707dd3c25806ded96aea27)。
 * 内核更新至`5.4.48`。

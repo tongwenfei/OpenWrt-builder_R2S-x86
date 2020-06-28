@@ -6,9 +6,11 @@ cp -r ../SCRIPTS/. ./
 bash 02_prepare_package.sh
 bash 03_convert_translation.sh
 bash 04_remove_upx.sh
-cp ../SEED/config.seed .config
+cp  ../SEED/config.seed  .config
+cat ../SEED/more.seed >> .config
 make defconfig
-make download -j10
+let make_process=$(nproc)*3
+make download -j${make_process}
 chmod -R 755 ./
 let make_process=$(nproc)+1
 make toolchain/install -j${make_process} V=s
