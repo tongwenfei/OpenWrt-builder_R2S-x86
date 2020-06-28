@@ -1,7 +1,6 @@
 #!/bin/bash
-clear
-##准备工作
-#使用19.07的feed源
+## 准备工作
+# 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
 # remove annoying snapshot tag

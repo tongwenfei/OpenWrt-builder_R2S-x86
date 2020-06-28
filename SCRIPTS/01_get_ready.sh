@@ -1,9 +1,7 @@
 #!/bin/bash
 git clone --single-branch https://git.openwrt.org/openwrt/openwrt.git
 cd openwrt
-patch -p1 < ../PATCH/R2S.patch
-cd target/linux/rockchip
-mkdir patches-5.4
-cp -rf ../../../../PATCH/000-add-nanopi-r2s-support.patch patches-5.4/000-add-nanopi-r2s-support.patch
-cd ../../..
+patch -p1 < ../PATCH/rockchip-add-support-for-rk3328-radxa-rock-pi-e.patch
+patch -p1 < ../PATCH/rockchip-add-support-for-FriendlyARM-NanoPi-R2S.patch
+cd ..
 exit 0
