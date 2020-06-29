@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/06/29 build 27
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/d7f6ecd9862d52e05b5047a9db809580049527c4)。
+* 添加命令行工具gdisk、cgdisk、dosfstools。
 ### 2020/06/28 build 26
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/9d02e66fcfdd16f0b96ed38149047f6b8cfbcf29)。
 ### 2020/06/24 build 25

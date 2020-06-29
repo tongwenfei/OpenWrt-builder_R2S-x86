@@ -1,8 +1,9 @@
 ## R2S 基于原生OpenWRT 的固件 (AS IS, NO WARRANTY!!!)
 
 ### 发布地址：
-（可能会翻车，风险自担）  
-https://github.com/KaneGreen/R2S-OpenWrt/actions  ![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master)
+（可能会翻车，风险自担，需要登录GitHub账号后才能下载）  
+https://github.com/KaneGreen/R2S-OpenWrt/actions  
+![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master)
 
 ### 本地一键编译命令（注意装好依赖）：
 ```sh
@@ -28,7 +29,7 @@ LUCI版本：19.07（当日最新）
 ### 特性及功能：
 1. O3编译。
 
-2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，SmartDNS，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（offload，防火墙中手动开启），BBR（默认开启）。
+2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，SmartDNS，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（offload，防火墙中手动开启），BBR（默认开启）。[完整功能列表](./featurelist.md)
 
 3. Github Actions里面的编译结果包含SHA256哈希校验和MD5哈希校验文件。同样的内容也会显示在Actions的编译日志的`Cleaning and hashing`步骤（倒数第四步）里。**请注意核对和校验固件文件的完整性！**
 
