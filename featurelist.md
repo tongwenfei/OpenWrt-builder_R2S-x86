@@ -26,7 +26,7 @@
 (3) FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 
 以下组件在本固件中不包含：  
-ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server。
+ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frp内网穿透、OpenVPN。
 
 ### 命令行特性
 * 添加`shadow-utils`组件，便于配置文件共享时新建用户。
