@@ -21,11 +21,11 @@
 | uHTTPd配置 | Samba4 | Aria2 | UPnP配置 | Docker | IP/MAC绑定 |
 | SQM | 带宽监控 | BBR (1) | FullCone NAT (2) | Flow Offloading (2) | FTP共享 (3) |
 
-(1) BBR已默认启用。  
-(2) FullCone NAT和Flow Offloading需要在防火墙设置中手动开启。  
-(3) FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
+1. BBR已默认启用。  
+2. FullCone NAT和Flow Offloading需要在防火墙设置中手动开启。  
+3. FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 
-以下组件在本固件中不包含：  
+4. 以下组件在本固件中不包含：  
 ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frp内网穿透、OpenVPN。
 
 ### 命令行特性
@@ -36,7 +36,7 @@ ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardr
 * Git版本控制工具。
 * `curl`和`wget`两大常用工具。
 * 由openssh-sftp-server提供SFTP协议文件传输功能。由lrzsz提供终端内小文件传输功能。由openssh-keygen提供SSH密钥对生成。
-* 常用命令行工具：bc、file、htop、lsof、nohup、pv、rsync、timeout、tree、xxd。
+* 常用命令行工具：bc、file、htop、lsof、nohup、pv、timeout、tree、xxd。
 * 文本编辑器：nano、vim。
 * 终端复用工具：screen、tmux。
 * 网络相关工具：dig、ethtool、host、ifstat、iftop、iperf3、ncat、nmap、nping、ss。
@@ -48,8 +48,11 @@ ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardr
 * 磁盘分区工具：fdisk、cfdisk（用于MBR分区表）、gdisk、cgdisk（用于GPT分区表）。
 * 其他工具：oath-toolkit、qrencode、sqlite3-cli。
 
+### OpneSSL
+* 支持签发自签名证书。
+
 ### 无线网卡
-理论上支持部分USB无线网卡，未测试。
+* 理论上支持部分USB无线网卡，未测试。
 
 ### Dcoker相关
 * dockerman组件也未启用ttyd支持，因此网页上“连接到容器”功能不可用。请使用命令行相关操作替代。
