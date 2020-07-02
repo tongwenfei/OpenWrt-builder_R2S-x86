@@ -13,6 +13,8 @@ sed -i 's/O2/O3/g' ./rules.mk
 ./scripts/feeds update -a && ./scripts/feeds install -a
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+## 必要的patch
+wget -P include/ https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
@@ -138,7 +140,7 @@ sed -i 's/16384/65536/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 修正架构
 sed -i "s,boardinfo.system,'ARMv8',g" feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
 # adjust_network
-cp -f ../PATCH/adjust_network package/base-files/files/etc/init.d/adjust_network
+cp -f ../PATCH/adjust_network package/base-files/files/etc/init.d/zzz_adjust_network
 # 删除已有配置
 rm -rf .config
 # 授予权限
