@@ -1,10 +1,11 @@
 ## 功能与特性
 
-### 重大改变
+### 重要事项
 * 添加`shadow-utils`组件（用于方便新建用户），导致管理页面上的`更改密码`功能失效。 
 请使用SSH工具，使用空密码登陆后，执行`passwd`命令并根据提示设置密码。
 * 相对于FriendlyWrt的默认设计，本固件已交换WAN/LAN口。  
 现在LAN口绑定在远离电源接口的那一个RJ45上。
+* 本固件对所有R2S设备产生相同的MAC地址。如果您在同一个子网内使用多个R2S设备，请务必自行修改MAC地址设置，该子网内每个设备的MAC地址都唯一。
 
 ### 安全性
 * 防火墙设置为默认拒绝来自WAN口入站数据和转发。
@@ -26,7 +27,7 @@
 3. FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 
 4. 以下组件在本固件中不包含：  
-ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frp内网穿透、OpenVPN。
+ttyd（网页终端）、单线/多线多拨、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frpc/frps内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
 
 ### 命令行特性
 * 添加`shadow-utils`组件，便于配置文件共享时新建用户。
@@ -58,3 +59,6 @@ ttyd（网页终端）、KMS服务器、访问时间控制、WiFi排程、beardr
 * dockerman组件也未启用ttyd支持，因此网页上“连接到容器”功能不可用。请使用命令行相关操作替代。
 * Docker默认开机自动启动。对于不使用Docker的用户可能在性能方面有负面影响，建议在管理页面中禁用Docker。
 * 由于Docker存在，对SSRP和Clash的UDP转发有影响。如果用户有通过SSRP或Clash代理玩外服游戏（或其他依靠UDP通信的应用需要经过代理）的需求，请勿选择此版本。
+
+### 三代壳OLED相关
+* 未安装OLED的luci-app和对于的程序。但包含了其依赖的i2c-tools软件包。需要OLED功能的用户，自行寻找/选择适合的软件包安装即可。也可从源代码，利用本固件自带的GCC编译。
