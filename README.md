@@ -5,7 +5,15 @@
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
 ![OpenWrt for R2S with Docker](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S%20with%20Docker/badge.svg?branch=master&event=push)
 
-### 本地一键编译命令（注意装好依赖）：
+### 本地一键编译命令：
+安装依赖（测试编译环境为Ubuntu 18.04）：
+```sh
+sudo -E apt-get install -y build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python python3 python-pip python3-pip python-ply python3-ply haveged lrzsz device-tree-compiler scons
+
+wget -O - https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | bash
+```
+
+一键编译：
 ```sh
 git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash onekeyr2s.sh
 ```
@@ -27,9 +35,9 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 LUCI版本：19.07（当日最新）
 
 ### 特性及功能：
-1. O3编译。
+1. O3编译，核心频率1.5GHz，获得更高的理论性能。
 
-2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，SmartDNS，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（offload，防火墙中手动开启），BBR（默认开启）。  
+2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，SmartDNS，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（Offload或SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
 [完整功能列表](./featurelist.md)
 
 3. Github Actions里面的编译结果包含SHA256哈希校验和MD5哈希校验文件。同样的内容也会显示在Actions的编译日志的`Cleaning and hashing`步骤（倒数第四步）里。**请注意核对和校验固件文件的完整性！**
