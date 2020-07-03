@@ -1,4 +1,4 @@
-name: OpenWrt for R2S with Docker
+name: OpenWrt with Docker for R2S
 
 on:
   push:
