@@ -14,6 +14,9 @@ sed -i 's/O2/O3/g' ./rules.mk
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+# 更换Python版本（含Py3和Py2）
+rm -rf ./feeds/packages/lang/python
+mv ../PYTHON_KEEP ./feeds/packages/lang/python
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
