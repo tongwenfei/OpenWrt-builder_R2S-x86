@@ -11,6 +11,15 @@ sed -i 's/Os/O3/g' include/target.mk
 sed -i 's/O2/O3/g' ./rules.mk
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
+# 更换GCC版本
+rm -rf ./feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+# 更换Python版本（含Py3和Py2）
+rm -rf ./feeds/packages/lang/python
+svn co https://github.com/openwrt/packages/trunk/lang/python feeds/packages/lang/python
+# 更换Node.js版本
+rm -rf ./feeds/packages/lang/node
+svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
@@ -48,16 +57,6 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget --https-only https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
-## 获取额外package
-# 更换GCC版本
-rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
-# 更换Python版本（含Py3和Py2）
-rm -rf ./feeds/packages/lang/python
-svn co https://github.com/openwrt/packages/trunk/lang/python feeds/packages/lang/python
-# 更换Node.js版本
-rm -rf ./feeds/packages/lang/node
-svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind package/lean/luci-app-arpbind
 # Adbyby

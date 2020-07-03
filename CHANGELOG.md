@@ -1,4 +1,6 @@
 ## 变更历史
+### 2020/07/03 build 32
+* 尝试修复编译失败的问题。
 ### 2020/07/03 build 31
 * 添加SFE。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/30ab6b2f096682cc1ef7e2792b46479c5fd438b5)。
