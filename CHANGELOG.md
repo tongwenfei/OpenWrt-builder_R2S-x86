@@ -1,5 +1,10 @@
 ## 变更历史
+### 2020/07/04 build 37
+* Python3版本退回至3.7.7。待OpenWrt-19.07源中的版本修复后再跟进。
+* SFE功能已经基本稳定。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/8a26c577e84adf82cf530bb82200da965816b36e)。
 ### 2020/07/04 build 36
+编译失败。撤销变更。
 * 尝试修复Python3版本更新3.7.8编译错误。
 ### 2020/07/03 build 35
 编译失败。尝试其他方法。
