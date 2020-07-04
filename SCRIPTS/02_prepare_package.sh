@@ -16,9 +16,9 @@ rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
 # 修复Python编译
 pushd feeds/packages/lang/python
-sed -i 's/_PYTHON_HOST_PLATFORM=linux2//g' python3-host.mk
-sed -i 's/_PYTHON_HOST_PLATFORM=linux2//g' python3-package.mk
-sed -i 's/_PYTHON_HOST_PLATFORM=linux2//g' python3/Makefile
+sed -i 's/_PYTHON_HOST_PLATFORM=linux2/_PYTHON_HOST_PLATFORM=linux-aarch64/g' python3-host.mk
+sed -i 's/_PYTHON_HOST_PLATFORM=linux2/_PYTHON_HOST_PLATFORM=linux-aarch64/g' python3-package.mk
+sed -i 's/_PYTHON_HOST_PLATFORM=linux2/_PYTHON_HOST_PLATFORM=linux-aarch64/g' python3/Makefile
 popd
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
