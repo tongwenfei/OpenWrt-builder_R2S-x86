@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/07/05 build 38
+* 内核更新至`5.4.50`。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/5bbd97c1ba3fe4f4a21478fd358f9fae06eb0045)。
 ### 2020/07/04 build 37
 * Python3版本退回至3.7.7。待OpenWrt-19.07源中的版本修复后再跟进。
 * Python3添加pip包管理器。
