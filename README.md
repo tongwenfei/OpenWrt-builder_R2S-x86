@@ -37,7 +37,7 @@ LUCI版本：19.07（当日最新）
 ### 特性及功能：
 1. O3编译，核心频率1.5GHz，获得更高的理论性能。
 
-2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，SmartDNS，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（Offload或SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
+2. 内置三款主题，包含SSRP，OpenClash，adbyby-plus，SQM，网络唤醒，DDNS，UPNP，FullCone（防火墙中手动开启），流量分载（Offload或SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
 [完整功能列表](./featurelist.md)
 
 3. Github Actions里面的编译结果包含SHA256哈希校验和MD5哈希校验文件。同样的内容也会显示在Actions的编译日志的`Cleaning and hashing`步骤（倒数第四步）里。**请注意核对和校验固件文件的完整性！**
