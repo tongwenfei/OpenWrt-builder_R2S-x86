@@ -1,7 +1,11 @@
 ## 变更历史
+### 2020/07/06 build 41
+* 恢复OpenSSL配置，尝试修复前两次编译失败。
 ### 2020/07/06 build 40
+编译失败。
 * ROOTFS调整为448MB。
 ### 2020/07/06 build 39
+编译失败。
 * 移除Docker、SmartDNS相关组件。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/a820f8284ce9544d9adbc031db544fb81c8e6c29)。
 ### 2020/07/05 build 38
