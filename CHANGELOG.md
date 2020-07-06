@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/07/06 build 39
+* 移除Docker、SmartDNS相关组件。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/a820f8284ce9544d9adbc031db544fb81c8e6c29)。
 ### 2020/07/05 build 38
 * 内核更新至`5.4.50`。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/5bbd97c1ba3fe4f4a21478fd358f9fae06eb0045)。
