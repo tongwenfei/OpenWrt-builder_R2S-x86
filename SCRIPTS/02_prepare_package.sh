@@ -112,17 +112,7 @@ svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash
 # SmartDNS
 svn co https://github.com/pymumu/smartdns/trunk/package/openwrt package/new/smartdns/smartdns
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/luci-app-smartdns package/new/smartdns/luci-app-smartdns
-# Dockerman
-mkdir -p package/luci-lib-docker && \
-wget --https-only https://raw.githubusercontent.com/lisaac/luci-lib-docker/master/Makefile -O package/luci-lib-docker/Makefile
-mkdir -p package/luci-app-dockerman && \
-wget --https-only https://raw.githubusercontent.com/lisaac/luci-app-dockerman/master/Makefile -O package/luci-app-dockerman/Makefile
-svn co https://github.com/openwrt/packages/trunk/utils/docker-ce package/utils/docker-ce
-svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount package/utils/cgroupfs-mount
-svn co https://github.com/openwrt/packages/trunk/utils/containerd package/utils/containerd
-svn co https://github.com/openwrt/packages/trunk/utils/libnetwork package/utils/libnetwork
-svn co https://github.com/openwrt/packages/trunk/utils/tini package/utils/tini
-svn co https://github.com/openwrt/packages/trunk/utils/runc package/utils/runc
+# Golang
 rm -rf ./package/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang package/lang/golang
 # 补全部分依赖（实际上并不会用到）

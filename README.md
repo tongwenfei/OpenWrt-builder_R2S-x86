@@ -3,7 +3,7 @@
 ### 发布地址：
 （可能会翻车，风险自担，需要登录GitHub账号后才能下载）  
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
-![OpenWrt with Docker for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20with%20Docker%20for%20R2S/badge.svg?branch=master&event=push)
+![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master&event=push)
 
 ### 本地一键编译命令：
 安装依赖（测试编译环境为Ubuntu 18.04）：

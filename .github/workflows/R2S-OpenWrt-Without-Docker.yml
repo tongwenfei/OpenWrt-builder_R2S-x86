@@ -1,4 +1,4 @@
-name: OpenWrt with Docker for R2S
+name: OpenWrt for R2S
 
 on:
   push:
@@ -79,7 +79,7 @@ jobs:
     - name: Make Config
       run: |
         cd openwrt
-        cp  ../SEED/config.seed  .config
+        cp  ../SEED/config_2.seed  .config
         cat ../SEED/more.seed >> .config
         make defconfig
         chmod -R 755 ./
