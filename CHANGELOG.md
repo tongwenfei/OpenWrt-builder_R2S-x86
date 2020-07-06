@@ -1,11 +1,15 @@
 ## 变更历史
+### 2020/07/06 build 42
+* 撤销zstd 1.4.5更新。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/dd4a01dab3a211dbb97fbfdc48371d549b44de91)。
 ### 2020/07/06 build 41
+编译失败，但变更并未撤销，下一次编译将包含此版内容。
 * 恢复OpenSSL配置，尝试修复前两次编译失败。
 ### 2020/07/06 build 40
-编译失败。
+编译失败，但变更并未撤销，下一次编译将包含此版内容。
 * ROOTFS调整为448MB。
 ### 2020/07/06 build 39
-编译失败。
+编译失败，但变更并未撤销，下一次编译将包含此版内容。
 * 移除Docker、SmartDNS相关组件。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/a820f8284ce9544d9adbc031db544fb81c8e6c29)。
 ### 2020/07/05 build 38
