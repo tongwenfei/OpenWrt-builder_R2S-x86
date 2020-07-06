@@ -22,7 +22,7 @@
 | 带宽监控 | BBR (1) | FullCone NAT (2) | Flow Offloading (2) | SFE Offloading (2) |  |
 
 1. BBR已默认启用。  
-2. SFE Offloading已默认启用，其设置在防火墙设置页面中；FullCone NAT和Flow Offloading需要在防火墙设置中手动开启。但是，SFE Offloading和Flow Offloading只能**二选一**，**不能同时开启**。  
+2. SFE Offloading、Flow Offloading和FullCone NAT需要在防火墙设置中手动开启。但是，SFE Offloading和Flow Offloading只能**二选一**，**不能同时开启**。  
 3. FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 4. 以下组件在本固件中不包含：  
 ttyd（网页终端）、Docker、单线/多线多拨、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frpc/frps内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。

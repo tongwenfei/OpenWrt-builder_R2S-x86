@@ -129,7 +129,7 @@ git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullcon
 git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh package/lean/lean-translate
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
-cp -f ../PATCH/shortcut-fe package/base-files/files/etc/init.d/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
 ## 最后的收尾工作
 # 最大连接
 sed -i 's/16384/65536/g' package/kernel/linux/files/sysctl-nf-conntrack.conf

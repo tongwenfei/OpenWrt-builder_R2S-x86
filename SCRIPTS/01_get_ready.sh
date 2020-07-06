@@ -14,6 +14,7 @@ CONFIG_MACVLAN=m
 CONFIG_MACVTAP=m
 CONFIG_DUMMY=m
 CONFIG_DM_THIN_PROVISIONING=y
+# CONFIG_DM_DEBUG_BLOCK_MANAGER_LOCKING is not set
 ' >> ./target/linux/rockchip/armv8/config-5.4
 # Patch config-5.4 to reduce waiting:
 echo '
