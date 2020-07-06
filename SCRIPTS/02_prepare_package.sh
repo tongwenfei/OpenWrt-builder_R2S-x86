@@ -47,9 +47,6 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget --https-only https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
-# update zstd to 1.4.5
-rm -rf ./feeds/packages/utils/zstd
-svn co https://github.com/openwrt/packages/trunk/utils/zstd feeds/packages/utils/zstd
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind package/lean/luci-app-arpbind
 # Adbyby
