@@ -9,7 +9,7 @@
 
 ### 安全性
 * 防火墙设置为默认拒绝来自WAN口入站数据和转发。
-* 未安装ttyd组件（网页终端）。因为该组件默认开发端口，且不使用HTTPS；同时该组件默认免密码root身份登录到shell。  
+* 未安装ttyd组件（网页终端）。因为该组件默认开放端口，且不使用HTTPS；同时该组件默认免密码root身份登录到shell，此为安全隐患。  
 * 固件默认密码为空，建议刷机后尽快更改密码。
 * Dropbear默认监听了所有接口，建议刷机后尽快更改为只监听LAN口。
 
@@ -19,7 +19,7 @@
 | NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | Adbyby反广告 |
 | SSRP | OpenClash | 动态DNS | 硬盘休眠 | WOL网络唤醒 | uHTTPd配置 |
 | Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM | 带宽监控 |
-| BBR (1) | FullCone NAT (2) | Flow Offloading (2) | SFE Offloading (2)|   |  |
+| BBR (1) | FullCone NAT (2) | Flow Offloading (2) | SFE Offloading (2) | SFTP传输文件 | 多种脚本语言支持 |
 
 1. BBR已默认启用。  
 2. SFE Offloading、Flow Offloading和FullCone NAT需要在防火墙设置中手动开启。但是，SFE Offloading和Flow Offloading只能**二选一**，**不能同时开启**。  

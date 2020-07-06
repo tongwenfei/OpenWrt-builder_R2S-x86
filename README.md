@@ -52,5 +52,6 @@ LUCI版本：19.07（当日最新）
 未编译安装OLED的luci-app，有需要者自行寻找软件包安装，或者下载源码后使用本固件自带的gcc和make编译。
 
 ### 感谢
-[QiuSimons](https://github.com/QiuSimons/R2S-OpenWrt)  
-以及其他所有曾为R2S做出努力的贡献者们。
+* [QiuSimons](https://github.com/QiuSimons/R2S-OpenWrt)  
+* [quintus-lab](quintus-lab/Openwrt-R2S)
+* 以及其他所有曾为R2S做出努力的贡献者们。
