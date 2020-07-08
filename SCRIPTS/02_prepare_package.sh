@@ -53,13 +53,13 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-adbyby-plus package/lean/luci-app-adbyby-plus
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/adbyby package/lean/coremark/adbyby
 # AutoCore
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/lean/autocore package/lean/autocore
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 sed -i "s,@TARGET_x86 ,,g" package/lean/autocore/Makefile
 rm -rf ./package/lean/autocore/files/cpuinfo
 wget --https-only -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/cpuinfo
 rm -rf ./package/lean/autocore/files/rpcd_10_system.js
 wget --https-only -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/rpcd_10_system.js
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/lean/coremark package/lean/coremark
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts
@@ -95,9 +95,10 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev pack
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping package/lean/tcpping
 # 订阅转换
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2 package/new/jpcre2
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson package/new/rapidjson
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/subconverter package/new/subconverter
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/jpcre2 package/new/jpcre2
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/rapidjson package/new/rapidjson
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/duktape package/ctcgfw/duktape
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree package/lean/luci-app-ramfree
 # 流量监视

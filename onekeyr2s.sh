@@ -6,8 +6,8 @@ cp -r ../SCRIPTS/. ./
 bash 02_prepare_package.sh
 bash 03_convert_translation.sh
 bash 04_remove_upx.sh
-cp  ../SEED/config.seed  .config
-cat ../SEED/more.seed >> .config
+cp  ../SEED/config_2.seed .config
+cat ../SEED/more.seed >>  .config
 make defconfig
 let make_process=$(nproc)*3
 make download -j${make_process}
