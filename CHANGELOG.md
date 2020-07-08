@@ -1,4 +1,6 @@
 ## 变更历史
+### 2020/07/08 build 43
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/623dd36c218e872c08e5663faea02975ea626eea)。
 ### 2020/07/06 build 42
 * 撤销zstd 1.4.5更新。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/dd4a01dab3a211dbb97fbfdc48371d549b44de91)。
