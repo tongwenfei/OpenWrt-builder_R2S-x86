@@ -7,14 +7,15 @@ https://github.com/KaneGreen/R2S-OpenWrt/actions
 
 ### 本地一键编译命令：
 安装依赖（测试编译环境为Ubuntu 18.04）：
-```sh
+```shell
 sudo -E apt-get install -y build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python python3 python-pip python3-pip python-ply python3-ply haveged lrzsz device-tree-compiler scons
-
+```
+```shell
 wget -O - https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | bash
 ```
 
 一键编译：
-```sh
+```shell
 git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash onekeyr2s.sh
 ```
 （注意：本仓库对该脚本的维护较为消极，可能需要更具实际情况yml文件具体内容修改后才能使用。）
