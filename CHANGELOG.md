@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/07/09 build 44
+* OpenWrt-19.07源中添加了对3.7.8的修复。尝试使用该版本编译。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/baa997239b35961f003ac9b55312d6e32e9fe498)。
 ### 2020/07/08 build 43
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/623dd36c218e872c08e5663faea02975ea626eea)。
 ### 2020/07/06 build 42
