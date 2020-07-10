@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/07/10 build 45
+* 添加更多命令行工具。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/a886b4a7f4c89450c58873f81a316e36fd5d419d)。
 ### 2020/07/09 build 44
 * OpenWrt-19.07源中添加了对3.7.8的修复。尝试使用该版本编译。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/baa997239b35961f003ac9b55312d6e32e9fe498)。

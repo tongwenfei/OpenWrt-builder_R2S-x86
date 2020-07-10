@@ -29,17 +29,18 @@ ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器�
 
 ### 命令行特性
 * 添加`shadow-utils`组件，便于配置文件共享时新建用户。
+* `find`、`grep`、`gzip`、`tar`、`xargs`等命令替换为GNU实现或其他更标准的实现。
 * SSH客户端由OpenSSH提供（而不是Dropbear），提供更标准的SSH连接体验。（服务端仍然是Dropbear）
 * F2FS、EXT4、FAT32、BTRFS文件系统支持。EXT4支持acl和attr。
 * Python3、Perl、Node.js解释型语言支持。C语言支持由GCC和make提供。
 * Git版本控制工具。
 * `curl`和`wget`两大常用工具。
 * 由openssh-sftp-server提供SFTP协议文件传输功能。由lrzsz提供终端内小文件传输功能。由openssh-keygen提供SSH密钥对生成。
-* 常用命令行工具：bc、file、htop、lsof、nohup、pv、timeout、tree、xxd。
+* 常用命令行工具：bc、file、htop、lsof、nohup、pv、timeout、tree、xxd、split。
 * 文本编辑器：nano、vim。
 * 终端复用工具：screen、tmux。
 * 网络相关工具：dig、ethtool、host、ifstat、iftop、iperf3、ncat、nmap、nping、ss。
-* 压缩工具：zstd。
+* 压缩工具：zstd、unzip、bzip2、xz。
 * 文件同步工具：rsync。
 * 密码学工具：GnuPG。
 * 压力测试工具：stress。
