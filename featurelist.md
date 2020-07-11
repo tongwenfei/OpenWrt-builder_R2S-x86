@@ -29,7 +29,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器�
 
 ### 命令行特性
 * 添加`shadow-utils`组件，便于配置文件共享时新建用户。
-* `find`、`grep`、`gzip`、`tar`、`xargs`等命令替换为GNU实现或其他更标准的实现。
+* `cmp`、`find`、`grep`、`gzip`、`gunzip`、`ip`、`login`、`md5sum`、`mount`、`passwd`、`sha256sum`、`tar`、`umount`、`xargs`、`zcat`等命令替换为GNU实现或其他更标准的实现。
 * SSH客户端由OpenSSH提供（而不是Dropbear），提供更标准的SSH连接体验。（服务端仍然是Dropbear）
 * F2FS、EXT4、FAT32、BTRFS文件系统支持。EXT4支持acl和attr。
 * Python3、Perl、Node.js解释型语言支持。C语言支持由GCC和make提供。
