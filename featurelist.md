@@ -45,7 +45,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器�
 * 密码学工具：GnuPG。
 * 压力测试工具：stress。
 * 硬盘自检工具：smartmontools。
-* 磁盘分区工具：fdisk、cfdisk（用于MBR分区表）、gdisk、cgdisk（用于GPT分区表）。
+* 磁盘分区工具：fdisk、cfdisk（MBR/GPT分区表均支持）。
 * 其他工具：oath-toolkit、qrencode、sqlite3-cli。
 
 ### OpneSSL
@@ -55,4 +55,5 @@ ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器�
 * 理论上支持部分USB无线网卡，未测试。
 
 ### 三代壳OLED相关
-* 未安装OLED的luci-app和对于的程序。但包含了其依赖的i2c-tools软件包。需要OLED功能的用户，自行寻找/选择适合的软件包安装即可。也可从源代码，利用本固件自带的GCC编译。
+* 未安装OLED的luci-app和对于的程序。  
+需要OLED功能的用户，自行寻找/选择适合的软件包安装即可。也可从源代码，利用本固件自带的GCC编译。同时不要忘记安装依赖包i2c-tools。
