@@ -1,5 +1,10 @@
 ## 变更历史
-### 2020/07/10 build 45
+### 2020/07/13 build 46
+* 添加更多命令行工具。
+* 移除i2c-tool、gdisk、cgdisk。
+* SSRP相关脚本有一些更新但未提升版本号。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/d5245b45f363cfb2c5bd79a283bf0dda37fbab37)。
+### 2020/07/11 build 45
 * 添加更多命令行工具。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/a886b4a7f4c89450c58873f81a316e36fd5d419d)。
 ### 2020/07/09 build 44
