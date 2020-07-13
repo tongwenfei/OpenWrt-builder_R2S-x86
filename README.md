@@ -28,6 +28,8 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 
 5. 遇到上不了网的，请自行排查自己的IPv6连接情况，或禁用IPv6（同时禁用WAN和LAN的IPv6）
 
+7.LAN WAN口已互换，和原厂接口定义相反
+
 ### 版本信息：
 其他模块版本：SNAPSHOT（当日最新）
 
