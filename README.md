@@ -20,15 +20,13 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 ### 注意事项：
 1. 登陆IP：`192.168.1.1`，密码：无。
 
-2. LAN WAN 已交换 （LAN口是远离电源接口的那一个RJ45接口）；LAN 和 WAN 的灯可能不亮。
+2. LAN WAN 已交换，和原厂接口定义相反（现在LAN口是远离电源接口的那一个RJ45接口）；LAN 和 WAN 的灯可能不亮。
 
 3. SSRP使用姿势： ①添加你要的订阅链接 ②再在最后加一行空行 ③右下角点一下保存并应用 ④更新所有订阅服务器节点。
 
 4. OpenWrt内置升级可用
 
 5. 遇到上不了网的，请自行排查自己的IPv6连接情况，或禁用IPv6（同时禁用WAN和LAN的IPv6）
-
-7.LAN WAN口已互换，和原厂接口定义相反
 
 ### 版本信息：
 其他模块版本：SNAPSHOT（当日最新）
