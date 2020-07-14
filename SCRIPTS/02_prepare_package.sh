@@ -11,10 +11,6 @@ sed -i 's/Os/O3/g' include/target.mk
 sed -i 's/O2/O3/g' ./rules.mk
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
-# 给root用户添加vim和screen的配置文件
-mkdir -p package/base-files/files/root
-cp -f ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc package/base-files/files/root/.screenrc
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
@@ -137,4 +133,8 @@ cp -f ../PATCH/adjust_network package/base-files/files/etc/init.d/zzz_adjust_net
 rm -rf .config
 # 授予权限
 chmod -R 755 ./
+# 给root用户添加vim和screen的配置文件
+mkdir -p package/base-files/files/root
+cp -f ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc package/base-files/files/root/.screenrc
 exit 0
