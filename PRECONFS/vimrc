@@ -1,0 +1,23 @@
+if has('reltime')
+  set incsearch
+endif
+
+if has('mouse')
+  set mouse=v
+endif
+
+set autoread
+
+set ignorecase
+set smartcase
+
+set cindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+set number
+set relativenumber
+set laststatus=2
+set showcmd

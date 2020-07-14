@@ -11,6 +11,10 @@ sed -i 's/Os/O3/g' include/target.mk
 sed -i 's/O2/O3/g' ./rules.mk
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
+# 给root用户添加vim和screen的配置文件
+mkdir -p package/base-files/files/root
+cp -rf ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
+cp -rf ../PRECONFS/screenrc package/base-files/files/root/.screenrc
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
@@ -28,7 +32,7 @@ patch -p1 < ../PATCH/dnsmasq-add-filter-aaaa-option.patch
 patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
 cp -f ../PATCH/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch FireWall 以增添fullcone功能
-mkdir package/network/config/firewall/patches
+mkdir -p package/network/config/firewall/patches
 wget --https-only -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
 # Patch LuCI 以增添fullcone开关
 pushd feeds/luci
