@@ -1,7 +1,7 @@
 ## R2S 基于原生OpenWRT 的固件 (AS IS, NO WARRANTY!!!)
 
 ### 发布地址：
-（可能会翻车，风险自担，需要登录GitHub账号后才能下载）  
+（可能会翻车，风险自担，需要登录GitHub账号后才能下载，不提供任何形式的技术支持）  
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
 ![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master&event=push)
 

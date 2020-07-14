@@ -1,4 +1,8 @@
 ## 变更历史
+### 2020/07/14 build 47
+* 内核更新至`5.4.51`。
+* 为root用户的vim和screen添加了配置文件。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/65d29ccc56e29de5450987ae05539fbbe7a42093)。
 ### 2020/07/13 build 46
 * 添加更多命令行工具。
 * 移除i2c-tool、gdisk、cgdisk。
