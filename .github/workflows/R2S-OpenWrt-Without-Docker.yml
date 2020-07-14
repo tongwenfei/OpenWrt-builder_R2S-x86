@@ -82,7 +82,6 @@ jobs:
         cp -f ../SEED/config_2.seed .config
         cat   ../SEED/more.seed  >> .config
         make defconfig
-        chmod -R 755 ./
 
     - name: Make Download
       run: |
@@ -90,6 +89,8 @@ jobs:
         cd openwrt
         let Make_Process=$(nproc)*4
         make download -j${Make_Process}
+        chmod -R u=rwX,og=rX ./
+        find ./ -type f -print0 | xargs -s1024 -0 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
 
     - name: Make Toolchain
       run: |

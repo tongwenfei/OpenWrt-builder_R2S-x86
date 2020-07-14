@@ -11,7 +11,8 @@ cat   ../SEED/more.seed  >> .config
 make defconfig
 let make_process=$(nproc)*8
 make download -j${make_process}
-chmod -R 755 ./
+chmod -R u=rwX,og=rX ./
+find ./ -type f -print0 | xargs -s1024 -0 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
 let make_process=$(nproc)+1
 make toolchain/install -j${make_process} V=s
 let make_process=$(nproc)+1
