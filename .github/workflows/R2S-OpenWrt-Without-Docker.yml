@@ -56,31 +56,31 @@ jobs:
     - name: Prepare Mixedwrt
       run: |
         sudo chown -R runner:runner /home/runner/work/R2S-OpenWrt
-        cp -r ./SCRIPTS/. ./
+        cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
         echo "::set-env name=DATETIME::$(date "+%Y%m%d-%H%M")"
-        /bin/bash 01_get_ready.sh
+        /bin/bash ./01_get_ready.sh
 
     - name: Prepare Package
       run: |
         cd openwrt
-        cp -r ../SCRIPTS/. ./
-        /bin/bash 02_prepare_package.sh
+        cp -f ../SCRIPTS/*.sh ./
+        /bin/bash ./02_prepare_package.sh
 
     - name: Convert Translation
       run: |
         cd openwrt
-        /bin/bash 03_convert_translation.sh
+        /bin/bash ./03_convert_translation.sh
 
     - name: Remove Upx
       run: |
         cd openwrt
-        /bin/bash 04_remove_upx.sh
+        /bin/bash ./04_remove_upx.sh
 
     - name: Make Config
       run: |
         cd openwrt
-        cp  ../SEED/config_2.seed  .config
-        cat ../SEED/more.seed >> .config
+        cp -f ../SEED/config_2.seed .config
+        cat   ../SEED/more.seed  >> .config
         make defconfig
         chmod -R 755 ./
 
@@ -88,7 +88,7 @@ jobs:
       run: |
         df -h
         cd openwrt
-        let Make_Process=$(nproc)*3
+        let Make_Process=$(nproc)*4
         make download -j${Make_Process}
 
     - name: Make Toolchain

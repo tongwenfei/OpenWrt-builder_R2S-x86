@@ -1,15 +1,15 @@
 #!/bin/bash
-cp -r ./SCRIPTS/. ./
-bash 01_get_ready.sh
+cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
+/bin/bash ./01_get_ready.sh
 cd openwrt
-cp -r ../SCRIPTS/. ./
-bash 02_prepare_package.sh
-bash 03_convert_translation.sh
-bash 04_remove_upx.sh
-cp  ../SEED/config_2.seed .config
-cat ../SEED/more.seed >>  .config
+cp -f ../SCRIPTS/*.sh ./
+/bin/bash ./02_prepare_package.sh
+/bin/bash ./03_convert_translation.sh
+/bin/bash ./04_remove_upx.sh
+cp -f ../SEED/config_2.seed .config
+cat   ../SEED/more.seed  >> .config
 make defconfig
-let make_process=$(nproc)*3
+let make_process=$(nproc)*8
 make download -j${make_process}
 chmod -R 755 ./
 let make_process=$(nproc)+1
