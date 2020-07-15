@@ -3,14 +3,13 @@
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget --https-only https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
+wget --https-only -P include/ https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g" include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O3级别的优化
 sed -i 's/Os/O3/g' include/target.mk
 sed -i 's/O2/O3/g' ./rules.mk
-## 必要的patch
-wget --https-only -P include/ https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
 # 给root用户添加vim和screen的配置文件
@@ -25,6 +24,7 @@ rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+## 必要的patch
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
