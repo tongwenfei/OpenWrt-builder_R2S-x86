@@ -5,7 +5,7 @@ rm -f ./feeds.conf.default
 wget --https-only https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
 wget --https-only -P include/ https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # remove annoying snapshot tag
-sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g" include/version.mk
+sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O3级别的优化
 sed -i 's/Os/O3/g' include/target.mk

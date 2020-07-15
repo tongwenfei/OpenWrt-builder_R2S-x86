@@ -1,6 +1,7 @@
 ## 变更历史
 ### 2020/07/15 build 48
 * 编译脚本更改，避免无脑`chmod 755`。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/cfd345fe8d974a84614517fe0c251ed211b0ffa3)。
 ### 2020/07/14 build 47
 * 内核更新至`5.4.51`。
 * 为root用户的vim和screen添加了配置文件。
