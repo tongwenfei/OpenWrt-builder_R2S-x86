@@ -11,8 +11,13 @@ cat   ../SEED/more.seed  >> .config
 make defconfig
 let make_process=$(nproc)*8
 make download -j${make_process}
-chmod -R u=rwX,og=rX ./
-find ./ -type f -print0 | xargs -s1024 -0 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
+MY_Filter=$(mktemp)
+echo '/\.git' >  ${MY_Filter}
+echo '/\.svn' >> ${MY_Filter}
+find ./ -maxdepth 1 | grep -v '\./$' | grep -v '/\.git' | xargs -s1024 chmod -R u=rwX,og=rX
+find ./ -type f | grep -v -f ${MY_Filter} | xargs -s1024 file | grep 'executable\|ELF' | cut -d ':' -f1 | xargs -s1024 chmod 755
+rm -f ${MY_Filter}
+unset MY_Filter
 let make_process=$(nproc)+1
 make toolchain/install -j${make_process} V=s
 let make_process=$(nproc)+1
