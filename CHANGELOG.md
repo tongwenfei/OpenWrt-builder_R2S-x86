@@ -1,4 +1,6 @@
 ## 变更历史
+### 2020/07/16 build 49
+* 尝试修复DNS解析相关问题。
 ### 2020/07/15 build 48
 * 编译脚本更改，避免无脑`chmod 755`。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/cfd345fe8d974a84614517fe0c251ed211b0ffa3)。
