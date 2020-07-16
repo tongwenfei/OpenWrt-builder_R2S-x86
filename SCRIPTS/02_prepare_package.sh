@@ -122,7 +122,12 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier package/lean/
 # FullCone模块
 git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
 # 翻译及部分功能优化
-git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh package/lean/lean-translate
+MY_Dir=package/lean/lean-translate
+git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh ${MY_Dir}
+sed -i '/uci .* dhcp/d' ${MY_Dir}/files/zzz-default-settings
+sed -i '/chinadnslist\|smartdns\|netease\|dockerman/d' ${MY_Dir}/files/zzz-default-settings
+sed -i '/^[[:space:]]*$/d' ${MY_Dir}/files/zzz-default-settings
+unset MY_Dir
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
