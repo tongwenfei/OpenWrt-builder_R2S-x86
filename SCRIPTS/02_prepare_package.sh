@@ -26,8 +26,6 @@ svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/n
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
 MY_Dir=target/linux/rockchip/patches-5.4
-# 交换LAN/WAN
-cp -f ../PATCH/997-swap-lan-wan-now-lan-is-eth0.patch       ./${MY_Dir}/997-swap-lan-wan-now-lan-is-eth0.patch
 # Patch i2c0
 cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./${MY_Dir}/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # OC 1.5GHz
