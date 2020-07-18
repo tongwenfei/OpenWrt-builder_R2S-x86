@@ -1,4 +1,8 @@
 ## 变更历史
+### 2020/07/18 build 50
+重大变更，建议全新刷机。
+* 核心代码切换到OpenWrt官方储存库中的[staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/0f6649fd8ee307aad0e8d956c95969359602f6da)。
 ### 2020/07/16 build 49
 * 尝试修复DNS解析相关问题。
 ### 2020/07/15 build 48

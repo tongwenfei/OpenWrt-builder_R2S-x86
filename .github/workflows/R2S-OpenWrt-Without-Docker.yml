@@ -121,6 +121,7 @@ jobs:
         cd ./artifact
         echo "::set-env name=FIRMWARE::$PWD"
         cd ../openwrt
+        cp -f ../clean_flash.sh ../artifact/clean_flash.sh
         cp -f .config ../artifact/kconfig-full
         /bin/bash ./scripts/diffconfig.sh > ../artifact/kconfig-lite
         cd bin/targets/rockchip/armv8
