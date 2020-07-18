@@ -25,6 +25,8 @@ svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/n
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
+# Patch i2c0
+cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
@@ -48,6 +50,8 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget --https-only https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
+# OC 1.6GHz
+cp -f ../PATCH/999-unlock-1608mhz-rk3328.patch ./target/linux/rockchip/patches-5.4/999-unlock-1608mhz-rk3328.patch
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind package/lean/luci-app-arpbind
 # Adbyby
