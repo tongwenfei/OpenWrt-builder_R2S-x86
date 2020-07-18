@@ -37,10 +37,10 @@ patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
 cp -f ../PATCH/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch FireWall 以增添fullcone功能
 mkdir -p package/network/config/firewall/patches
-wget --https-only -P package/network/config/firewall/patches/ https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/fullconenat.patch
+wget --https-only -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
 # Patch LuCI 以增添fullcone开关
 pushd feeds/luci
-wget --https-only -O- https://github.com/LGA1150/fullconenat-fw3-patch/raw/master/luci.patch | git apply
+wget --https-only -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
 popd
 # Patch Kernel 以解决fullcone冲突
 pushd target/linux/generic/hack-5.4
