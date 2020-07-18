@@ -2,8 +2,8 @@
 ## 准备工作
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
-wget --https-only https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
-wget --https-only -P include/ https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
+wget --https-only            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
+wget --https-only -P include https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
@@ -37,7 +37,7 @@ patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
 cp -f ../PATCH/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch FireWall 以增添fullcone功能
 mkdir -p package/network/config/firewall/patches
-wget --https-only -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
+wget --https-only -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
 # Patch LuCI 以增添fullcone开关
 pushd feeds/luci
 wget --https-only -O- https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
@@ -60,30 +60,27 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/adbyby           
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 sed -i "s,@TARGET_x86 ,,g" package/lean/autocore/Makefile
-rm -rf ./package/lean/autocore/files/cpuinfo
+rm -rf ./package/lean/autocore/files/cpuinfo ./package/lean/autocore/files/rpcd_10_system.js
 wget --https-only -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/cpuinfo
-rm -rf ./package/lean/autocore/files/rpcd_10_system.js
 wget --https-only -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/rpcd_10_system.js
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark package/lean/coremark
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # DDNS
-rm -rf ./feeds/packages/net/ddns-scripts
-rm -rf ./feeds/luci/applications/luci-app-ddns
+rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
 # 定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot       package/lean/luci-app-autoreboot
 # argon主题
-git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon  package/new/luci-theme-argon
+git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
 # SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/lean/luci-app-ssr-plus
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 rm -rf ./package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 wget --https-only -P package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr https://raw.githubusercontent.com/QiuSimons/Others/master/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
-rm -rf ./feeds/packages/net/kcptun
-rm -rf ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt          package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray              package/lean/v2ray
@@ -105,23 +102,23 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree  package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree         package/lean/luci-app-ramfree
 # 流量监视
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-wrtbwmon package/lean/luci-app-wrtbwmon
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-wrtbwmon        package/lean/luci-app-wrtbwmon
 # 流量监管
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata  package/lean/luci-app-netdata
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata         package/lean/luci-app-netdata
 # OpenClash
-svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash package/new/luci-app-openclash
+svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash        package/new/luci-app-openclash
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
 rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/collectd feeds/packages/utils/collectd
+svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 # Zerotier
-git clone https://github.com/rufengsuixing/luci-app-zerotier       package/lean/luci-app-zerotier
-svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier package/lean/zerotier
+git clone https://github.com/rufengsuixing/luci-app-zerotier                            package/lean/luci-app-zerotier
+svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier                      package/lean/zerotier
 # FullCone模块
-git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat    package/fullconenat
 # 翻译及部分功能优化
 MY_Dir=package/lean/lean-translate
 git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh ${MY_Dir}
