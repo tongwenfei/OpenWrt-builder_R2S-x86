@@ -1,6 +1,6 @@
 ## 变更历史
 ### 2020/07/18 build 50
-重大变更，建议全新刷机。
+重大变更，建议**不保留配置**全新刷机。
 * 核心代码切换到OpenWrt官方储存库中的[staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)。
 * SSRP相关脚本有一些更新但未提升版本号。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/0f6649fd8ee307aad0e8d956c95969359602f6da)。
