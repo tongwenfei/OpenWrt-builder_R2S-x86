@@ -25,8 +25,14 @@ svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/n
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
+MY_Dir=target/linux/rockchip/patches-5.4
+# 交换LAN/WAN
+cp -f ../PATCH/997-swap-lan-wan-now-lan-is-eth0.patch       ./${MY_Dir}/997-swap-lan-wan-now-lan-is-eth0.patch
 # Patch i2c0
-cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./${MY_Dir}/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+# OC 1.5GHz
+cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch          ./${MY_Dir}/999-RK3328-enable-1512mhz-opp.patch
+unset MY_Dir
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
@@ -50,8 +56,6 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget --https-only https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
-# OC 1.5GHz
-cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind package/lean/luci-app-arpbind
 # Adbyby
