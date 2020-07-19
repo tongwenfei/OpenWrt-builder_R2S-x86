@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set -x
 cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
 /bin/bash ./01_get_ready.sh
 cd openwrt

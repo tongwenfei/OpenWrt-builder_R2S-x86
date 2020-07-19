@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 alias wget="$(which wget) --https-only --retry-connrefused"
 ## 准备工作
 # 使用19.07的feed源

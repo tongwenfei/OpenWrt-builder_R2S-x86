@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 rm -rf `ls | grep -v "squashfs"`
 gzip -d *.gz
 gzip --best --keep *.img

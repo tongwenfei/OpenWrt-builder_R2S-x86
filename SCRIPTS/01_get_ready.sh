@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 git clone --single-branch -b nanopi-r2s https://git.openwrt.org/openwrt/staging/blocktrron.git openwrt
 cd openwrt
 git remote add openwrtupstream https://github.com/openwrt/openwrt.git && git fetch openwrtupstream
