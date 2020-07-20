@@ -69,8 +69,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliy
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
-# 定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot       package/lean/luci-app-autoreboot
 # argon主题
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
 # SSRP

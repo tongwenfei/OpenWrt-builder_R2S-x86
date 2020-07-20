@@ -1,5 +1,6 @@
 ## 变更历史
 ### 2020/07/20 build 51
+* 使用WatchCat替换原有定时重启功能。
 * SFE不再默认开启。有需要的手动启用即可。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/fd88cbb301bd05cd517c7ef81c1995f52852185e)。
 ### 2020/07/18 build 50
