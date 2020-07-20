@@ -17,7 +17,9 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 
-set number
-set relativenumber
 set laststatus=2
 set showcmd
+
+" `number` and `relativenumber` are not enabled by default
+"set number
+"set relativenumber
