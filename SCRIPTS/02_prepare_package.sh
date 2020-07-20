@@ -54,6 +54,8 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
+# luci-app-freq
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # Adbyby
@@ -61,10 +63,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-adbyby-p
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/adbyby                   package/lean/coremark/adbyby
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
-sed -i "s,@TARGET_x86 ,,g" package/lean/autocore/Makefile
-rm -rf ./package/lean/autocore/files/cpuinfo ./package/lean/autocore/files/rpcd_10_system.js
-wget -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/cpuinfo
-wget -P package/lean/autocore/files https://raw.githubusercontent.com/QiuSimons/Others/master/rpcd_10_system.js
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # DDNS
