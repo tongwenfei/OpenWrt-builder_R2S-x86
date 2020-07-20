@@ -1,4 +1,7 @@
 ## 变更历史
+### 2020/07/20 build 51
+* SFE不再默认开启。有需要的手动启用即可。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/fd88cbb301bd05cd517c7ef81c1995f52852185e)。
 ### 2020/07/18 build 50
 重大变更，建议**不保留配置**全新刷机。
 * 核心代码切换到OpenWrt官方储存库中的[staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)。
