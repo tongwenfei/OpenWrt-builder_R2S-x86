@@ -75,8 +75,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autorebo
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
-rm -rf ./package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
-wget -P  package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr https://raw.githubusercontent.com/QiuSimons/Others/master/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
+cp -f ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev package/lean/shadowsocksr-libev
@@ -118,12 +117,8 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier              
 # FullCone模块
 git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat    package/fullconenat
 # 翻译及部分功能优化
-MY_Dir=package/lean/lean-translate
-git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh ${MY_Dir}
-sed -i '/uci .* dhcp/d'                                ${MY_Dir}/files/zzz-default-settings
-sed -i '/chinadnslist\|smartdns\|netease\|dockerman/d' ${MY_Dir}/files/zzz-default-settings
-sed -i '/^[[:space:]]*$/d'                             ${MY_Dir}/files/zzz-default-settings
-unset MY_Dir
+git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
+cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
