@@ -2,8 +2,9 @@
 ### 2020/07/20 build 52
 * Dropbear默认只兼听来自LAN口的连接。
 * 默认的vim配置文件不再设置行号。有需要的手动启用即可。
+* 包含build 51中的上游更新。而SFE仍然自动开启。
 ### 2020/07/20 build 51
-已取消编译。但变更并未撤销，下一次编译将包含此版内容。
+已取消编译。
 * SFE不再默认开启。有需要的手动启用即可。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/fd88cbb301bd05cd517c7ef81c1995f52852185e)。
 ### 2020/07/18 build 50
