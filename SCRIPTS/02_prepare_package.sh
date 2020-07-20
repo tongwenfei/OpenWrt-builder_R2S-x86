@@ -54,8 +54,6 @@ patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
 pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
-# luci-app-freq
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # Adbyby
