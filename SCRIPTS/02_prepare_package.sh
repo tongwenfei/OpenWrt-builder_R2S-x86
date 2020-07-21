@@ -105,7 +105,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 # 流量监视
 git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon              package/new/wrtbwmon
 git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon     package/new/luci-app-wrtbwmon
-# 流量监管
+# 状态监控
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata         package/lean/luci-app-netdata
 # OpenClash
 svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash        package/new/luci-app-openclash
