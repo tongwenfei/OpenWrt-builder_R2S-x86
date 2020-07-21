@@ -1,5 +1,9 @@
 ## 变更历史
+### 2020/07/21 build 53
+* 新增主题：edge。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/805a2481f603795c28b296661fc26919d3fae1f6)。
 ### 2020/07/20 build 52
+* 内核更新至`5.4.52`。
 * Dropbear默认只兼听来自LAN口的连接。
 * 默认的vim配置文件不再设置行号。有需要的手动启用即可。
 * 包含build 51中的上游更新。而SFE仍然自动开启。
