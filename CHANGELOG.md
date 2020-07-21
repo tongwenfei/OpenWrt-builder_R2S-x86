@@ -1,6 +1,4 @@
 ## 变更历史
-### 实验性编译
-* 修复zstd 1.4.5
 ### 2020/07/21 build 53
 * 新增主题：edge。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/805a2481f603795c28b296661fc26919d3fae1f6)。
