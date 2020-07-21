@@ -24,6 +24,9 @@ svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
+# 暂时将zstd版本退回1.4.4
+rm -rf ./feeds/packages/utils/zstd
+cp -rf ../REPLACE/zstd feeds/packages/utils/zstd
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
