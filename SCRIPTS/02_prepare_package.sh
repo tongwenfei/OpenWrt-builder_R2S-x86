@@ -73,6 +73,8 @@ svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot       package/lean/luci-app-autoreboot
 # argon主题
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
+# edge主题
+git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge        package/new/luci-theme-edge
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 cp -f ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
@@ -101,7 +103,8 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree         package/lean/luci-app-ramfree
 # 流量监视
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-wrtbwmon        package/lean/luci-app-wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon              package/new/wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon     package/new/luci-app-wrtbwmon
 # 流量监管
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata         package/lean/luci-app-netdata
 # OpenClash
