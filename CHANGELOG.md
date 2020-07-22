@@ -1,4 +1,8 @@
 ## 变更历史
+### 2020/07/22 build 54
+* 尝试为crypto启用硬件加速。
+* 添加少量USB网卡支持。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/2dfe7240cf8f8283eceaef20c949235909e3bb73)。
 ### 实验性编译
 编译失败。已撤销本次实验性编译的改动。
 * 修复zstd 1.4.5
