@@ -20,10 +20,13 @@ cp -f ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc package/base-files/files/root/.screenrc
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc   feeds/packages/devel/gcc
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
-svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
+svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
+# 更换Golang版本
+rm -rf ./feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 # 暂时将zstd版本退回1.4.4
 rm -rf ./feeds/packages/utils/zstd
 cp -rf ../REPLACE/zstd feeds/packages/utils/zstd
@@ -69,6 +72,8 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/adbyby           
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
+sed -i 's,*/,,g' package/lean/autocore/files/arm/rpcd_10_system.js
+sed -i 's,/*,,g' package/lean/autocore/files/arm/rpcd_10_system.js
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
@@ -100,8 +105,13 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng   
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks          package/lean/ipt2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs        package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev       package/lean/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan             package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping      package/lean/tcpping
+# PASSWALL
+svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-passwall   package/new/luci-app-passwall
+svn co https://github.com/Lienol/openwrt-package/trunk/package/tcping             package/new/tcping
+svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-go          package/new/trojan-go
+svn co https://github.com/Lienol/openwrt-package/trunk/package/brook              package/new/brook
+svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan             package/new/trojan
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
