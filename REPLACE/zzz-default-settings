@@ -40,13 +40,15 @@ uci del upnpd.config.enable_natpmp
 uci set upnpd.config.external_iface='wan'
 uci commit upnpd
 /etc/init.d/miniupnpd restart
+#SSL
+sed -i 's,#afalg,afalg,g' /etc/ssl/openssl.cnf
 #dnsmasq
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
 /etc/init.d/dnsmasq restart
 #luci cache
 rm -rf /tmp/luci-modulecache/
-rm -f /tmp/luci-indexcache
+rm -f  /tmp/luci-indexcache
 #symlink for ip command
 ln -sf /sbin/ip /usr/bin/ip
 #opkg hold patched packages
