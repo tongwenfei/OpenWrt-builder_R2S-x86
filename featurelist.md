@@ -16,13 +16,13 @@
 ### 常用功能
 |  |  |  |  |  |  |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | Adbyby反广告 |
-| SSRP | OpenClash | 动态DNS | 硬盘休眠 | WOL网络唤醒 | uHTTPd配置 |
-| Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM | 带宽监控 |
-| BBR (1) | FullCone NAT (2) | Flow Offloading (2) | SFE Offloading (2) | SFTP传输文件 | 多种脚本语言支持 |
+| NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | AdGuard Home |
+| SSRP | OpenClash | PASSWALL | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
+| uHTTPd配置 | Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM |
+| 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | ChinaDNS-NG | SFTP传输文件 |
 
 1. BBR已默认启用。  
-2. SFE Offloading已默认启用（其选项在防火墙设置页面中）；Flow Offloading和FullCone NAT需要在防火墙设置页面中手动开启。但是，SFE Offloading和Flow Offloading只能**二选一**，**不能同时开启**。  
+2. SFE Offloading和FullCone NAT已默认启用（其选项在防火墙设置页面中）；软件Offloading需要在防火墙设置页面中，默认没有启用。注意：SFE Offloading和软件Offloading只能**二选一**，**不能同时开启**。  
 3. FTP支持由vsftpd-tls提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 4. 以下组件在本固件中不包含：  
 ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器、访问时间控制、WiFi排程、beardropper（SSH公网访问限制）、应用过滤、三代壳OLED程序、Server酱、网易云音乐解锁、USB-打印机、迅雷快鸟、pandownload-fake-server、frpc/frps内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
@@ -37,8 +37,8 @@ ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS服务器�
 * `curl`和`wget`两大常用工具。
 * 由openssh-sftp-server提供SFTP协议文件传输功能。由lrzsz提供终端内小文件传输功能。由openssh-keygen提供SSH密钥对生成。
 * 常用命令行工具：bc、file、htop、lsof、nohup、pv、timeout、tree、xxd、split。
-* 文本编辑器：nano、vim。
-* 终端复用工具：screen、tmux。
+* 文本编辑器：nano、vim。其中vim已添加一个[简单的配置文件](./PRECONFS/vimrc)。
+* 终端复用工具：screen、tmux。其中screen已添加一个[简单的配置文件](./PRECONFS/screenrc)。
 * 网络相关工具：dig、ethtool、host、ifstat、iftop、iperf3、ncat、nmap、nping、ss。
 * 压缩工具：zstd、unzip、bzip2、xz。
 * 文件同步工具：rsync。

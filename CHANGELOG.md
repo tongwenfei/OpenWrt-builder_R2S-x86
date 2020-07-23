@@ -1,8 +1,8 @@
 ## 变更历史
 ### 2020/07/23 build 55
 * 进一步完善crypto硬件加速。
-* 加入PASSWALL。
-* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/5c215f34e027764f5a29d47616ad0823a0e5fa1e)。
+* 加入PASSWALL和chinadns-ng。Adbyby-plus改为AdGuard Home。
+* 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/9fdbb993003785fb874ca40e0cf5b99a536a0fe6)。
 ### 2020/07/22 build 54
 * 尝试为crypto启用硬件加速。
 * 添加少量USB网卡支持。
