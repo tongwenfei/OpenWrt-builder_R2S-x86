@@ -85,6 +85,14 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autorebo
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
 # edge主题
 git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge        package/new/luci-theme-edge
+# ChinaDNS
+git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng         package/new/luci-chinadns-ng
+git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng         package/new/chinadns-ng
+cp -f ../PATCH/chinadnslist package/new/chinadns-ng/update-list.sh
+pushd package/new/chinadns-ng
+sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
+/bin/bash ./update-list.sh
+popd
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 cp -f ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
@@ -141,6 +149,8 @@ cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-defa
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
 ## 最后的收尾工作
+mkdir -p package/base-files/files/usr/bin
+cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
 sed -i 's/16384/65536/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 修正架构
