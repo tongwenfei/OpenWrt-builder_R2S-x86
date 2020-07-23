@@ -1,6 +1,7 @@
 ## 变更历史
 ### 2020/07/23 build 55
 * 进一步完善crypto硬件加速。
+* ROOTFS调整为960MB。
 * 加入PASSWALL和chinadns-ng。Adbyby-plus改为AdGuard Home。
 * 更新[上游](https://github.com/project-openwrt/R2S-OpenWrt/tree/9fdbb993003785fb874ca40e0cf5b99a536a0fe6)。
 ### 2020/07/22 build 54
