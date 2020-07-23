@@ -106,6 +106,9 @@ jobs:
       run: |
         df -h
         cd openwrt
+        ulimit -c unlimited
+        ulimit -i unlimited
+        ulimit -u unlimited
         let Make_Process=$(nproc)+1
         make toolchain/install -j${Make_Process} V=s
 
