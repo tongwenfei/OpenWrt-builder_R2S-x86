@@ -66,9 +66,8 @@ wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/gen
 popd
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
-# Adbyby
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-adbyby-plus     package/lean/luci-app-adbyby-plus
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/adbyby                   package/lean/coremark/adbyby
+# AdGuard
+git clone -b master --single-branch https://github.com/rufengsuixing/luci-app-adguardhome package/new/luci-app-adguardhome
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
