@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'CHANGELOG.md'
+      - '.github/workflows/R2S-OpenWrt-Without-Docker.yml'
 
 env:
   UPLOAD_FIRMWARE: true
@@ -31,6 +32,7 @@ jobs:
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
         [ -f /etc/issue ] && cat /etc/issue
+        ulimit -a
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
