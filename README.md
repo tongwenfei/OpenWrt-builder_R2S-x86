@@ -1,3 +1,7 @@
+# This is master branch!
+This repository is going to keep using the term "**master**". It **never** changes.
+I **refuse** to switch to "main".
+
 ## R2S 基于原生OpenWRT 的固件 (AS IS, NO WARRANTY!!!)
 
 ### 发布地址：
