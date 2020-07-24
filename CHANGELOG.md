@@ -2,6 +2,7 @@
 ### 2020/07/24 build 56
 * 进一步完善crypto硬件加速。
 ### 2020/07/23 build 55
+硬件加速还有一些问题。
 * 进一步完善crypto硬件加速。
 * ROOTFS调整为960MB。
 * 加入PASSWALL和chinadns-ng。Adbyby-plus改为AdGuard Home。
