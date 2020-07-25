@@ -1,4 +1,4 @@
-From 2fd56ed38787e95bec909dbcb09082254306a3bc Mon Sep 17 00:00:00 2001
+From 646df2bacc581d52a2630cde90576dafeba32524 Mon Sep 17 00:00:00 2001
 From: KaneGreen
 Subject: [PATCH] swap LAN WAN
 
@@ -9,30 +9,30 @@ now LAN is on eth0
  2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
-index bba3e2aa56..35a13b22f3 100755
+index 2b75aab533..d65df6956c 100644
 --- a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
 +++ b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
-@@ -10,8 +10,8 @@ board_config_update
+@@ -9,8 +9,8 @@ board_config_update
  
- case $board in
+ case "$(board_name)" in
  friendlyarm,nanopi-r2s)
--	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth0"
--	ucidef_set_led_netdev "lan" "LAN" "$boardname:green:lan" "eth1"
-+	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth1"
-+	ucidef_set_led_netdev "lan" "LAN" "$boardname:green:lan" "eth0"
+-	ucidef_set_led_netdev "wan" "WAN" "nanopi:green:wan" "eth0"
+-	ucidef_set_led_netdev "lan" "LAN" "nanopi:green:lan" "eth1"
++	ucidef_set_led_netdev "wan" "WAN" "nanopi:green:wan" "eth1"
++	ucidef_set_led_netdev "lan" "LAN" "nanopi:green:lan" "eth0"
  	;;
  esac
- 
+ board_config_flush
 diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
-index e129fd6a67..07cbdeee2b 100755
+index ed14d58a4f..ee37495549 100755
 --- a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 +++ b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
-@@ -9,7 +9,7 @@ rockchip_setup_interfaces()
+@@ -6,7 +6,7 @@ board_config_update
  
- 	case "$board" in
- 	friendlyarm,nanopi-r2s)
--		ucidef_set_interfaces_lan_wan 'eth1' 'eth0'
-+		ucidef_set_interfaces_lan_wan 'eth0' 'eth1'
- 		;;
- 	*)
- 		ucidef_set_interface_lan 'eth0'
+ case "$(board_name)" in
+ friendlyarm,nanopi-r2s)
+-	ucidef_set_interfaces_lan_wan "eth1" "eth0"
++	ucidef_set_interfaces_lan_wan 'eth0' 'eth1'
+ 	;;
+ radxa,rock-pi-e)
+ 	ucidef_set_interfaces_lan_wan "eth1" "eth0"
