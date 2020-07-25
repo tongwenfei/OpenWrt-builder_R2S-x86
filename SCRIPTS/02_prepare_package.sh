@@ -58,89 +58,89 @@ pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
 # arpbind
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-arpbind          package/lean/luci-app-arpbind
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-arpbind              package/lean/luci-app-arpbind
 # AdGuard
-cp -rf ../others_src/Lienol_openwrt_19.07/package/diy/luci-app-adguardhome    package/new/luci-app-adguardhome
-cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
+cp -rf ../others_src/Lienol_openwrt_19.07/package/diy/luci-app-adguardhome        package/new/luci-app-adguardhome
+cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ntlf9t/AdGuardHome     package/new/AdGuardHome
 # AutoCore
-cp -rf ../others_src/project-openwrt_openwrt/package/lean/autocore package/lean/autocore
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/coremark                  package/lean/coremark
+cp -rf ../others_src/project-openwrt_openwrt/package/lean/autocore                package/lean/autocore
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/coremark                      package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
-cp -rf ../others_src/openwrt_packages_18.06/net/ddns-scripts                  feeds/packages/net/ddns-scripts
-cp -rf ../others_src/openwrt_luci_18.06/applications/luci-app-ddns            feeds/luci/applications/luci-app-ddns
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/ddns-scripts_aliyun           package/lean/ddns-scripts_aliyun
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/ddns-scripts_dnspod           package/lean/ddns-scripts_dnspod
+cp -rf ../others_src/openwrt_packages_18.06/net/ddns-scripts                      feeds/packages/net/ddns-scripts
+cp -rf ../others_src/openwrt_luci_18.06/applications/luci-app-ddns                feeds/luci/applications/luci-app-ddns
 # 定时重启
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-autoreboot       package/lean/luci-app-autoreboot
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-autoreboot           package/lean/luci-app-autoreboot
 # argon主题
-git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
+git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon package/new/luci-theme-argon
 # edge主题
-git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge        package/new/luci-theme-edge
+git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge package/new/luci-theme-edge
 # ChinaDNS
-git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng         package/new/luci-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng         package/new/chinadns-ng
+git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng  package/new/luci-chinadns-ng
+git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng  package/new/chinadns-ng
 cp -f ../PATCH/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
 /bin/bash ./update-list.sh
 popd
 # SSRP
-cp -rf ../others_src/fw876_helloworld/luci-app-ssr-plus                package/lean/luci-app-ssr-plus
-cp -f ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
+cp -rf ../others_src/fw876_helloworld/luci-app-ssr-plus                              package/lean/luci-app-ssr-plus
+cp -f  ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/shadowsocksr-libev package/lean/shadowsocksr-libev
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/pdnsd-alt          package/lean/pdnsd
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/v2ray              package/lean/v2ray
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/kcptun             package/lean/kcptun
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/v2ray-plugin       package/lean/v2ray-plugin
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/srelay             package/lean/srelay
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/microsocks         package/lean/microsocks
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/dns2socks          package/lean/dns2socks
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/redsocks2          package/lean/redsocks2
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/proxychains-ng     package/lean/proxychains-ng
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/ipt2socks          package/lean/ipt2socks
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/simple-obfs        package/lean/simple-obfs
-cp -rf ../others_src/coolsnowwolf_packages/net/shadowsocks-libev       package/lean/shadowsocks-libev
-cp -rf ../others_src/project-openwrt_openwrt/package/lean/tcpping      package/lean/tcpping
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/shadowsocksr-libev               package/lean/shadowsocksr-libev
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/pdnsd-alt                        package/lean/pdnsd
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/v2ray                            package/lean/v2ray
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/kcptun                           package/lean/kcptun
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/v2ray-plugin                     package/lean/v2ray-plugin
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/srelay                           package/lean/srelay
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/microsocks                       package/lean/microsocks
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/dns2socks                        package/lean/dns2socks
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/redsocks2                        package/lean/redsocks2
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/proxychains-ng                   package/lean/proxychains-ng
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/ipt2socks                        package/lean/ipt2socks
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/simple-obfs                      package/lean/simple-obfs
+cp -rf ../others_src/coolsnowwolf_packages/net/shadowsocks-libev                     package/lean/shadowsocks-libev
+cp -rf ../others_src/project-openwrt_openwrt/package/lean/tcpping                    package/lean/tcpping
 # PASSWALL
-cp -rf ../others_src/Lienol_openwrt-package/lienol/luci-app-passwall   package/new/luci-app-passwall
-cp -rf ../others_src/Lienol_openwrt-package/package/tcping             package/new/tcping
-cp -rf ../others_src/Lienol_openwrt-package/package/trojan-go          package/new/trojan-go
-cp -rf ../others_src/Lienol_openwrt-package/package/brook              package/new/brook
-cp -rf ../others_src/Lienol_openwrt-package/package/trojan             package/new/trojan
+cp -rf ../others_src/Lienol_openwrt-package/lienol/luci-app-passwall                 package/new/luci-app-passwall
+cp -rf ../others_src/Lienol_openwrt-package/package/tcping                           package/new/tcping
+cp -rf ../others_src/Lienol_openwrt-package/package/trojan-go                        package/new/trojan-go
+cp -rf ../others_src/Lienol_openwrt-package/package/brook                            package/new/brook
+cp -rf ../others_src/Lienol_openwrt-package/package/trojan                           package/new/trojan
 # 订阅转换
-cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/subconverter package/new/subconverter
-cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/jpcre2       package/new/jpcre2
-cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/rapidjson    package/new/rapidjson
-cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/duktape      package/new/duktape
+cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/subconverter       package/new/subconverter
+cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/jpcre2             package/new/jpcre2
+cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/rapidjson          package/new/rapidjson
+cp -rf ../others_src/project-openwrt_openwrt_19.07/package/ctcgfw/duktape            package/new/duktape
 # 清理内存
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-ramfree                 package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon              package/new/wrtbwmon
-git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon     package/new/luci-app-wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon           package/new/wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon  package/new/luci-app-wrtbwmon
 # 状态监控
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-netdata           package/lean/luci-app-netdata
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/luci-app-netdata                 package/lean/luci-app-netdata
 # OpenClash
-cp -rf ../others_src/vernesong_OpenClash/luci-app-openclash                    package/new/luci-app-openclash
+cp -rf ../others_src/vernesong_OpenClash/luci-app-openclash                          package/new/luci-app-openclash
 # 补全部分依赖（实际上并不会用到）
-cp -rf ../others_src/openwrt_openwrt_19.07/package/utils/fuse                  package/utils/fuse
-cp -rf ../others_src/openwrt_openwrt_19.07/package/libs/libconfig              package/libs/libconfig
+cp -rf ../others_src/openwrt_openwrt_19.07/package/utils/fuse                        package/utils/fuse
+cp -rf ../others_src/openwrt_openwrt_19.07/package/libs/libconfig                    package/libs/libconfig
 rm -rf ./feeds/packages/utils/collectd
-cp -rf ../others_src/openwrt_packages/utils/collectd                           feeds/packages/utils/collectd
+cp -rf ../others_src/openwrt_packages/utils/collectd                                 feeds/packages/utils/collectd
 # Zerotier
-git clone https://github.com/rufengsuixing/luci-app-zerotier                            package/lean/luci-app-zerotier
-cp -rf ../others_src/coolsnowwolf_packages/net/zerotier                        package/lean/zerotier
+git clone https://github.com/rufengsuixing/luci-app-zerotier                         package/lean/luci-app-zerotier
+cp -rf ../others_src/coolsnowwolf_packages/net/zerotier                              package/lean/zerotier
 # FullCone模块
-git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat    package/fullconenat
+git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
 # 翻译及部分功能优化
-git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
+git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh   package/lean/lean-translate
 cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
 # SFE
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/shortcut-fe                package/new/shortcut-fe
-cp -rf ../others_src/coolsnowwolf_lede/package/lean/fast-classifier            package/new/fast-classifier
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/shortcut-fe                      package/new/shortcut-fe
+cp -rf ../others_src/coolsnowwolf_lede/package/lean/fast-classifier                  package/new/fast-classifier
 ## 最后的收尾工作
 mkdir -p package/base-files/files/usr/bin
 cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
