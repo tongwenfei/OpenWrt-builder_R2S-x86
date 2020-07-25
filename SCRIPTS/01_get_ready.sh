@@ -5,8 +5,6 @@ git clone --single-branch -b nanopi-r2s https://git.openwrt.org/openwrt/staging/
 cd openwrt
 git remote add openwrtupstream https://github.com/openwrt/openwrt.git && git fetch openwrtupstream
 git rebase openwrtupstream/master
-# 交换LAN/WAN
-git apply ../PATCH/swap-LAN-WAN.patch
 cd ..
 # clone others' source for some packages
 $(which wget) --https-only --retry-connrefused https://github.com/Lienol/openwrt/archive/dev-19.07.tar.gz
