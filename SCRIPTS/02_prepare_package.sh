@@ -49,6 +49,8 @@ patch -p1 < ../PATCH/use_json_object_new_int64.patch
 patch -p1 < ../PATCH/dnsmasq-add-filter-aaaa-option.patch
 patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
 cp -f ../PATCH/900-add-filter-aaaa-option.patch    ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
+rm -rf ./package/base-files/files/etc/init.d/boot
+wget -P  package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/18.06-kernel5.4/package/base-files/files/etc/init.d/boot
 # OC 1.5GHz
 cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # Patch FireWall 以增添fullcone功能
@@ -165,8 +167,6 @@ mkdir -p                    package/base-files/files/usr/bin
 cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
 sed -i 's/16384/65536/g'    package/kernel/linux/files/sysctl-nf-conntrack.conf
-# 修正架构
-sed -i "s,boardinfo.system,'ARMv8',g" feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
 # adjust_network
 cp  -f ../PATCH/adjust_network        package/base-files/files/etc/init.d/zzz_adjust_network
 # 删除已有配置
