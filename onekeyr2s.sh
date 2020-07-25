@@ -11,6 +11,7 @@ cp -f ../SCRIPTS/*.sh ./
 cp -f ../SEED/config_2.seed .config
 cat   ../SEED/more.seed  >> .config
 make defconfig
+rm -rf ../others_src
 let make_process=$(nproc)*8
 make download -j${make_process}
 MY_Filter=$(mktemp)

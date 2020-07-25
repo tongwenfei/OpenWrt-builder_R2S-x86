@@ -87,6 +87,7 @@ jobs:
 
     - name: Make Download
       run: |
+        rm -rf ./others_src
         df -h
         cd openwrt
         let Make_Process=$(nproc)*4

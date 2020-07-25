@@ -23,4 +23,5 @@ git clone --single-branch -b openwrt-18.06 https://github.com/openwrt/luci.git  
 git clone --single-branch -b openwrt-19.07 https://github.com/openwrt/openwrt.git         others_src/openwrt_openwrt_19.07
 git clone --single-branch -b openwrt-18.06 https://github.com/openwrt/packages.git        others_src/openwrt_packages_18.06
 git clone --single-branch -b openwrt-19.07 https://github.com/project-openwrt/openwrt.git others_src/project-openwrt_openwrt_19.07
+du -sh *
 exit 0
