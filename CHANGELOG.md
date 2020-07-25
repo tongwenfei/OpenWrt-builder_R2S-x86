@@ -1,4 +1,9 @@
 ## 变更历史
+### 2020/07/25 build 57
+重大变更，建议**不保留配置**全新刷机。
+* 由于OpenWrt官方储存库中的[staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)代码对网卡存在潜在的性能降低的Bug。已退回原来的PATCH。
+* 修复zstd 1.4.5
+* PASSWALL由`VPN`移动到`服务`菜单下。SSRP更新至`180-2`。
 ### 2020/07/24 build 56
 * 进一步完善crypto硬件加速。
 ### 2020/07/23 build 55
