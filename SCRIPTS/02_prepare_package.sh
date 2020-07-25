@@ -27,9 +27,6 @@ svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang
 # 更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-# 暂时将zstd版本退回1.4.4
-rm -rf ./feeds/packages/utils/zstd
-cp -rf ../REPLACE/zstd feeds/packages/utils/zstd
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 ## 必要的patch
