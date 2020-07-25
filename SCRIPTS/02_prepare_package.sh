@@ -149,7 +149,8 @@ cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-defa
 mkdir -p                   package/base-files/files/root
 cp -f ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc package/base-files/files/root/.screenrc
-## 最后的收尾工作
+
+### 5. 最后的收尾工作 ###
 mkdir -p                    package/base-files/files/usr/bin
 cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
