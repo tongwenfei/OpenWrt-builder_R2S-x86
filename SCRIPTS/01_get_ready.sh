@@ -11,5 +11,5 @@ sed -i 's/# CONFIG_ROCKCHIP_THERMAL is not set/CONFIG_ROCKCHIP_THERMAL=y/g' targ
 cd ..
 # clone others' source for some packages
 mkdir -p others_src
-git clone --single-branch -b dev-19.07     https://github.com/Lienol/openwrt.git          others_src/Lienol_openwrt_19.07
+git clone --single-branch -b dev-19.07 https://github.com/Lienol/openwrt.git others_src/Lienol_openwrt_19.07
 exit 0

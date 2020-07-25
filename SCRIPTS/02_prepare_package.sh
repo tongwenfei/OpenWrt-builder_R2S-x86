@@ -65,7 +65,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     p
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../others_src/Lienol_openwrt_19.07/package/diy/luci-app-adguardhome        package/new/luci-app-adguardhome
+cp -rf ../others_src/Lienol_openwrt_19.07/package/diy/luci-app-adguardhome              package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
@@ -74,10 +74,10 @@ svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/a
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
 sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot       package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
-git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng  package/new/luci-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng  package/new/chinadns-ng
+git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/luci-chinadns-ng
+git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/chinadns-ng
 cp -f ../PATCH/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
@@ -90,12 +90,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnsp
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
 # 状态监控
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata         package/lean/luci-app-netdata
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata          package/lean/luci-app-netdata
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree         package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree          package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon           package/new/wrtbwmon
-git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon  package/new/luci-app-wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
+git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 cp -f  ../REPLACE/ssrurl.htm package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
@@ -122,26 +122,28 @@ svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-go        
 svn co https://github.com/Lienol/openwrt-package/trunk/package/brook              package/new/brook
 svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan             package/new/trojan
 # OpenClash
-svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash        package/new/luci-app-openclash
+svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash  package/new/luci-app-openclash
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
+# Zerotier
+git clone https://github.com/rufengsuixing/luci-app-zerotier                            package/lean/luci-app-zerotier
+svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier                      package/lean/zerotier
+# CF811AC wifi driver
+svn co https://github.com/project-openwrt/openwrt/trunk/package/ctcgfw/rtl8821cu        package/ctcgfw/rtl8821cu
+# argon主题
+git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
+# edge主题
+git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
 # 补全部分依赖（实际上并不会用到）
 rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
-# Zerotier
-git clone https://github.com/rufengsuixing/luci-app-zerotier package/lean/luci-app-zerotier
-svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier package/lean/zerotier
-# argon主题
-git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon    package/new/luci-theme-argon
-# edge主题
-git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge    package/new/luci-theme-edge
 # 翻译及部分功能优化
-git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh   package/lean/lean-translate
+git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
 cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
 # 给root用户添加vim和screen的配置文件
 mkdir -p                   package/base-files/files/root
