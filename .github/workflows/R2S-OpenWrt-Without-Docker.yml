@@ -80,6 +80,7 @@ jobs:
 
     - name: Make Config
       run: |
+        rm -rf ./openwrt-dev-19.07
         cd openwrt
         cp -f ../SEED/config_2.seed .config
         cat   ../SEED/more.seed  >> .config
@@ -87,7 +88,6 @@ jobs:
 
     - name: Make Download
       run: |
-        rm -rf ./others_src
         df -h
         cd openwrt
         let Make_Process=$(nproc)*4

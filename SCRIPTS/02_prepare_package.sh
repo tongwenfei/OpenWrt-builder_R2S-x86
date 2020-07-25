@@ -65,7 +65,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     p
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../others_src/Lienol_openwrt_19.07/package/diy/luci-app-adguardhome              package/new/luci-app-adguardhome
+cp -rf ../openwrt-dev-19.07/package/diy/luci-app-adguardhome              package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind

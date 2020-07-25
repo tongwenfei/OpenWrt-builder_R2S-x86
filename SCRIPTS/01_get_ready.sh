@@ -10,6 +10,7 @@ git apply ../PATCH/swap-LAN-WAN.patch
 sed -i 's/# CONFIG_ROCKCHIP_THERMAL is not set/CONFIG_ROCKCHIP_THERMAL=y/g' target/linux/rockchip/armv8/config-5.4
 cd ..
 # clone others' source for some packages
-mkdir -p others_src
-git clone --single-branch -b dev-19.07 https://github.com/Lienol/openwrt.git others_src/Lienol_openwrt_19.07
+$(which wget) --https-only --retry-connrefused https://github.com/Lienol/openwrt/archive/dev-19.07.tar.gz
+tar xvf dev-19.07.tar.gz
+rm  -f  dev-19.07.tar.gz
 exit 0
