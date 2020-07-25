@@ -61,7 +61,7 @@ popd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome package/new/luci-app-adguardhome
-cp -rf ../openwrt-lienol/package/diy/adguardhome          package/new/AdGuardHome
+svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
