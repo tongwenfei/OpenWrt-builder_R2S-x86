@@ -1,4 +1,9 @@
 ## 变更历史
+### 2020/07/26 build 58
+重大变更，建议**不保留配置**全新刷机。
+* 上次提到的 bug 已经有修复 patch，所以核心代码切换回 OpenWrt 官方储存库中的 [staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)。
+* 进一步完善crypto硬件加速。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/629cb4c612b6e16529ae51cabfa60bb12d589e4f)。
 ### 2020/07/25 build 57
 重大变更，建议**不保留配置**全新刷机。
 * 由于OpenWrt官方储存库中的[staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)代码对网卡存在潜在的性能降低的Bug。已退回原来的PATCH。
