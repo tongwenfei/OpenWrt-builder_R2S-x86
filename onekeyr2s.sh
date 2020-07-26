@@ -8,10 +8,10 @@ cp -f ../SCRIPTS/*.sh ./
 /bin/bash ./02_prepare_package.sh
 /bin/bash ./03_convert_translation.sh
 /bin/bash ./04_remove_upx.sh
+rm -rf ./openwrt-dev-19.07
 cp -f ../SEED/config_2.seed .config
 cat   ../SEED/more.seed  >> .config
 make defconfig
-rm -rf ../others_src
 let make_process=$(nproc)*8
 make download -j${make_process}
 MY_Filter=$(mktemp)

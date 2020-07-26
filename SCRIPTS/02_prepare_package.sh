@@ -159,17 +159,17 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/li
 git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
 cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
 # 给root用户添加vim和screen的配置文件
-mkdir -p                   package/base-files/files/root
-cp -f ../PRECONFS/vimrc    package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc package/base-files/files/root/.screenrc
+mkdir -p                      package/base-files/files/root
+cp -f ../PRECONFS/vimrc       package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
 
 ### 5. 最后的收尾工作 ###
-mkdir -p                    package/base-files/files/usr/bin
-cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
+mkdir -p                      package/base-files/files/usr/bin
+cp -f ../PATCH/chinadnslist   package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
-sed -i 's/16384/65536/g'    package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65536/g'      package/kernel/linux/files/sysctl-nf-conntrack.conf
 # adjust_network
-cp  -f ../PATCH/adjust_network        package/base-files/files/etc/init.d/zzz_adjust_network
+cp -f ../PATCH/adjust_network package/base-files/files/etc/init.d/zzz_adjust_network
 # 删除已有配置
 rm -rf .config
 unalias wget
