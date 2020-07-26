@@ -17,13 +17,13 @@
 | NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | AdGuard Home |
 | SSRP | OpenClash | PASSWALL | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
 | uHTTPd配置 | Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM |
-| 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | ChinaDNS-NG | SmartDNS |
+| 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | ChinaDNS-NG | SFTP传输文件 |
 
 1. BBR 已默认启用。  
 2. SFE Offloading 和 FullCone NAT 已默认启用（其选项在防火墙设置页面中）；软件 Offloading 需要在防火墙设置页面中，默认没有启用。注意：SFE Offloading 和软件 Offloading 只能**二选一**，**不能同时开启**。  
 3. FTP 支持由 vsftpd-tls 提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 4. 以下组件在本固件中不包含：  
-ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问时间控制、WiFi 排程、beardropper（SSH 公网访问限制）、应用过滤、三代壳 OLED 程序、Server 酱、网易云音乐解锁、USB 打印机、迅雷快鸟、pandownload-fake-server、frpc/frps 内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
+ttyd（网页终端）、Docker、单线/多线多拨、SmartDNS、KMS 服务器、访问时间控制、WiFi 排程、beardropper（SSH 公网访问限制）、应用过滤、三代壳 OLED 程序、Server 酱、网易云音乐解锁、USB 打印机、迅雷快鸟、pandownload-fake-server、frpc/frps 内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
 
 ### 命令行特性
 * 添加 `shadow-utils` 组件，便于配置文件共享时新建用户。
