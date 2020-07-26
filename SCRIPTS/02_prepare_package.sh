@@ -36,6 +36,7 @@ cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch         ./target/lin
 # patch r8152 led
 cp -f ../PATCH/991-r8152-Add-module-param-for-customized-LEDs.patch ./target/linux/rockchip/patches-5.4/991-r8152-Add-module-param-for-customized-LEDs.patch
 # some rework
+rm -rf ./target/linux/rockchip/patches-5.4/101-dts-rockchip-add-usb3-controller-node-for-RK3328-SoCs.patch
 cp -f ../PATCH/rework/005-rockchip-rk3328-add-idle-state.patch                      ./target/linux/rockchip/patches-5.4/005-rockchip-rk3328-add-idle-state.patch
 cp -f ../PATCH/rework/102-rockchip-add-usb3-controller-driver-for-RK3328-SoCs.patch ./target/linux/rockchip/patches-5.4/102-rockchip-add-usb3-controller-driver-for-RK3328-SoCs.patch
 cp -f ../PATCH/rework/103-rockchip-add-hwmon-support-for-SoCs-and-GPUs.patch        ./target/linux/rockchip/patches-5.4/103-rockchip-add-hwmon-support-for-SoCs-and-GPUs.patch
