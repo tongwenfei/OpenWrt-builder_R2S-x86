@@ -16,7 +16,6 @@ sed -i '/openwrt_packages/ { s/snapshots\/packages/releases\/packages-19.07/g; }
 sed -i '/openwrt_routing/ { s/snapshots\/packages/releases\/packages-19.07/g; }'   /etc/opkg/distfeeds.conf
 sed -i '/openwrt_telephony/ { s/snapshots\/packages/releases\/packages-19.07/g; }' /etc/opkg/distfeeds.conf
 sed -i '/natelol/d'                                                                /etc/opkg/distfeeds.conf
-sed -i 's,downloads.openwrt.org,mirrors.cloud.tencent.com/lede,g'                  /etc/opkg/distfeeds.conf
 #uhttpd
 uci set uhttpd.main.rfc1918_filter='0'
 uci set uhttpd.main.redirect_https='0'
@@ -42,7 +41,7 @@ uci commit upnpd
 /etc/init.d/miniupnpd restart
 #SSL
 sed -i 's,#devcrypto,devcrypto,g' /etc/ssl/openssl.cnf
-sed -i 's/#USE_SOFTDRIVERS = 2/USE_SOFTDRIVERS = 1/g' /etc/ssl/openssl.cnf
+sed -i 's,#USE_SOFTDRIVERS = 2,USE_SOFTDRIVERS = 1,g' /etc/ssl/openssl.cnf
 #dnsmasq
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
@@ -56,7 +55,6 @@ ln -sf /sbin/ip /usr/bin/ip
 opkg flag hold luci-app-ddns
 opkg flag hold luci-i18n-ddns-zh-cn
 opkg flag hold ddns-scripts
-#opkg flag hold ddns-scripts_cloudflare.com-v4
 opkg flag hold luci-app-firewall
 opkg flag hold firewall
 opkg flag hold dnsmasq-full
