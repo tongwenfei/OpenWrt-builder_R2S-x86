@@ -1,4 +1,8 @@
 ## 变更历史
+### 2020/07/28 build 61
+* Zerotier切换为OpenWrt仓库源。
+* curl的SSL支持改为OpenSSL，而不是mbedTLS。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/0d714de8a6264a5f0c35387083b83d6b856f82ab)。
 ### 2020/07/27 build 60
 重大变更，建议**不保留配置**全新刷机。
 * 移除SmartDNS。
