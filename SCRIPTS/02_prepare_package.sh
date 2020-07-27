@@ -31,19 +31,8 @@ svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang
 ### 3. 必要的Patch ###
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
-# patch i2c0
-cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch         ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-# patch r8152 led
-cp -f ../PATCH/991-r8152-Add-module-param-for-customized-LEDs.patch ./target/linux/rockchip/patches-5.4/991-r8152-Add-module-param-for-customized-LEDs.patch
-# some rework
-rm -rf ./target/linux/rockchip/patches-5.4/101-dts-rockchip-add-usb3-controller-node-for-RK3328-SoCs.patch
-cp -f ../PATCH/rework/005-rockchip-rk3328-add-idle-state.patch                      ./target/linux/rockchip/patches-5.4/005-rockchip-rk3328-add-idle-state.patch
-cp -f ../PATCH/rework/102-rockchip-add-usb3-controller-driver-for-RK3328-SoCs.patch ./target/linux/rockchip/patches-5.4/102-rockchip-add-usb3-controller-driver-for-RK3328-SoCs.patch
-cp -f ../PATCH/rework/103-rockchip-add-hwmon-support-for-SoCs-and-GPUs.patch        ./target/linux/rockchip/patches-5.4/103-rockchip-add-hwmon-support-for-SoCs-and-GPUs.patch
 # Patch rk-crypto
 patch -p1 < ../PATCH/kernel_crypto-add-rk3328-crypto-support.patch
-# patch rk3328_config
-patch -p1 < ../PATCH/0001-target-linux-improve-friendlyarm-nanopi-r2s-support.patch
 # Patch jsonc
 patch -p1 < ../PATCH/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
@@ -52,8 +41,6 @@ patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
 cp -f ../PATCH/900-add-filter-aaaa-option.patch    ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 rm -rf ./package/base-files/files/etc/init.d/boot
 wget -P  package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/18.06-kernel5.4/package/base-files/files/etc/init.d/boot
-# OC 1.5GHz
-cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # Patch FireWall 以增添fullcone功能
 mkdir -p package/network/config/firewall/patches
 wget  -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
@@ -76,6 +63,9 @@ popd
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+# OC 1.5GHz
+cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
+
 ### 4. 更新部分软件包 ###
 # AdGuard
 cp -rf ../openwrt-dev-19.07/package/diy/luci-app-adguardhome              package/new/luci-app-adguardhome
