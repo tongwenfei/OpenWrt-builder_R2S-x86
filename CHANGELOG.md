@@ -1,4 +1,6 @@
 ## 变更历史
+### 2020/07/28 build 62
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/b61cdfcd28a460261bb88e6c07e8e3a42f92d7a4)。
 ### 2020/07/28 build 61
 * Zerotier切换为OpenWrt仓库源。
 * curl的SSL支持改为OpenSSL，而不是mbedTLS。
