@@ -1,10 +1,14 @@
 ## 变更历史
+### 2020/07/27 build 60
+重大变更，建议**不保留配置**全新刷机。
+* 移除SmartDNS。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/d65697cf2cbc724ebffa97df234da8ed1b579d78)。
 ### 2020/07/26 build 59
+已撤回。
 * 添加SmartDNS。
 ### 2020/07/26 build 58
 重大变更，建议**不保留配置**全新刷机。
 * 从本版本开始，不再交换 LAN WAN。即和原厂接口定义相同（WAN 口是远离电源接口的那一个 RJ45 接口）。
-* 上次提到的 bug 已经有修复 patch，所以核心代码切换回 OpenWrt 官方储存库中的 [staging/blocktrron.git](https://git.openwrt.org/openwrt/staging/blocktrron.git)。
 * 进一步完善crypto硬件加速。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/c4bf9d7b55e9fd893068c76f37cb62e240e55014)。
 ### 2020/07/25 build 57
