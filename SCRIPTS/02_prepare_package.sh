@@ -133,8 +133,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
 # Zerotier
-git clone https://github.com/rufengsuixing/luci-app-zerotier                            package/lean/luci-app-zerotier
-svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier                      package/lean/zerotier
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 # CF811AC wifi driver
 svn co https://github.com/project-openwrt/openwrt/trunk/package/ctcgfw/rtl8821cu        package/ctcgfw/rtl8821cu
 # argon主题
