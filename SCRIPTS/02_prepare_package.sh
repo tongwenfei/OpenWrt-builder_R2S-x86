@@ -15,7 +15,8 @@ sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 sed -i 's/Os/O3/g' include/target.mk
 sed -i 's/O2/O3/g' ./rules.mk
 # 更新feed
-./scripts/feeds update -a && ./scripts/feeds install -a
+./scripts/feeds update  -a
+./scripts/feeds install -a
 
 ### 2. 替换语言支持 ###
 # 更换Node.js版本
@@ -31,6 +32,10 @@ svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang
 ### 3. 必要的Patch ###
 # irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+# Patch i2c0
+cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+# Patch rk3328_config
+patch -p1 < ../PATCH/0001-target-linux-improve-friendlyarm-nanopi-r2s-support.patch
 # Patch rk-crypto
 patch -p1 < ../PATCH/kernel_crypto-add-rk3328-crypto-support.patch
 # Patch jsonc
@@ -68,7 +73,7 @@ cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../openwrt-dev-19.07/package/diy/luci-app-adguardhome              package/new/luci-app-adguardhome
+cp -rf ../openwrt-dev-19.07/package/diy/luci-app-adguardhome                            package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
@@ -214,12 +219,10 @@ CONFIG_CRYPTO_XTS=y
 CONFIG_SG_SPLIT=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 ### 5. 最后的收尾工作 ###
-mkdir -p                      package/base-files/files/usr/bin
-cp -f ../PATCH/chinadnslist   package/base-files/files/usr/bin/update-chinadns-list
+mkdir -p                    package/base-files/files/usr/bin
+cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
-sed -i 's/16384/65536/g'      package/kernel/linux/files/sysctl-nf-conntrack.conf
-# adjust_network
-cp -f ../PATCH/adjust_network package/base-files/files/etc/init.d/zzz_adjust_network
+sed -i 's/16384/65536/g'    package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 删除已有配置
 rm -rf .config
 unalias wget
