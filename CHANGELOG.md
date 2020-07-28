@@ -1,4 +1,8 @@
 ## 变更历史
+### 2020/07/29 build 63
+重大变更，建议**不保留配置**全新刷机。
+* 核心代码切换到OpenWrt官方储存库中的[blocktrron/openwrt](https://github.com/blocktrron/openwrt/tree/nanopi-r2s)。网卡性能降低的问题已经修复。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/6801d99a62ba35753e6d5dcf2dd5eb4746b866d7)。
 ### 2020/07/28 build 62
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/b61cdfcd28a460261bb88e6c07e8e3a42f92d7a4)。
 ### 2020/07/28 build 61
