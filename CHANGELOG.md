@@ -1,6 +1,12 @@
-## 变更历史
+## 变更历史 stage 2
+### 2020/07/29 build 64
+重大变更。
+* R2S支持已被合并入[官方储存库](https://github.com/openwrt/openwrt)，且网卡性能降低的问题已经修复。目前已切换到该分支。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/640ca855881578ecf7128fe8aca1c81a9349661a)。
+
+## 变更历史 stage 1
 ### 2020/07/29 build 63
-重大变更，建议**不保留配置**全新刷机。
+已撤销。
 * 核心代码切换到OpenWrt官方储存库中的[blocktrron/openwrt](https://github.com/blocktrron/openwrt/tree/nanopi-r2s)。网卡性能降低的问题已经修复。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/6801d99a62ba35753e6d5dcf2dd5eb4746b866d7)。
 ### 2020/07/28 build 62
