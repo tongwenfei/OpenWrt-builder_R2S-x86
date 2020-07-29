@@ -139,8 +139,6 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
 # Zerotier
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
-# CF811AC wifi driver
-svn co https://github.com/project-openwrt/openwrt/trunk/package/ctcgfw/rtl8821cu        package/ctcgfw/rtl8821cu
 # argon主题
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
 # edge主题
