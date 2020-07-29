@@ -1,4 +1,7 @@
 ## 变更历史 stage 2
+### 2020/07/29 build 65
+* 移除会报错的rtl8821cu无线网卡支持。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/0b9394dcedad2cfb4e775383ed0dc40c41674050)。
 ### 2020/07/29 build 64
 重大变更。
 * R2S支持已被合并入[官方储存库](https://github.com/openwrt/openwrt)，且网卡性能降低的问题已经修复。目前已切换到该分支。

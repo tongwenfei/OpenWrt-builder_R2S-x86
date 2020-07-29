@@ -62,6 +62,7 @@ LUCI版本：19.07（当日最新）
 未编译安装 OLED 的 luci-app ，有需要者自行寻找软件包安装，或者下载源码后使用本固件自带的 gcc 和 make 编译。
 
 ### 感谢
-* [QiuSimons](https://github.com/QiuSimons/)  
+* [QiuSimons](https://github.com/QiuSimons/)
 * [quintus-lab](https://github.com/quintus-lab/)
+* [CTCGFW](https://github.com/project-openwrt/openwrt)
 * 以及其他所有曾为 R2S 做出努力的贡献者们。
