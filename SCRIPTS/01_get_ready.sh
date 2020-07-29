@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 set -e
 # use master branch
 git clone --single-branch -b master https://git.openwrt.org/openwrt/openwrt.git openwrt
