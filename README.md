@@ -33,11 +33,11 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 
 3. SSRP 使用姿势： ①添加你要的订阅链接 ②再在最后加一行空行 ③右下角点一下保存并应用 ④更新所有订阅服务器节点。
 
-4. build 58（7月26日）及以后的固件，均不再交换 LAN WAN。即和原厂接口定义相同（WAN 口是远离电源接口的那一个 RJ45 接口）；LAN 和 WAN 的灯可能不亮。
+4. build 66（8月1日）及以后的固件，继续交换 LAN WAN 网口，即和原厂接口定义相反（LAN 口是远离电源接口的那一个 RJ45 接口）。LAN 和 WAN 的灯可能不亮。
 
 5. 遇到上不了网的，请自行排查自己的 IPv6 连接情况，或禁用 IPv6（同时禁用 WAN 和 LAN 的 IPv6）
 
-6. LAN 灯不亮是 openwrt 上游的问题，请耐心等待上游修复。sys 灯引导时闪烁，启动后常亮，也是上游的设定，有疑问请联系OpenWrt 官方社区。
+6. sys 灯引导时闪烁，启动后常亮，也是上游的设定，有疑问请联系 OpenWrt 官方社区。
 
 ### 版本信息：
 其他模块版本：SNAPSHOT（当日最新）
