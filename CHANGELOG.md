@@ -1,4 +1,7 @@
 ## 变更历史 stage 2
+### 2020/07/29 build 66
+* 为了解决千兆环境下IDM下载掉速的问题，本版本开始继续交换 LAN WAN 网口，即和原厂接口定义相反（LAN 口是远离电源接口的那一个 RJ45 接口）。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/99d0e5c5bd92e49ab4f276604e7006ea780b8503)。
 ### 2020/07/29 build 65
 * 移除会报错的rtl8821cu无线网卡支持。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/0b9394dcedad2cfb4e775383ed0dc40c41674050)。
