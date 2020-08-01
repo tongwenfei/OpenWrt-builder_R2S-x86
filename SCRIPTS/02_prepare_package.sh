@@ -73,6 +73,8 @@ sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 # IRQ
 rm -rf ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 cp -f ../PATCH/40-net-smp-affinity ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+# swap LAN WAN
+git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard

@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: KaneGreen <noreply@example.com>
+Date: Mon, 17 Sep 2001 00:00:00 +0000
+Subject: [PATCH] swap LAN WAN
+
+now LAN is on eth0
+---
+ target/linux/rockchip/armv8/base-files/etc/board.d/01_leds    | 4 ++--
+ target/linux/rockchip/armv8/base-files/etc/board.d/02_network | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+index bba3e2aa56..35a13b22f3 100755
+--- a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
++++ b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+@@ -10,8 +10,8 @@ board_config_update
+ 
+ case $board in
+ friendlyarm,nanopi-r2s)
+-	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth0"
+-	ucidef_set_led_netdev "lan" "LAN" "$boardname:green:lan" "eth1"
++	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth1"
++	ucidef_set_led_netdev "lan" "LAN" "$boardname:green:lan" "eth0"
+ 	;;
+ esac
+ 
+diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
+index e129fd6a67..07cbdeee2b 100755
+--- a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
++++ b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
+@@ -9,7 +9,7 @@ rockchip_setup_interfaces()
+ 
+ 	case "$board" in
+ 	friendlyarm,nanopi-r2s)
+-		ucidef_set_interfaces_lan_wan 'eth1' 'eth0'
++		ucidef_set_interfaces_lan_wan 'eth0' 'eth1'
+ 		;;
+ 	*)
+ 		ucidef_set_interface_lan 'eth0'
