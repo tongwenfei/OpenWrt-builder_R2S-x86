@@ -1,4 +1,6 @@
 ## 变更历史 stage 2
+### 2020/08/03 build 67
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/aa79d5633bf51a7260e9764c8532cd83579e5a3f)。
 ### 2020/08/01 experimental
 实验性：添加SmartDNS。
 ### 2020/08/01 build 66
