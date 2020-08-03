@@ -131,13 +131,14 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng   
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks          package/lean/ipt2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs        package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev       package/lean/shadowsocks-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan             package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping      package/lean/tcpping
 # PASSWALL
 svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-passwall   package/new/luci-app-passwall
 svn co https://github.com/Lienol/openwrt-package/trunk/package/tcping             package/new/tcping
 svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-go          package/new/trojan-go
+svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-plus        package/new/trojan-plus
 svn co https://github.com/Lienol/openwrt-package/trunk/package/brook              package/new/brook
-svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan             package/new/trojan
 # OpenClash
 svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash  package/new/luci-app-openclash
 # 订阅转换

@@ -1,8 +1,15 @@
 #!/bin/bash -e
 set -o pipefail
 alias wget="$(which wget) --https-only --retry-connrefused"
-wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chnroute/chnroute.txt    -nv -O /etc/chinadns-ng/chnroute.txt
-wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chnroute/chnroute-v6.txt -nv -O /etc/chinadns-ng/chnroute6.txt
-wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/gfwlist/gfwlist.txt      -nv -O /etc/chinadns-ng/gfwlist.txt
-wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chinalist/chinalist.txt  -nv -O /etc/chinadns-ng/chinalist.txt
+MYCNDNSTMP=$(mktemp -d)
+wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chnroute/chnroute.txt    -nv -O $MYCNDNSTMP/chnroute.txt
+wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chnroute/chnroute-v6.txt -nv -O $MYCNDNSTMP/chnroute6.txt
+wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/gfwlist/gfwlist.txt      -nv -O $MYCNDNSTMP/gfwlist.txt
+wget https://raw.githubusercontent.com/pexcn/daily/gh-pages/chinalist/chinalist.txt  -nv -O $MYCNDNSTMP/chinalist.txt
+chmod 644 $MYCNDNSTMP/*
+find   $MYCNDNSTMP/ -type f -size -20k -exec rm -f {} \;
+cp  -f $MYCNDNSTMP/* /etc/chinadns-ng/
+rm -rf $MYCNDNSTMP
+unset MYCNDNSTMP
 unalias wget
+exit 0
