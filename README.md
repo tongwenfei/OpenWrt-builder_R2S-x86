@@ -45,7 +45,7 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 LUCI版本：19.07（当日最新）
 
 ### 特性及功能：
-1. O3 编译，核心频率 1.5GHz，获得更高的理论性能。
+1. O2 编译，核心频率 1.5GHz，获得更高的理论性能。
 
 2. 内置四款主题，包含 SSRP，OpenClash，PASSWALL，AdGuard Home，SQM，网络唤醒，DDNS，UPNP，FullCone（默认开启），流量分载（软件或 SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
 [完整功能列表](./featurelist.md)

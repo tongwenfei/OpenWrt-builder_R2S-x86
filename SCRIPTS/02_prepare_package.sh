@@ -13,9 +13,8 @@ patch -p1 < ../PATCH/0001-tools-add-upx-ucl-support.patch
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
-# 使用O3级别的优化
-sed -i 's/Os/O3/g' include/target.mk
-sed -i 's/O2/O3/g' ./rules.mk
+# 使用O2级别的优化
+sed -i 's/-Os/-O2/g' include/target.mk
 # 更新feed
 ./scripts/feeds update  -a
 ./scripts/feeds install -a
@@ -85,7 +84,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
-sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
+sed -i 's,-DMULTIT,-O2 -DMULTIT,g' package/lean/coremark/Makefile
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
