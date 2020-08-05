@@ -90,7 +90,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autorebo
 # ChinaDNS
 git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/luci-chinadns-ng
 git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/chinadns-ng
-cp -f ../PATCH/chinadnslist package/new/chinadns-ng/update-list.sh
+cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
 /bin/bash ./update-list.sh
@@ -225,10 +225,10 @@ CONFIG_CRYPTO_XTS=y
 CONFIG_SG_SPLIT=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 ### 5. 最后的收尾工作 ###
-mkdir -p                    package/base-files/files/usr/bin
-cp -f ../PATCH/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
+mkdir -p                               package/base-files/files/usr/bin
+cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
-sed -i 's/16384/65536/g'    package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 删除已有配置
 rm -rf .config
 unalias wget
