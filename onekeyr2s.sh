@@ -8,9 +8,10 @@ cp -f ../SCRIPTS/*.sh ./
 /bin/bash ./02_prepare_package.sh
 /bin/bash ./03_convert_translation.sh
 /bin/bash ./04_remove_upx.sh
+/bin/bash ./05_create_acl_for_luci.sh -a
 rm -rf ./openwrt-dev-19.07
-cp -f ../SEED/config_2.seed .config
-cat   ../SEED/more.seed  >> .config
+cp -f ../SEED/config_no_docker.seed .config
+cat   ../SEED/more.seed          >> .config
 make defconfig
 let make_process=$(nproc)*8
 make download -j${make_process}

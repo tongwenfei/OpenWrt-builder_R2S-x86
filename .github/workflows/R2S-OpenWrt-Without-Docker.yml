@@ -78,12 +78,17 @@ jobs:
         cd openwrt
         /bin/bash ./04_remove_upx.sh
 
+    - name: Add ACL
+      run: |
+        cd openwrt
+        /bin/bash ./05_create_acl_for_luci.sh -a
+
     - name: Make Config
       run: |
         rm -rf ./openwrt-dev-19.07
         cd openwrt
-        cp -f ../SEED/config_2.seed .config
-        cat   ../SEED/more.seed  >> .config
+        cp -f ../SEED/config_no_docker.seed .config
+        cat   ../SEED/more.seed          >> .config
         make defconfig
 
     - name: Make Download
@@ -125,10 +130,10 @@ jobs:
         echo "::set-env name=FIRMWARE::$PWD"
         cd ../openwrt
         cp -f ../clean_flash.sh ../artifact/clean_flash.sh
-        cp -f .config ../artifact/kconfig-full
+        cp -f .config           ../artifact/kconfig-full
         /bin/bash ./scripts/diffconfig.sh > ../artifact/kconfig-lite
         cd bin/targets/rockchip/armv8
-        /bin/bash ../../../../../SCRIPTS/05_cleaning.sh
+        /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
         mv -f ./* ../../../../../artifact/
         echo "::set-output name=status::success"
 

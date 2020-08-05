@@ -9,7 +9,7 @@ rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
 wget -P include https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # 添加UPX支持，以完善v2ray等组件的编译
-patch -p1 < ../PATCH/0001-tools-add-upx-ucl-support.patch
+patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
@@ -32,15 +32,15 @@ svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang
 
 ### 3. 必要的Patch ###
 # Patch i2c0
-cp -f ../PATCH/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch rk-crypto
-patch -p1 < ../PATCH/kernel_crypto-add-rk3328-crypto-support.patch
+patch -p1 < ../PATCH/new/main/kernel_crypto-add-rk3328-crypto-support.patchch
 # Patch jsonc
-patch -p1 < ../PATCH/use_json_object_new_int64.patch
+patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
-patch -p1 < ../PATCH/dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ../PATCH/luci-add-filter-aaaa-option.patch
-cp -f ../PATCH/900-add-filter-aaaa-option.patch    ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
+patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
+patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
+cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 rm -rf ./package/base-files/files/etc/init.d/boot
 wget -P  package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/18.06-kernel5.4/package/base-files/files/etc/init.d/boot
 # Patch FireWall 以增添fullcone功能
@@ -57,7 +57,7 @@ popd
 # FullCone模块
 git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
 # Patch FireWall 以增添SFE
-patch -p1 < ../PATCH/luci-app-firewall_add_sfe_switch.patch
+patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE内核补丁
 pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
@@ -71,7 +71,7 @@ cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patch
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 # IRQ
 rm -rf ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-cp -f ../PATCH/40-net-smp-affinity ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+cp  -f ../PATCH/new/script/40-net-smp-affinity ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
