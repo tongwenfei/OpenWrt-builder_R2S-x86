@@ -1,4 +1,6 @@
 ## 变更历史 stage 2
+### 2020/08/05 build 70
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/1ab476f43035ebccdfa57998c4f89122d027650c)。
 ### 2020/08/04 build 69
 * 添加一些 Python3 的包。
 * coremark 仍然使用 `-Ofast` 优化。
