@@ -34,7 +34,7 @@ svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch rk-crypto
-patch -p1 < ../PATCH/new/main/kernel_crypto-add-rk3328-crypto-support.patchch
+patch -p1 < ../PATCH/new/main/kernel_crypto-add-rk3328-crypto-support.patch
 # Patch jsonc
 patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
