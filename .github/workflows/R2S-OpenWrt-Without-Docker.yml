@@ -97,6 +97,7 @@ jobs:
         cd openwrt
         let Make_Process=$(nproc)*4
         make download -j${Make_Process}
+        echo $?
 
     - name: Smart chmod
       run: |
@@ -114,6 +115,8 @@ jobs:
         cd openwrt
         let Make_Process=$(nproc)+1
         make toolchain/install -j${Make_Process} V=s
+        echo $?
+        /bin/ls -AF staging_dir/toolchain-*/bin/
 
     - name: Compile Openwrt
       run: |
@@ -121,6 +124,7 @@ jobs:
         cd openwrt
         let Make_Process=$(nproc)+1
         make -j${Make_Process} V=s
+        echo $?
 
     - name: Cleaning and hashing
       run: |
