@@ -1,4 +1,8 @@
 ## 变更历史 stage 2
+### 2020/08/07 experimental
+* 由musl改为glibc。
+* 编译脚本优化。
+* 更多ACL支持。
 ### 2020/08/05 build 70
 * 为 Luci 添加 acl，以避免某些页面无法访问的问题。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/1ab476f43035ebccdfa57998c4f89122d027650c)。
