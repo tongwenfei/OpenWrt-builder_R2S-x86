@@ -1,11 +1,6 @@
 CONFIG_aarch64=y
 CONFIG_ARCH="aarch64"
 # CONFIG_TARGET_IMAGES_GZIP is not set
-CONFIG_USE_LIBSTDCXX=y
-CONFIG_LIBC_USE_GLIBC=y
-# CONFIG_LIBC_USE_MUSL is not set
-CONFIG_USE_GLIBC=y
-CONFIG_LIBC="glibc"
 # CONFIG_PACKAGE_kmod-fs-exfat is not set
 # CONFIG_PACKAGE_kmod-fs-msdos is not set
 # CONFIG_PACKAGE_kmod-fs-ntfs is not set
