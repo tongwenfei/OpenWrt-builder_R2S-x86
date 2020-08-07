@@ -6,4 +6,5 @@ git clone --single-branch -b master https://git.openwrt.org/openwrt/openwrt.git 
 $(which wget) --https-only --retry-connrefused https://github.com/Lienol/openwrt/archive/dev-19.07.tar.gz
 tar xf dev-19.07.tar.gz
 rm  -f dev-19.07.tar.gz
+mv openwrt-dev-19.07 lienol-dev-19.07
 exit 0

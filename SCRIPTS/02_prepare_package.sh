@@ -55,12 +55,12 @@ pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # FullCone模块
-git clone -b master --single-branch https://github.com/QiuSimons/openwrt-fullconenat package/fullconenat
+cp -rf ../lienol-dev-19.07/package/network/fullconenat ./package/network/fullconenat
 # Patch FireWall 以增添SFE
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE内核补丁
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
+wget https://raw.githubusercontent.com/Lienol/openwrt/dev-master/target/linux/generic/hack-5.4/999-01-shortcut-fe-support.patch
 popd
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
@@ -77,7 +77,7 @@ git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../openwrt-dev-19.07/package/diy/luci-app-adguardhome                            package/new/luci-app-adguardhome
+cp -rf ../lienol-dev-19.07/package/diy/luci-app-adguardhome                             package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind

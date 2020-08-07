@@ -85,7 +85,7 @@ jobs:
 
     - name: Make Config
       run: |
-        rm -rf ./openwrt-dev-19.07
+        rm -rf ./lienol-dev-19.07
         cd openwrt
         cp -f ../SEED/config_no_docker.seed .config
         cat   ../SEED/more.seed          >> .config
