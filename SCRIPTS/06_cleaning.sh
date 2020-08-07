@@ -1,6 +1,7 @@
 #!/bin/bash
 /bin/ls -AFhlt
-rm -rf `ls | grep -v 'squashfs'`
+rm -rf `/bin/ls | grep -v -E '(squashfs|ext4|manifest)'`
+gzip -d *.gz
 gzip --best --keep *.img
 sha256sum openwrt* | tee sha256_$(date "+%Y%m%d").hash
 md5sum    openwrt* | tee    md5_$(date "+%Y%m%d").hash
