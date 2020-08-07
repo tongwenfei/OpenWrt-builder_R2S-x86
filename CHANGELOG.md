@@ -6,6 +6,7 @@
 * 更多 ACL 支持。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/e1d902139aaa0fa196270f857b3312eefc477fd7)。
 ### 2020/08/07 experimental
+编译失败。
 * 由 musl 改为 glibc 。
 * 编译脚本优化。
 * 更多 ACL 支持。
