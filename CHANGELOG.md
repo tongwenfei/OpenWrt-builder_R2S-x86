@@ -1,8 +1,14 @@
 ## 变更历史 stage 2
-### 2020/08/07 experimental
-* 由musl改为glibc。
+### 2020/08/07 build 71
+* Dropbear 支持更多加密算法。
+* iperf3 加入 ssl 支持。
 * 编译脚本优化。
-* 更多ACL支持。
+* 更多 ACL 支持。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/e1d902139aaa0fa196270f857b3312eefc477fd7)。
+### 2020/08/07 experimental
+* 由 musl 改为 glibc 。
+* 编译脚本优化。
+* 更多 ACL 支持。
 ### 2020/08/05 build 70
 * 为 Luci 添加 acl，以避免某些页面无法访问的问题。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/1ab476f43035ebccdfa57998c4f89122d027650c)。
