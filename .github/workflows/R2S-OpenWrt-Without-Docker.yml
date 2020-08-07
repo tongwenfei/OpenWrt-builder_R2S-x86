@@ -114,17 +114,24 @@ jobs:
         df -h
         cd openwrt
         let Make_Process=$(nproc)+1
-        make toolchain/install -j${Make_Process} V=s
+        make toolchain/install -j${Make_Process}
         echo $?
         /bin/ls -AF staging_dir/toolchain-*/bin/
 
     - name: Compile Openwrt
+      id: compileopenwrt
+      continue-on-error: true
       run: |
         df -h
         cd openwrt
         let Make_Process=$(nproc)+1
-        make -j${Make_Process} V=s
+        make -j${Make_Process}
         echo $?
+
+    - name: If Error
+      if: steps.compileopenwrt.outcome == 'failure'
+      run: |
+        cd openwrt && make -j1 V=s
 
     - name: Cleaning and hashing
       run: |
