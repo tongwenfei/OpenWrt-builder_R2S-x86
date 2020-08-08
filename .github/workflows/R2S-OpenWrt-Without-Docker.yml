@@ -57,7 +57,7 @@ jobs:
 
     - name: Prepare Mixedwrt
       run: |
-        sudo chown -R runner:runner /home/runner/work/R2S-OpenWrt
+        sudo chown -R runner:docker ./
         cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
         echo "::set-env name=DATETIME::$(date '+%Y%m%d-%H%M')"
         /bin/bash ./01_get_ready.sh
@@ -90,8 +90,6 @@ jobs:
         cp -f ../SEED/config_no_docker.seed .config
         cat   ../SEED/more.seed          >> .config
         make defconfig
-        echo '------------------------------------------------------------'
-        cat .config
 
     - name: Make Download
       run: |

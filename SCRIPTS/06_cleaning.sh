@@ -1,5 +1,4 @@
 #!/bin/bash
-/bin/ls -AFhlt
 rm -rf `/bin/ls | grep -v -E '(squashfs|manifest)'`
 gzip -d *.gz
 gzip --best --keep *.img
