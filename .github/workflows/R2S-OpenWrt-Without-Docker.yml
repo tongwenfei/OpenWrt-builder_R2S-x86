@@ -90,6 +90,8 @@ jobs:
         cp -f ../SEED/config_no_docker.seed .config
         cat   ../SEED/more.seed          >> .config
         make defconfig
+        echo '------------------------------------------------------------'
+        cat .config
 
     - name: Make Download
       run: |
