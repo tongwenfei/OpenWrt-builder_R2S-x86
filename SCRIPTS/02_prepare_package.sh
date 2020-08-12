@@ -31,6 +31,8 @@ rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 
 ### 3. 必要的Patch ###
+# fix microSD compatibility
+cp -f ../PATCH/new/main/997-nanopi-r2s-improve-boot-failed.patch ./package/boot/uboot-rockchip/patches/997-nanopi-r2s-improve-boot-failed.patch
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch rk-crypto
@@ -67,11 +69,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     p
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
 # OC 1.5GHz
 cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
-# irqbalance
-sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
-# IRQ
-rm -rf ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-cp  -f ../PATCH/new/script/40-net-smp-affinity ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
@@ -84,7 +81,8 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
-sed -i 's,-DMULTIT,-Ofast -DMULTIT,g' package/lean/coremark/Makefile
+mkdir   package/lean/coremark/patches
+wget -P package/lean/coremark/patches/ https://raw.githubusercontent.com/QiuSimons/Others/master/coremark.patch
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
@@ -133,11 +131,11 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev     
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan             package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping      package/lean/tcpping
 # PASSWALL
-svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-passwall   package/new/luci-app-passwall
-svn co https://github.com/Lienol/openwrt-package/trunk/package/tcping             package/new/tcping
-svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-go          package/new/trojan-go
-svn co https://github.com/Lienol/openwrt-package/trunk/package/trojan-plus        package/new/trojan-plus
-svn co https://github.com/Lienol/openwrt-package/trunk/package/brook              package/new/brook
+svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/new/luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping           package/new/tcping
+svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go        package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
+svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
 # OpenClash
 svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash  package/new/luci-app-openclash
 # 订阅转换
@@ -165,6 +163,11 @@ cp -f ../PRECONFS/vimrc       package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
 #crypto
 echo '
+CPU_FREQ=y
+CPU_FREQ_GOV_ONDEMAND=y
+CONFIG_REGULATOR_GPIO=y
+CONFIG_CGROUP_HUGETLB=n
+CONFIG_CRYPTO_CRCT10DIF_ARM64_CE=y
 CONFIG_ARM64_CRYPTO=y
 CONFIG_CRYPTO_AES_ARM64=y
 CONFIG_CRYPTO_AES_ARM64_BS=y
