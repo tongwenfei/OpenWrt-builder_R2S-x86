@@ -74,8 +74,6 @@ rm -rf ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-aff
 cp  -f ../PATCH/new/script/40-net-smp-affinity ./target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
-# 临时修复上游的bug
-cp -f ../REPLACE/binutils-Makefile package/devel/binutils/Makefile
 
 ### 4. 更新部分软件包 ###
 # AdGuard
