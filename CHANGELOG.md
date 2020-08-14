@@ -1,4 +1,7 @@
 ## 变更历史 stage 2
+### 2020/08/15 build 74
+* 移除 irqbalance。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/59573e36583885f2697ec01106109b99110a68fc)。
 ### 2020/08/12 build 73
 * 重新引入 irqbalance 作中断平衡。
 * 不再提供EXT4格式固件。
