@@ -129,21 +129,21 @@ rm -f ./package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 wget -P package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr https://raw.githubusercontent.com/QiuSimons/Others/master/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev package/lean/shadowsocksr-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt          package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray              package/lean/v2ray
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun             package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin       package/lean/v2ray-plugin
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay             package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks         package/lean/microsocks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks          package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2          package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng     package/lean/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks          package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs        package/lean/simple-obfs
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev       package/lean/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan             package/lean/trojan
-svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping      package/lean/tcpping
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt           package/lean/pdnsd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray               package/lean/v2ray
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun              package/lean/kcptun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin        package/lean/v2ray-plugin
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks          package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks           package/lean/dns2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2           package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng      package/lean/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks           package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs         package/lean/simple-obfs
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
+svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
 # PASSWALL
 svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/new/luci-app-passwall
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping           package/new/tcping
