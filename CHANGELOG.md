@@ -1,4 +1,8 @@
 ## 变更历史 stage 2
+### 2020/08/20 build 75
+* 内核更新至 `5.4.59`。
+* crypto 硬件加速相关修改暂时撤销。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/ff78d698c1e5ac4b31bb85778cda935d4ab1440e)。
 ### 2020/08/15 build 74
 * 移除 irqbalance。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/59573e36583885f2697ec01106109b99110a68fc)。
