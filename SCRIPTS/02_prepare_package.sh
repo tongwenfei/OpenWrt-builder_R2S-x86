@@ -4,6 +4,11 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
+# Kernel调整
+wget -O- https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3320.patch | patch -p1
+wget -O- https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3277.patch | patch -p1
+# dnsmasq: abort dhcp_check on interface state
+wget -O- https://github.com/project-openwrt/openwrt/commit/abb0ba46c021595d49c35609b70e473e6c79d127.patch | patch -p1
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
@@ -20,21 +25,29 @@ sed -i 's/-Os/-O2/g' include/target.mk
 ./scripts/feeds install -a
 
 ### 2. 替换语言支持 ###
-# 更换Node.js版本
-rm -rf ./feeds/packages/lang/node
-svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc   feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+rm -rf ./feeds/packages/devel/gcc/.svn
+# 更换Node.js版本
+rm -rf ./feeds/packages/lang/node
+svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
+rm -rf ./feeds/packages/lang/node/.svn
 # 更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
+rm -rf ./feeds/packages/lang/golang/.svn
+rm -rf ./feeds/packages/lang/golang/golang
+svn co https://github.com/project-openwrt/packages/trunk/lang/golang/golang feeds/packages/lang/golang/golang
+rm -rf ./feeds/packages/lang/golang/golang/.svn
 
 ### 3. 必要的Patch ###
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch rk-crypto
 patch -p1 < ../PATCH/new/main/kernel_crypto-add-rk3328-crypto-support.patch
+# luci network
+patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
 # Patch jsonc
 patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
 # dnsmasq filter AAAA
@@ -138,7 +151,7 @@ svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go     
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
 # OpenClash
-svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash  package/new/luci-app-openclash
+git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
