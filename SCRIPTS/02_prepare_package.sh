@@ -6,8 +6,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 ### 1. 准备工作 ###
 # 修复启动问题
 wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3277.patch | patch -p1
-# dnsmasq: abort dhcp_check on interface state
-wget -qO - https://github.com/project-openwrt/openwrt/commit/abb0ba46c021595d49c35609b70e473e6c79d127.patch | patch -p1
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
