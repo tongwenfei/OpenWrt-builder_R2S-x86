@@ -15,7 +15,7 @@
 |  |  |  |  |  |  |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | AdGuard Home |
-| SSRP | OpenClash | PASSWALL | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
+| VSSR | OpenClash | PASSWALL | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
 | uHTTPd配置 | Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM |
 | 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | ChinaDNS-NG | SmartDNS |
 

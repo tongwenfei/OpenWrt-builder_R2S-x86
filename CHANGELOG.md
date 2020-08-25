@@ -1,4 +1,8 @@
 ## 变更历史 stage 2
+### 2020/08/25 build 76
+* 内核更新至 `5.4.60`。
+* SSRP 变更为 VSSR。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/66ae7d7599591fac1eda60f005cbebd931aa3325)。
 ### 2020/08/20 build 75
 * 内核更新至 `5.4.59`。
 * crypto 硬件加速相关修改暂时撤销。
