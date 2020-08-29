@@ -6,6 +6,8 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 ### 1. 准备工作 ###
 # 修复启动问题
 wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3277.patch | patch -p1
+# HW-RNG
+patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
@@ -39,6 +41,9 @@ svn co https://github.com/project-openwrt/packages/trunk/lang/golang/golang feed
 rm -rf ./feeds/packages/lang/golang/golang/.svn
 
 ### 3. 必要的Patch ###
+# 重要：补充curl包
+rm -rf ./package/network/utils/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl package/network/utils/curl
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # Patch rk-crypto
@@ -179,6 +184,31 @@ cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
 ### 5. 最后的收尾工作 ###
 mkdir -p                               package/base-files/files/usr/bin
 cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
+# crypto相关
+echo '
+CONFIG_ARM64_CRYPTO=y
+CONFIG_CRYPTO_AES_ARM64=y
+CONFIG_CRYPTO_AES_ARM64_BS=y
+CONFIG_CRYPTO_AES_ARM64_CE=y
+CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
+CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
+CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
+CONFIG_CRYPTO_CHACHA20=y
+CONFIG_CRYPTO_CHACHA20_NEON=y
+CONFIG_CRYPTO_CRYPTD=y
+CONFIG_CRYPTO_GF128MUL=y
+CONFIG_CRYPTO_GHASH_ARM64_CE=y
+CONFIG_CRYPTO_SHA1=y
+CONFIG_CRYPTO_SHA1_ARM64_CE=y
+CONFIG_CRYPTO_SHA256_ARM64=y
+CONFIG_CRYPTO_SHA2_ARM64_CE=y
+# CONFIG_CRYPTO_SHA3_ARM64 is not set
+CONFIG_CRYPTO_SHA512_ARM64=y
+# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
+CONFIG_CRYPTO_SIMD=y
+# CONFIG_CRYPTO_SM3_ARM64_CE is not set
+# CONFIG_CRYPTO_SM4_ARM64_CE is not set
+' >> ./target/linux/rockchip/armv8/config-5.4
 # 最大连接
 sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 删除已有配置
