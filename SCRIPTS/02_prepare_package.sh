@@ -127,6 +127,10 @@ git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon      
 git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
+rm -rf ./package/lean/luci-app-ssr-plus/.svn
+pushd ./package/lean/luci-app-ssr-plus
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/162.patch | git apply
+popd
 rm -f ./package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 wget -P package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr https://raw.githubusercontent.com/QiuSimons/Others/master/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
