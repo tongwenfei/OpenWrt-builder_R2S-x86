@@ -1,4 +1,8 @@
 ## 变更历史 stage 2
+### 2020/08/29 build 77
+* VSSR 退回为 SSRP。SSRP 合并 [PR 162](https://github.com/fw876/helloworld/pull/162)。
+* crypto 硬件加速已启用，支持基于硬件的伪随机数生成器 HW-RNG。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/58a11fbe1962cc7704738e8e6c5a74951bc77ab3)。
 ### 2020/08/25 build 76
 * 内核更新至 `5.4.60`。
 * SSRP 变更为 VSSR。
