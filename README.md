@@ -31,7 +31,7 @@ git clone https://github.com/KaneGreen/R2S-OpenWrt.git && cd R2S-OpenWrt && bash
 
 2. OpenWrt 内置升级可用
 
-3. VSSR 使用姿势： ①添加你要的订阅链接 ②再在最后加一行空行 ③右下角点一下保存并应用 ④更新所有订阅服务器节点。
+3. SSRP 使用姿势： ①添加你要的订阅链接 ②再在最后加一行空行 ③右下角点一下保存并应用 ④更新所有订阅服务器节点。
 
 4. build 66（8月1日）及以后的固件，继续交换 LAN WAN 网口，即和原厂接口定义相反（LAN 口是远离电源接口的那一个 RJ45 接口）。LAN 和 WAN 的灯可能不亮。
 
@@ -47,7 +47,7 @@ LUCI版本：19.07（当日最新）
 ### 特性及功能：
 1. O2 编译，核心频率 1.5GHz，获得更高的理论性能。
 
-2. 内置四款主题，包含 VSSR，OpenClash，PASSWALL，AdGuard Home，SQM，网络唤醒，DDNS，UPNP，FullCone（默认开启），流量分载（软件或 SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
+2. 内置四款主题，包含 SSRP，OpenClash，PASSWALL，AdGuard Home，SQM，网络唤醒，DDNS，UPNP，FullCone（默认开启），流量分载（软件或 SFE，二选一，防火墙中手动开启），BBR（默认开启）。  
 [完整功能列表](./featurelist.md)
 
 3. Github Actions 里面的编译结果包含 SHA256 哈希校验和 MD5 哈希校验文件。同样的内容也会显示在 Actions 的编译日志的 `Cleaning and hashing` 步骤（倒数第四步）里。**请注意核对和校验固件文件的完整性！**
