@@ -1,6 +1,7 @@
 ## 变更历史 stage 2
 ### 2020/09/02 build 78
 * 内核更新至 `5.4.61`。
+* SELinux 支持。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/0f6244bdb8dc23ea15c78ce5b48c7d975f1ea79e)。
 ### 2020/08/29 build 77
 * VSSR 退回为 SSRP。SSRP 合并 [PR 162](https://github.com/fw876/helloworld/pull/162)。
