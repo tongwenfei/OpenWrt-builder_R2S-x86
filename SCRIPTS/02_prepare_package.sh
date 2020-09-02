@@ -174,6 +174,8 @@ rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
+svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           package/libs/nghttp2
+svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         package/libs/libcap-ng
 # 翻译及部分功能优化
 git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
 cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
