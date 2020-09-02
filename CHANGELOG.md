@@ -1,5 +1,8 @@
 ## 变更历史 stage 2
+### 2020/09/03 build 79
+尝试修复编译相关问题。
 ### 2020/09/02 build 78
+编译失败。但变更并未撤销，下一次编译依然包含此版内容。
 * 内核更新至 `5.4.61`。
 * SELinux 支持。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/0f6244bdb8dc23ea15c78ce5b48c7d975f1ea79e)。
