@@ -164,6 +164,9 @@ svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/l
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
 # edge主题
 git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
+# vim
+rm -rf ./feeds/packages/utils/vim
+svn co https://github.com/openwrt/packages/trunk/utils/vim                              feeds/packages/utils/vim
 # 补全部分依赖（实际上并不会用到）
 rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
