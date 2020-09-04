@@ -4,8 +4,6 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
-# experimental patch from friendlywrt
-cp -f ../PATCH/new/main/r8152-refresh-it-to-Realtek-version-2.13.0.patch      ./target/linux/generic/hack-5.4/r8152-refresh-it-to-Realtek-version-2.13.0.patch
 # 修复启动问题
 wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3277.patch | patch -p1
 # HW-RNG
