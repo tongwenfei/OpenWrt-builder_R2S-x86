@@ -16,6 +16,8 @@ patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK332
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
 wget -P include https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
+# 添加UPX支持，以完善v2ray等组件的编译
+patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
