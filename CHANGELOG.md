@@ -1,4 +1,6 @@
 ## 变更历史 stage 2
+### 2020/09/04 build 80
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/ec3eabd082f6cf2939629f30f015c7a75610c0ad)。
 ### 2020/09/03 build 79
 尝试修复编译相关问题。
 ### 2020/09/02 build 78
