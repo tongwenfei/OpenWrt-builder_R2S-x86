@@ -1,4 +1,8 @@
 ## 变更历史 stage 2
+### 2020/09/09 build 81
+* 内核更新至 `5.4.63`。
+* WireGuard 更新至 `1.0.20200908`。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/caf62f23eb1c6a60e019327d5edbdad43e3de0ce)。
 ### 2020/09/04 build 80
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/ec3eabd082f6cf2939629f30f015c7a75610c0ad)。
 ### 2020/09/03 build 79
