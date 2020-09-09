@@ -85,6 +85,8 @@ cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patch
 # IRQ
 sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+# RNGD
+sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
@@ -153,6 +155,7 @@ svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping        
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go        package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
+svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks           package/new/ssocks
 # OpenClash
 git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
 # 订阅转换
