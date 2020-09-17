@@ -111,6 +111,9 @@ pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
 /bin/bash ./update-list.sh
 popd
+# luci-app-cpulimit
+svn co https://github.com/QiuSimons/Others/trunk/luci-app-cpulimit                        package/lean/luci-app-cpulimit
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
 # SmartDNS
 svn co https://github.com/pymumu/smartdns/trunk/package/openwrt               package/new/smartdns
 git clone -b lede --single-branch https://github.com/pymumu/luci-app-smartdns package/new/luci-app-smartdns/
@@ -168,6 +171,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 # argon主题
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
+git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-config  package/new/luci-app-argon-config
 # edge主题
 git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
 # vim
