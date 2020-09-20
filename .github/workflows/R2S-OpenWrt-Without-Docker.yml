@@ -23,7 +23,7 @@ jobs:
       with:
         ref: 'master'
 
-    - name: Show system and free disk space
+    - name: Show system
       run: |
         echo -e "Total CPU cores\t: $(nproc)"
         cat /proc/cpuinfo | grep 'model name'
@@ -33,6 +33,9 @@ jobs:
         [ -f /etc/issue.net ] && cat /etc/issue.net
         [ -f /etc/issue ] && cat /etc/issue
         ulimit -a
+
+    - name: Free disk space
+      run: |
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
