@@ -6,6 +6,8 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 ### 1. 准备工作 ###
 # HW-RNG
 patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
+# 临时修复上游18acf62be1e128f60d48833687bb1bfe058c9ad5引起的问题
+patch -p1 < ../PATCH/new/main/rockchip-fix-NanoPi-R2S-PHY-ID.patch
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
