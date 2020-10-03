@@ -1,9 +1,12 @@
 ## 变更历史 stage 2
+### 2020/10/03 build 85
+* 内核更新至 `5.4.69`。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/e8f24b21488cb540dac7d1010adabb9ca5d94cc6)。
+
 ### 2020/09/20 build 84
 * 内核更新至 `5.4.66`。
 * 新增 CPU 占用限制功能。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/9b5c0040eac8133e4899ca07b2ba37da0d33127c)。
-
 ### 2020/09/13 build 83
 * 内核更新至 `5.4.65`。
 * 新增 youtube-dl 命令行工具。
