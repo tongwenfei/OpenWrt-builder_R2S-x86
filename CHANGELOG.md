@@ -1,8 +1,12 @@
 ## 变更历史 stage 2
+### 2020/10/04 build 86
+* 官方库已更新相关内容，尝试解决网卡不工作的问题。
+* 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/00defb28b75fb8054dcce4092e23105c02b18b95)。
+
 ### 2020/10/03 build 85
+由于部分机器上网卡无法正常工作的问题大量复现，已撤下。
 * 内核更新至 `5.4.69`。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/e8f24b21488cb540dac7d1010adabb9ca5d94cc6)。
-
 ### 2020/09/20 build 84
 * 内核更新至 `5.4.66`。
 * 新增 CPU 占用限制功能。
