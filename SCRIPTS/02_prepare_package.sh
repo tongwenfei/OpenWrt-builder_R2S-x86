@@ -4,6 +4,9 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
+# blocktrron.git 
+patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10-rc5.patch
+patch -p1 < ../PATCH/new/main/exp/rockchip-fix-NanoPi-R2S-GMAC-clock-name.patch
 # HW-RNG
 patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
 # 使用19.07的feed源
@@ -44,8 +47,9 @@ rm -rf ./package/network/utils/curl
 svn co https://github.com/openwrt/packages/trunk/net/curl package/network/utils/curl
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-# Patch rk-crypto
-patch -p1 < ../PATCH/new/main/kernel_crypto-add-rk3328-crypto-support.patch
+#更换cryptodev-linux
+rm -rf ./package/kernel/cryptodev-linux
+svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 # luci network
 patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
 # Patch jsonc
@@ -193,6 +197,8 @@ cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
 ### 5. 最后的收尾工作 ###
 mkdir -p                               package/base-files/files/usr/bin
 cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
+# 最大连接
+sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 echo '
 CONFIG_ARM64_CRYPTO=y
@@ -218,8 +224,6 @@ CONFIG_CRYPTO_SIMD=y
 # CONFIG_CRYPTO_SM3_ARM64_CE is not set
 # CONFIG_CRYPTO_SM4_ARM64_CE is not set
 ' >> ./target/linux/rockchip/armv8/config-5.4
-# 最大连接
-sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
 # 删除已有配置
 rm -rf .config
 unalias wget
