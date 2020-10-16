@@ -97,7 +97,7 @@ git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../lienol-19.07/package/diy/luci-app-adguardhome                             package/new/luci-app-adguardhome
+cp -rf ../lienol-19.07/package/diy/luci-app-adguardhome                                 package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
