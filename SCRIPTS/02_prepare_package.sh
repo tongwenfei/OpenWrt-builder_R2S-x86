@@ -45,6 +45,9 @@ rm -rf ./feeds/packages/lang/golang/golang/.svn
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
 svn co https://github.com/openwrt/packages/trunk/net/curl package/network/utils/curl
+# 更换libcap
+rm -rf ./feeds/packages/libs/libcap/
+svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 #更换cryptodev-linux
@@ -77,7 +80,7 @@ cp -rf ../lienol-dev-19.07/package/network/fullconenat ./package/network/fullcon
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE内核补丁
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/Lienol/openwrt/dev-master/target/linux/generic/hack-5.4/999-01-shortcut-fe-support.patch
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
 popd
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
@@ -199,6 +202,8 @@ mkdir -p                               package/base-files/files/usr/bin
 cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
 sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
+#let trojan prefer chacha20 (passwall,ssrp)
+patch -p1 < ../PATCH/new/main/chacha.patch
 # crypto相关
 echo '
 CONFIG_ARM64_CRYPTO=y
