@@ -5,7 +5,7 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
 # blocktrron.git 
-patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10-rc5.patch
+patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
 patch -p1 < ../PATCH/new/main/exp/rockchip-fix-NanoPi-R2S-GMAC-clock-name.patch
 # HW-RNG
 patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
