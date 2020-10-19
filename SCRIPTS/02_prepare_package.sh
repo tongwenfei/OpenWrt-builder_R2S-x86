@@ -103,9 +103,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/coremark                 package/lean/coremark
-mkdir   package/lean/coremark/patches
-wget -P package/lean/coremark/patches/ https://raw.githubusercontent.com/QiuSimons/Others/master/coremark.patch
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/coremark package/lean/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
