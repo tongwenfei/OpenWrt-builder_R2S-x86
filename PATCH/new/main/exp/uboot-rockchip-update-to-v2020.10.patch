@@ -1,4 +1,4 @@
-From fb6ee0c112a4b707eaaa1d0d6154f936173fc63a Mon Sep 17 00:00:00 2001
+From c7a572eefc1dee9009cf91e29146bc70751eafdb Mon Sep 17 00:00:00 2001
 From: David Bauer <mail@david-bauer.net>
 Date: Sun, 4 Oct 2020 23:55:54 +0200
 Subject: [PATCH] uboot-rockchip: update to v2020.10
@@ -765,3 +765,4 @@ index 88291627b8..22efe0d247 100644
 +#define dtd_rockchip_rk3328_dw_mshc dtd_rockchip_rk3288_dw_mshc
 -- 
 2.20.1
+

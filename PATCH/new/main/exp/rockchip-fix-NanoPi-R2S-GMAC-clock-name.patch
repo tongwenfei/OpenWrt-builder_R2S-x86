@@ -1,4 +1,4 @@
-From 9bceb2001d6db5f1fd521c6650a86ef185e0ef53 Mon Sep 17 00:00:00 2001
+From 4869c1e24aa957dbf7430ebbbbf47f37a966cbac Mon Sep 17 00:00:00 2001
 From: David Bauer <mail@david-bauer.net>
 Date: Mon, 5 Oct 2020 00:01:12 +0200
 Subject: [PATCH] rockchip: fix NanoPi R2S GMAC clock name
@@ -50,3 +50,4 @@ index 0000000000..15c8ad71a6
 + 
 -- 
 2.20.1
+
