@@ -1,4 +1,4 @@
-From c7a572eefc1dee9009cf91e29146bc70751eafdb Mon Sep 17 00:00:00 2001
+From 6b716e310a6b07309dddf8f9bec6d38542731435 Mon Sep 17 00:00:00 2001
 From: David Bauer <mail@david-bauer.net>
 Date: Sun, 4 Oct 2020 23:55:54 +0200
 Subject: [PATCH] uboot-rockchip: update to v2020.10

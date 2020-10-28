@@ -1,0 +1,270 @@
+From ac7ec28731aff9b20423355ebc90bb691ea20de5 Mon Sep 17 00:00:00 2001
+From: Mattraks <16359027+Mattraks@users.noreply.github.com>
+Date: Wed, 21 Oct 2020 14:59:09 +0800
+Subject: [PATCH] Update data
+
+---
+ luci-app-ssr-plus/root/etc/ssr/china_ssr.txt | 37 ++++++++++++--------
+ luci-app-ssr-plus/root/etc/ssr/gfw_list.conf | 26 ++++++++++++++
+ 2 files changed, 48 insertions(+), 15 deletions(-)
+
+diff --git a/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt b/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
+index 7eae3eb..bcdba99 100644
+--- a/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
++++ b/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
+@@ -264,6 +264,7 @@
+ 42.242.0.0/15
+ 42.244.0.0/14
+ 42.248.0.0/13
++43.128.0.0/10
+ 43.224.12.0/22
+ 43.224.24.0/22
+ 43.224.44.0/22
+@@ -953,7 +954,6 @@
+ 43.251.232.0/22
+ 43.251.236.0/22
+ 43.251.244.0/22
+-43.252.40.0/22
+ 43.252.48.0/22
+ 43.252.56.0/22
+ 43.252.224.0/22
+@@ -1112,7 +1112,6 @@
+ 45.120.164.0/22
+ 45.120.220.0/22
+ 45.120.240.0/22
+-45.121.20.0/22
+ 45.121.52.0/22
+ 45.121.64.0/22
+ 45.121.68.0/22
+@@ -1249,7 +1248,6 @@
+ 45.127.12.0/22
+ 45.127.96.0/22
+ 45.127.116.0/22
+-45.127.124.0/22
+ 45.127.128.0/22
+ 45.127.144.0/22
+ 45.127.148.0/22
+@@ -1289,7 +1287,6 @@
+ 45.249.36.0/22
+ 45.249.92.0/22
+ 45.249.112.0/22
+-45.249.180.0/22
+ 45.249.188.0/22
+ 45.249.192.0/22
+ 45.249.196.0/22
+@@ -1471,8 +1468,6 @@
+ 45.253.236.0/22
+ 45.253.240.0/22
+ 45.253.244.0/22
+-45.253.248.0/22
+-45.253.252.0/22
+ 45.254.0.0/22
+ 45.254.4.0/22
+ 45.254.8.0/22
+@@ -1784,7 +1779,9 @@
+ 61.29.128.0/18
+ 61.29.192.0/19
+ 61.29.224.0/20
+-61.29.240.0/20
++61.29.240.0/21
++61.29.248.0/22
++61.29.254.0/23
+ 61.45.128.0/18
+ 61.45.224.0/20
+ 61.47.128.0/18
+@@ -3774,7 +3771,6 @@
+ 103.119.224.0/22
+ 103.120.52.0/22
+ 103.120.72.0/22
+-103.120.76.0/24
+ 103.120.88.0/22
+ 103.120.96.0/22
+ 103.120.100.0/22
+@@ -3915,7 +3911,6 @@
+ 103.141.58.0/23
+ 103.141.128.0/23
+ 103.141.186.0/23
+-103.141.190.0/23
+ 103.141.242.0/23
+ 103.142.0.0/23
+ 103.142.28.0/23
+@@ -4081,6 +4076,24 @@
+ 103.155.16.0/23
+ 103.155.34.0/23
+ 103.155.48.0/23
++103.155.76.0/23
++103.155.100.0/23
++103.155.110.0/23
++103.155.120.0/23
++103.155.214.0/23
++103.155.248.0/23
++103.156.24.0/23
++103.156.28.0/23
++103.156.68.0/23
++103.156.78.0/23
++103.156.104.0/23
++103.156.158.0/23
++103.156.166.0/23
++103.156.174.0/23
++103.156.186.0/23
++103.156.228.0/23
++103.157.30.0/23
++103.157.138.0/23
+ 103.192.0.0/22
+ 103.192.4.0/22
+ 103.192.8.0/22
+@@ -4136,8 +4149,6 @@
+ 103.195.148.0/22
+ 103.195.152.0/22
+ 103.195.160.0/22
+-103.195.192.0/22
+-103.196.60.0/22
+ 103.196.64.0/22
+ 103.196.72.0/22
+ 103.196.88.0/22
+@@ -4549,7 +4560,6 @@
+ 103.218.84.0/22
+ 103.218.88.0/22
+ 103.218.92.0/22
+-103.218.184.0/22
+ 103.218.192.0/22
+ 103.218.196.0/22
+ 103.218.200.0/22
+@@ -4797,7 +4807,6 @@
+ 103.227.212.0/22
+ 103.227.228.0/22
+ 103.228.12.0/22
+-103.228.28.0/22
+ 103.228.88.0/22
+ 103.228.128.0/22
+ 103.228.136.0/22
+@@ -5088,7 +5097,6 @@
+ 103.251.160.0/22
+ 103.251.192.0/22
+ 103.251.204.0/22
+-103.251.236.0/22
+ 103.251.240.0/22
+ 103.252.28.0/22
+ 103.252.36.0/22
+@@ -5300,7 +5308,6 @@
+ 113.208.128.0/17
+ 113.209.0.0/16
+ 113.212.0.0/18
+-113.212.64.0/22
+ 113.212.88.0/22
+ 113.212.100.0/22
+ 113.212.184.0/21
+diff --git a/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf b/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
+index b6d2a7d..e0512ba 100644
+--- a/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
++++ b/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
+@@ -86,6 +86,8 @@ server=/228.net.tw/127.0.0.1#5335
+ ipset=/228.net.tw/gfwlist
+ server=/233abc.com/127.0.0.1#5335
+ ipset=/233abc.com/gfwlist
++server=/233v2.com/127.0.0.1#5335
++ipset=/233v2.com/gfwlist
+ server=/24hrs.ca/127.0.0.1#5335
+ ipset=/24hrs.ca/gfwlist
+ server=/24smile.org/127.0.0.1#5335
+@@ -1774,6 +1776,8 @@ server=/cochina.co/127.0.0.1#5335
+ ipset=/cochina.co/gfwlist
+ server=/cochina.org/127.0.0.1#5335
+ ipset=/cochina.org/gfwlist
++server=/code.jquery.com/127.0.0.1#5335
++ipset=/code.jquery.com/gfwlist
+ server=/codeshare.io/127.0.0.1#5335
+ ipset=/codeshare.io/gfwlist
+ server=/codeskulptor.org/127.0.0.1#5335
+@@ -2140,6 +2144,10 @@ server=/deutsche-welle.de/127.0.0.1#5335
+ ipset=/deutsche-welle.de/gfwlist
+ server=/developers.box.net/127.0.0.1#5335
+ ipset=/developers.box.net/gfwlist
++server=/deviantart.com/127.0.0.1#5335
++ipset=/deviantart.com/gfwlist
++server=/deviantart.net/127.0.0.1#5335
++ipset=/deviantart.net/gfwlist
+ server=/devio.us/127.0.0.1#5335
+ ipset=/devio.us/gfwlist
+ server=/devpn.com/127.0.0.1#5335
+@@ -2236,6 +2244,8 @@ server=/dnsrd.com/127.0.0.1#5335
+ ipset=/dnsrd.com/gfwlist
+ server=/dnssec.net/127.0.0.1#5335
+ ipset=/dnssec.net/gfwlist
++server=/docs.cfw.lbyczf.com/127.0.0.1#5335
++ipset=/docs.cfw.lbyczf.com/gfwlist
+ server=/doctorvoice.org/127.0.0.1#5335
+ ipset=/doctorvoice.org/gfwlist
+ server=/documentingreality.com/127.0.0.1#5335
+@@ -3428,6 +3438,8 @@ server=/gist.github.com/127.0.0.1#5335
+ ipset=/gist.github.com/gfwlist
+ server=/git.io/127.0.0.1#5335
+ ipset=/git.io/gfwlist
++server=/githubassets.com/127.0.0.1#5335
++ipset=/githubassets.com/gfwlist
+ server=/gizlen.net/127.0.0.1#5335
+ ipset=/gizlen.net/gfwlist
+ server=/gjczz.com/127.0.0.1#5335
+@@ -5458,6 +5470,8 @@ server=/meripet.com/127.0.0.1#5335
+ ipset=/meripet.com/gfwlist
+ server=/merit-times.com.tw/127.0.0.1#5335
+ ipset=/merit-times.com.tw/gfwlist
++server=/merlinblog.xyz/127.0.0.1#5335
++ipset=/merlinblog.xyz/gfwlist
+ server=/meshrep.com/127.0.0.1#5335
+ ipset=/meshrep.com/gfwlist
+ server=/messenger.com/127.0.0.1#5335
+@@ -5644,6 +5658,8 @@ server=/moroneta.com/127.0.0.1#5335
+ ipset=/moroneta.com/gfwlist
+ server=/mos.ru/127.0.0.1#5335
+ ipset=/mos.ru/gfwlist
++server=/mosucloud.site/127.0.0.1#5335
++ipset=/mosucloud.site/gfwlist
+ server=/motherless.com/127.0.0.1#5335
+ ipset=/motherless.com/gfwlist
+ server=/motiyun.com/127.0.0.1#5335
+@@ -6096,6 +6112,8 @@ server=/ntdtv.co.kr/127.0.0.1#5335
+ ipset=/ntdtv.co.kr/gfwlist
+ server=/ntdtv.com/127.0.0.1#5335
+ ipset=/ntdtv.com/gfwlist
++server=/ntdtv.jp/127.0.0.1#5335
++ipset=/ntdtv.jp/gfwlist
+ server=/ntdtv.org/127.0.0.1#5335
+ ipset=/ntdtv.org/gfwlist
+ server=/ntdtv.ru/127.0.0.1#5335
+@@ -6730,6 +6748,8 @@ server=/privatevpn.com/127.0.0.1#5335
+ ipset=/privatevpn.com/gfwlist
+ server=/procopytips.com/127.0.0.1#5335
+ ipset=/procopytips.com/gfwlist
++server=/prosciana.com/127.0.0.1#5335
++ipset=/prosciana.com/gfwlist
+ server=/prosiben.de/127.0.0.1#5335
+ ipset=/prosiben.de/gfwlist
+ server=/protonvpn.com/127.0.0.1#5335
+@@ -9010,6 +9030,8 @@ server=/usacn.com/127.0.0.1#5335
+ ipset=/usacn.com/gfwlist
+ server=/usaip.eu/127.0.0.1#5335
+ ipset=/usaip.eu/gfwlist
++server=/use.fontawesome.com/127.0.0.1#5335
++ipset=/use.fontawesome.com/gfwlist
+ server=/userapi.nytlog.com/127.0.0.1#5335
+ ipset=/userapi.nytlog.com/gfwlist
+ server=/usfk.mil/127.0.0.1#5335
+@@ -10056,6 +10078,8 @@ server=/youtubeeducation.com/127.0.0.1#5335
+ ipset=/youtubeeducation.com/gfwlist
+ server=/youtubegaming.com/127.0.0.1#5335
+ ipset=/youtubegaming.com/gfwlist
++server=/youtubekids.com/127.0.0.1#5335
++ipset=/youtubekids.com/gfwlist
+ server=/youversion.com/127.0.0.1#5335
+ ipset=/youversion.com/gfwlist
+ server=/youxu.info/127.0.0.1#5335
+@@ -10216,6 +10240,8 @@ server=/zynamics.com/127.0.0.1#5335
+ ipset=/zynamics.com/gfwlist
+ server=/zyns.com/127.0.0.1#5335
+ ipset=/zyns.com/gfwlist
++server=/zyxel.com/127.0.0.1#5335
++ipset=/zyxel.com/gfwlist
+ server=/zyzc9.com/127.0.0.1#5335
+ ipset=/zyzc9.com/gfwlist
+ server=/zzcartoon.com/127.0.0.1#5335
