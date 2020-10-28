@@ -1,4 +1,6 @@
 ## 变更历史 stage 2
+### 2020/10/28 build 88
+* 内核更新至 `5.4.72`。
 ### 2020/10/16 build 87
 * 内核更新至 `5.4.71`。
 * 更新[上游](https://github.com/QiuSimons/R2S-OpenWrt/tree/da78885fe16876ca97a2da0e060fdd8ab57882b4)。
