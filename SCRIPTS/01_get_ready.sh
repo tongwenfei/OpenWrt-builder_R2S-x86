@@ -6,4 +6,5 @@ git clone --single-branch -b master https://git.openwrt.org/openwrt/openwrt.git 
 git clone --single-branch https://github.com/Lienol/openwrt.git      openwrt-lienol
 git clone --single-branch https://github.com/Lienol/openwrt-packages packages-lienol
 git clone --single-branch https://github.com/Lienol/openwrt-luci     luci-lienol
+rm -rf ./*-lienol/.git
 exit 0
