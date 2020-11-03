@@ -104,16 +104,19 @@ sed -i "s,'eth1' 'eth0','eth0' 'eth1',g" target/linux/rockchip/armv8/base-files/
 
 ##获取额外package
 #luci-app-compressed-memory
-wget -O- https://github.com/openwrt/openwrt/compare/3f5cf3...NoTengoBattery:master.patch | patch -p1
+wget -O- https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/2840.patch | patch -p1
 mkdir ./package/new
 cp -rf ../NoTengoBattery/feeds/luci/applications/luci-app-compressed-memory ./package/new/luci-app-compressed-memory
 sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-compressed-memory/Makefile
+rm -rf ./package/system/compressed-memory
+cp -rf ../NoTengoBattery/package/system/compressed-memory ./package/system/compressed-memory
 #更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
 svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 #更换curl
 rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl package/network/utils/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
+ln -sf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 #更换Node版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
@@ -138,9 +141,9 @@ svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/
 #更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-rm -rf ./feeds/packages/lang/golang/.svn
-rm -rf ./feeds/packages/lang/golang/golang
-svn co https://github.com/project-openwrt/packages/trunk/lang/golang/golang feeds/packages/lang/golang/golang
+#rm -rf ./feeds/packages/lang/golang/.svn
+#rm -rf ./feeds/packages/lang/golang/golang
+#svn co https://github.com/project-openwrt/packages/trunk/lang/golang/golang feeds/packages/lang/golang/golang
 #beardropper
 git clone https://github.com/NateLol/luci-app-beardropper package/luci-app-beardropper
 sed -i 's/"luci.fs"/"luci.sys".net/g' package/luci-app-beardropper/luasrc/model/cbi/beardropper/setting.lua
@@ -196,8 +199,8 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 #cp -rf ../openwrt-lienol/package/diy/adguardhome ./package/new/AdGuardHome
 #git clone -b master --single-branch https://github.com/rufengsuixing/luci-app-adguardhome package/new/luci-app-adguardhome
 #ChinaDNS
-git clone -b luci --single-branch https://github.com/pexcn/openwrt-chinadns-ng package/new/luci-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng package/new/chinadns-ng
+git clone -b luci https://github.com/pexcn/openwrt-chinadns-ng.git package/new/luci-app-chinadns-ng
+git clone https://github.com/pexcn/openwrt-chinadns-ng.git package/new/chinadns-ng
 #VSSR
 git clone -b master --single-branch https://github.com/jerrykuku/luci-app-vssr package/lean/luci-app-vssr
 git clone -b master --single-branch https://github.com/jerrykuku/lua-maxminddb package/lean/lua-maxminddb
@@ -265,25 +268,42 @@ git clone -b master --single-branch https://github.com/vernesong/OpenClash packa
 git clone -b master --single-branch https://github.com/tty228/luci-app-serverchan package/new/luci-app-serverchan
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/network/utils/iputils package/network/utils/iputils
 #SmartDNS
-svn co https://github.com/pymumu/smartdns/trunk/package/openwrt package/new/smartdns
-git clone -b lede --single-branch https://github.com/pymumu/luci-app-smartdns package/new/luci-app-smartdns/
+#svn co https://github.com/pymumu/smartdns/trunk/package/openwrt package/new/smartdns
+#git clone -b lede --single-branch https://github.com/pymumu/luci-app-smartdns package/new/luci-app-smartdns/
+#git clone https://github.com/xsmzhzy/openwrt-smartdns package/new/smartdns
+#svn co https://github.com/openwrt/luci/trunk/applications/luci-app-smartdns package/new/luci-app-smartdns
+#sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
+#rm -rf ./package/new/luci-app-smartdns/htdocs/luci-static/resources/view/smartdns/smartdns.js
+#wget -P package/new/luci-app-smartdns/htdocs/luci-static/resources/view/smartdns https://github.com/pymumu/smartdns/blob/master/package/luci/files/root/www/luci-static/resources/view/smartdns/smartdns.js
+cp -rf ../packages-lienol/net/smartdns ./package/new/smartdns
+cp -rf ../luci-lienol/applications/luci-app-smartdns ./package/new/luci-app-smartdns
+sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
+
 #上网APP过滤
 git clone -b master --single-branch https://github.com/destan19/OpenAppFilter package/new/OpenAppFilter
 #Docker
 svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 svn co https://github.com/lisaac/luci-lib-docker/trunk/collections/luci-lib-docker package/luci-lib-docker
-svn co https://github.com/openwrt/packages/trunk/utils/docker-ce package/utils/docker-ce
-svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount package/utils/cgroupfs-mount
-svn co https://github.com/openwrt/packages/trunk/utils/containerd package/utils/containerd
-svn co https://github.com/openwrt/packages/trunk/utils/libnetwork package/utils/libnetwork
-svn co https://github.com/openwrt/packages/trunk/utils/tini package/utils/tini
-svn co https://github.com/openwrt/packages/trunk/utils/runc package/utils/runc
+svn co https://github.com/openwrt/packages/trunk/utils/docker-ce feeds/packages/utils/docker-ce
+ln -sf ../../../feeds/packages/utils/docker-ce ./package/feeds/packages/docker-ce
+svn co https://github.com/openwrt/packages/trunk/utils/cgroupfs-mount feeds/packages/utils/cgroupfs-mount
+ln -sf ../../../feeds/packages/utils/cgroupfs-mount ./package/feeds/packages/cgroupfs-mount
+svn co https://github.com/openwrt/packages/trunk/utils/containerd feeds/packages/utils/containerd
+ln -sf ../../../feeds/packages/utils/containerd ./package/feeds/packages/containerd
+svn co https://github.com/openwrt/packages/trunk/utils/libnetwork feeds/packages/utils/libnetwork
+ln -sf ../../../feeds/packages/utils/libnetwork ./package/feeds/packages/libnetwork
+svn co https://github.com/openwrt/packages/trunk/utils/tini feeds/packages/utils/tini
+ln -sf ../../../feeds/packages/utils/tini ./package/feeds/packages/tini
+svn co https://github.com/openwrt/packages/trunk/utils/runc feeds/packages/utils/runc
+ln -sf ../../../feeds/packages/utils/runc ./package/feeds/packages/runc
 #补全部分依赖（实际上并不会用到
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/network/services/samba36 package/network/services/samba36
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
-svn co https://github.com/openwrt/packages/trunk/libs/nghttp2 package/libs/nghttp2
-svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng package/libs/libcap-ng
+svn co https://github.com/openwrt/packages/trunk/libs/nghttp2 feeds/packages/libs/nghttp2
+ln -sf ../../../feeds/packages/libs/nghttp2 ./package/feeds/packages/nghttp2
+svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng feeds/packages/libs/libcap-ng
+ln -sf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd feeds/packages/utils/collectd
 #FullCone模块
@@ -302,6 +322,7 @@ cp -f ../PATCH/new/script/move_2_services.sh ./package/lean/luci-app-zerotier/mo
 pushd package/lean/luci-app-zerotier
 bash move_2_services.sh
 popd
+rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 #回滚zstd
 #rm -rf ./feeds/packages/utils/zstd
 #svn co https://github.com/QiuSimons/Others/trunk/zstd feeds/packages/utils/zstd
