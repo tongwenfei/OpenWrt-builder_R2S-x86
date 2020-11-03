@@ -161,7 +161,6 @@ svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks        
 # manually merge SSRP PRs
 pushd package/lean
 patch -p1 < ../../../PATCH/ssrp/Update-data.patch
-patch -p1 < ../../../PATCH/ssrp/naiveproxy-sync-with-upstream.patch
 popd
 # OpenClash
 git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
