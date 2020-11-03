@@ -9,7 +9,6 @@ cp -f ../SCRIPTS/*.sh ./
 /bin/bash ./03_convert_translation.sh
 /bin/bash ./04_remove_upx.sh
 /bin/bash ./05_create_acl_for_luci.sh -a
-rm -rf ./lienol-19.07
 cp -f ../SEED/config_no_docker.seed .config
 cat   ../SEED/more.seed          >> .config
 make defconfig

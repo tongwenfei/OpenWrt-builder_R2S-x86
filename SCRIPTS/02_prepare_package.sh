@@ -33,18 +33,12 @@ rm -rf ./feeds/packages/devel/gcc/.svn
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
 rm -rf ./feeds/packages/lang/node/.svn
-# 更换Golang版本
-rm -rf ./feeds/packages/lang/golang
-svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-rm -rf ./feeds/packages/lang/golang/.svn
-rm -rf ./feeds/packages/lang/golang/golang
-svn co https://github.com/project-openwrt/packages/trunk/lang/golang/golang feeds/packages/lang/golang/golang
-rm -rf ./feeds/packages/lang/golang/golang/.svn
 
 ### 3. 必要的Patch ###
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl package/network/utils/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
+ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
@@ -75,7 +69,7 @@ pushd target/linux/generic/hack-5.4
 wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # FullCone模块
-cp -rf ../lienol-19.07/package/network/fullconenat ./package/network/fullconenat
+cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
 # Patch FireWall 以增添SFE
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE内核补丁
@@ -97,7 +91,7 @@ git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../lienol-19.07/package/diy/luci-app-adguardhome                                 package/new/luci-app-adguardhome
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
@@ -107,8 +101,8 @@ svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/c
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
-git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/luci-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng        package/new/chinadns-ng
+git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/luci-app-chinadns-ng
+git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/chinadns-ng
 cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
@@ -118,8 +112,9 @@ popd
 svn co https://github.com/QiuSimons/Others/trunk/luci-app-cpulimit                        package/lean/luci-app-cpulimit
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
 # SmartDNS
-svn co https://github.com/pymumu/smartdns/trunk/package/openwrt               package/new/smartdns
-git clone -b lede --single-branch https://github.com/pymumu/luci-app-smartdns package/new/luci-app-smartdns/
+cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
+cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
+sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
@@ -177,6 +172,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
 # Zerotier
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
+rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # argon主题
 git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
 git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-config  package/new/luci-app-argon-config
@@ -190,8 +186,10 @@ rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
-svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           package/libs/nghttp2
-svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         package/libs/libcap-ng
+svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           feeds/packages/libs/nghttp2
+ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
+svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         feeds/packages/libs/libcap-ng
+ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
 cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
