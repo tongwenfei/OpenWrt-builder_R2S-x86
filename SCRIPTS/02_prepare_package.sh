@@ -158,6 +158,10 @@ svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go     
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks           package/new/ssocks
+# manually merge SSRP PRs
+pushd package/lean
+patch -p1 < ../../../PATCH/ssrp/luci-app-ssr-plus_bump_to_181-1.patch
+popd
 # OpenClash
 git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
 # 订阅转换
