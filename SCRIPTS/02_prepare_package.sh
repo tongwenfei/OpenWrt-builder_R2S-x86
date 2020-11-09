@@ -110,6 +110,7 @@ popd
 # luci-app-cpulimit
 svn co https://github.com/QiuSimons/Others/trunk/luci-app-cpulimit                        package/lean/luci-app-cpulimit
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
+cp -f ../REPLACE/cpulimit                               ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # SmartDNS
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
 cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
