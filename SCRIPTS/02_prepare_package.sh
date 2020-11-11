@@ -73,7 +73,7 @@ cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconen
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE内核补丁
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/999-shortcut-fe-support.patch
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 popd
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
@@ -85,6 +85,9 @@ sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockc
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # RNGD
 sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
+# rc.common
+rm -rf ./package/base-files/files/etc/rc.common
+wget -P  package/base-files/files/etc https://raw.githubusercontent.com/QiuSimons/Others/master/rc.common
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
