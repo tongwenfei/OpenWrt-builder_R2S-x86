@@ -56,6 +56,6 @@ opkg flag hold luci-app-firewall
 opkg flag hold firewall
 opkg flag hold dnsmasq-full
 #luci cache
-rm -rf /tmp/luci-modulecache/
+rm -rf /tmp/luci-modulecache
 rm -f  /tmp/luci-indexcache
 exit 0

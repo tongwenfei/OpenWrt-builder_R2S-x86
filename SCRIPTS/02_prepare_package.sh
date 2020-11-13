@@ -28,6 +28,10 @@ sed -i 's/-Os/-O2/g' include/target.mk
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
 rm -rf ./feeds/packages/devel/gcc/.svn
+#更换Golang版本
+rm -rf ./feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
+rm -rf ./feeds/packages/lang/golang/.svn
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
@@ -78,6 +82,7 @@ popd
 # SFE
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
 # OC 1.5GHz
 cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # IRQ
@@ -86,14 +91,13 @@ sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockc
 # RNGD
 sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
 # rc.common
-rm -rf ./package/base-files/files/etc/rc.common
-wget -P  package/base-files/files/etc https://raw.githubusercontent.com/QiuSimons/Others/master/rc.common
+cp -f ../PATCH/duplicate/rc.common ./package/base-files/files/etc/rc.common
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               package/new/luci-app-adguardhome
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
@@ -111,9 +115,8 @@ sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
 /bin/bash ./update-list.sh
 popd
 # luci-app-cpulimit
-svn co https://github.com/QiuSimons/Others/trunk/luci-app-cpulimit                        package/lean/luci-app-cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
-cp -f ../REPLACE/cpulimit                               ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # SmartDNS
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
 cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
@@ -134,8 +137,6 @@ git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbw
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 rm -rf ./package/lean/luci-app-ssr-plus/.svn
-rm -f ./package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
-wget -P package/lean/luci-app-ssr-plus/luasrc/view/shadowsocksr https://raw.githubusercontent.com/QiuSimons/Others/master/luci-app-ssr-plus/luasrc/view/shadowsocksr/ssrurl.htm
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
@@ -193,8 +194,7 @@ ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
 svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         feeds/packages/libs/libcap-ng
 ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
-git clone -b master --single-branch https://github.com/QiuSimons/addition-trans-zh      package/lean/lean-translate
-cp -f ../REPLACE/zzz-default-settings package/lean/lean-translate/files/zzz-default-settings
+cp -rf ../PATCH/duplicate/addition-trans-zh-master ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
 mkdir -p                      package/base-files/files/root
 cp -f ../PRECONFS/vimrc       package/base-files/files/root/.vimrc
