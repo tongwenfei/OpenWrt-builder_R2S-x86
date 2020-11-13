@@ -30092,21 +30092,21 @@ index c4c5ea1..866eaf4 100755
  NAME=shadowsocksr
  LOCK_FILE=/var/lock/${NAME}.lock
 
-From 879d5030dace9a395e7f176edf353375e2c47ca5 Mon Sep 17 00:00:00 2001
+From 70c695c09d28817feef70bc47ace7388f943d12f Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Fri, 13 Nov 2020 11:53:34 +0800
 Subject: [PATCH 9/9] Fix processing dnsmasq and iptables bug
 
 ---
  .../luasrc/controller/shadowsocksr.lua        |   4 +-
- .../root/etc/init.d/shadowsocksr              | 162 ++++++++----------
+ .../root/etc/init.d/shadowsocksr              | 164 ++++++++----------
  luci-app-ssr-plus/root/usr/bin/ssr-rules      |  84 ++++-----
  luci-app-ssr-plus/root/usr/bin/ssr-switch     |  12 +-
  .../root/usr/share/shadowsocksr/chinaipset.sh |  14 +-
  .../root/usr/share/shadowsocksr/gfw2ipset.sh  |  21 ++-
  .../usr/share/shadowsocksr/ssrplusupdate.sh   |   2 +-
  .../root/usr/share/shadowsocksr/update.lua    |   2 +-
- 8 files changed, 133 insertions(+), 168 deletions(-)
+ 8 files changed, 134 insertions(+), 169 deletions(-)
 
 diff --git a/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua b/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 index 69f146a..9c1ec9e 100644
@@ -30131,7 +30131,7 @@ index 69f146a..9c1ec9e 100644
  	if set == "ad_data" then
  		update(uci:get_first("shadowsocksr", "global", "adblock_url","https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt"), "/etc/ssr/ad.conf", set, "/tmp/dnsmasq.ssr/ad.conf")
 diff --git a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-index 866eaf4..bd86fbb 100755
+index 866eaf4..880b961 100755
 --- a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
 +++ b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
 @@ -30,6 +30,11 @@ switch_enable=0
@@ -30280,7 +30280,8 @@ index 866eaf4..bd86fbb 100755
 +			tun | naiveproxy) local ARG_UDP="";;
 +			*) local ARG_UDP="-U";;
  			esac
- 			local udp_server=$(uci_get_by_name $UDP_RELAY_SERVER server)
+-			local udp_server=$(uci_get_by_name $UDP_RELAY_SERVER server)
++			local udp_server=$(get_host_ip $(uci_get_by_name $UDP_RELAY_SERVER server))
  			local udp_local_port=1357
  		fi
  	fi
@@ -30438,7 +30439,7 @@ index 866eaf4..bd86fbb 100755
  		rm -rf /tmp/dnsmasq.d/dnsmasq-ssr.conf /tmp/dnsmasq.ssr /tmp/dnsmasq.oversea
  		/etc/init.d/dnsmasq restart >/dev/null 2>&1
 diff --git a/luci-app-ssr-plus/root/usr/bin/ssr-rules b/luci-app-ssr-plus/root/usr/bin/ssr-rules
-index a7b8c1d..fb155b8 100755
+index a7b8c1d..093bf3a 100755
 --- a/luci-app-ssr-plus/root/usr/bin/ssr-rules
 +++ b/luci-app-ssr-plus/root/usr/bin/ssr-rules
 @@ -39,8 +39,10 @@ Valid options are:
@@ -30535,7 +30536,7 @@ index a7b8c1d..fb155b8 100755
  	$ipt -A SS_SPEC_TPROXY -p udp -d 240.0.0.0/4 -j RETURN
 -	$ipt -A SS_SPEC_TPROXY -p udp ! --dport 53 -d $server -j RETURN
 +	$ipt -A SS_SPEC_TPROXY -p udp ! --dport 53 -d $SERVER -j RETURN
-+	[ "$server" != "$SERVER" ] && $IPT -I SS_SPEC_WAN_AC -p tcp ! --dport 53 -d $SERVER -j RETURN
++	[ "$server" != "$SERVER" ] && ipset -! add whitelist $SERVER
  	$ipt -A SS_SPEC_TPROXY -p udp -m set --match-set bplan src -j RETURN
  	$ipt -A SS_SPEC_TPROXY -p udp $PROXY_PORTS -m set --match-set fplan src \
  	-j TPROXY --on-port "$LOCAL_PORT" --tproxy-mark 0x01/0x01
