@@ -1,7 +1,7 @@
 From 6848b0cf0c2a29eff2d8e516d922d959dc56a831 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Mon, 26 Oct 2020 12:10:30 +0800
-Subject: [PATCH 1/8] naiveproxy: Optimized code
+Subject: [PATCH 1/9] naiveproxy: Optimized code
 
 ---
  naiveproxy/Makefile | 21 ++++++++++-----------
@@ -54,18 +54,18 @@ index db5914a..d6556a5 100644
  endef
  
 
-From f8a82ccc169e812afb2a9b763a2f158f29abecbd Mon Sep 17 00:00:00 2001
+From 607bcb000278b5b3e51591998dc19c097078d2c5 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Wed, 21 Oct 2020 14:59:09 +0800
-Subject: [PATCH 2/8] Update data
+Subject: [PATCH 2/9] Update data
 
 ---
- luci-app-ssr-plus/root/etc/ssr/china_ssr.txt |    50 +-
- luci-app-ssr-plus/root/etc/ssr/gfw_list.conf | 28332 +++++++++++------
- 2 files changed, 19084 insertions(+), 9298 deletions(-)
+ luci-app-ssr-plus/root/etc/ssr/china_ssr.txt |    52 +-
+ luci-app-ssr-plus/root/etc/ssr/gfw_list.conf | 28368 +++++++++++------
+ 2 files changed, 19122 insertions(+), 9298 deletions(-)
 
 diff --git a/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt b/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
-index 7eae3eb..b85f568 100644
+index 7eae3eb..8f8de83 100644
 --- a/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
 +++ b/luci-app-ssr-plus/root/etc/ssr/china_ssr.txt
 @@ -264,6 +264,7 @@
@@ -136,7 +136,23 @@ index 7eae3eb..b85f568 100644
  61.45.128.0/18
  61.45.224.0/20
  61.47.128.0/18
-@@ -3774,7 +3770,6 @@
+@@ -2080,7 +2076,6 @@
+ 103.18.208.0/22
+ 103.18.212.0/22
+ 103.18.224.0/22
+-103.19.0.0/22
+ 103.19.12.0/22
+ 103.19.40.0/22
+ 103.19.44.0/22
+@@ -3399,7 +3394,6 @@
+ 103.93.28.0/22
+ 103.93.76.0/22
+ 103.93.84.0/22
+-103.93.121.0/24
+ 103.93.152.0/22
+ 103.93.180.0/22
+ 103.93.204.0/22
+@@ -3774,7 +3768,6 @@
  103.119.224.0/22
  103.120.52.0/22
  103.120.72.0/22
@@ -144,7 +160,7 @@ index 7eae3eb..b85f568 100644
  103.120.88.0/22
  103.120.96.0/22
  103.120.100.0/22
-@@ -3915,7 +3910,6 @@
+@@ -3915,7 +3908,6 @@
  103.141.58.0/23
  103.141.128.0/23
  103.141.186.0/23
@@ -152,7 +168,7 @@ index 7eae3eb..b85f568 100644
  103.141.242.0/23
  103.142.0.0/23
  103.142.28.0/23
-@@ -4081,6 +4075,32 @@
+@@ -4081,6 +4073,32 @@
  103.155.16.0/23
  103.155.34.0/23
  103.155.48.0/23
@@ -185,7 +201,7 @@ index 7eae3eb..b85f568 100644
  103.192.0.0/22
  103.192.4.0/22
  103.192.8.0/22
-@@ -4117,7 +4137,6 @@
+@@ -4117,7 +4135,6 @@
  103.193.124.0/22
  103.193.140.0/22
  103.193.144.0/22
@@ -193,7 +209,7 @@ index 7eae3eb..b85f568 100644
  103.193.160.0/22
  103.193.188.0/22
  103.193.192.0/22
-@@ -4136,8 +4155,6 @@
+@@ -4136,8 +4153,6 @@
  103.195.148.0/22
  103.195.152.0/22
  103.195.160.0/22
@@ -202,7 +218,7 @@ index 7eae3eb..b85f568 100644
  103.196.64.0/22
  103.196.72.0/22
  103.196.88.0/22
-@@ -4549,7 +4566,6 @@
+@@ -4549,7 +4564,6 @@
  103.218.84.0/22
  103.218.88.0/22
  103.218.92.0/22
@@ -210,7 +226,7 @@ index 7eae3eb..b85f568 100644
  103.218.192.0/22
  103.218.196.0/22
  103.218.200.0/22
-@@ -4797,7 +4813,6 @@
+@@ -4797,7 +4811,6 @@
  103.227.212.0/22
  103.227.228.0/22
  103.228.12.0/22
@@ -218,7 +234,7 @@ index 7eae3eb..b85f568 100644
  103.228.88.0/22
  103.228.128.0/22
  103.228.136.0/22
-@@ -5088,7 +5103,6 @@
+@@ -5088,7 +5101,6 @@
  103.251.160.0/22
  103.251.192.0/22
  103.251.204.0/22
@@ -226,7 +242,7 @@ index 7eae3eb..b85f568 100644
  103.251.240.0/22
  103.252.28.0/22
  103.252.36.0/22
-@@ -5300,7 +5314,6 @@
+@@ -5300,7 +5312,6 @@
  113.208.128.0/17
  113.209.0.0/16
  113.212.0.0/18
@@ -234,7 +250,7 @@ index 7eae3eb..b85f568 100644
  113.212.88.0/22
  113.212.100.0/22
  113.212.184.0/21
-@@ -5328,7 +5341,8 @@
+@@ -5328,7 +5339,8 @@
  114.111.160.0/19
  114.112.0.0/14
  114.116.0.0/16
@@ -245,7 +261,7 @@ index 7eae3eb..b85f568 100644
  114.119.0.0/17
  114.119.192.0/21
 diff --git a/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf b/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
-index b6d2a7d..da57e01 100644
+index b6d2a7d..3eae325 100644
 --- a/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
 +++ b/luci-app-ssr-plus/root/etc/ssr/gfw_list.conf
 @@ -1,2593 +1,6829 @@
@@ -12458,7 +12474,7 @@ index b6d2a7d..da57e01 100644
  server=/googleanalytics.com/127.0.0.1#5335
  ipset=/googleanalytics.com/gfwlist
  server=/googleapis.com/127.0.0.1#5335
-@@ -3664,4390 +8970,8004 @@ server=/googleapps.com/127.0.0.1#5335
+@@ -3664,4390 +8970,8040 @@ server=/googleapps.com/127.0.0.1#5335
  ipset=/googleapps.com/gfwlist
  server=/googlearth.com/127.0.0.1#5335
  ipset=/googlearth.com/gfwlist
@@ -20380,6 +20396,8 @@ index b6d2a7d..da57e01 100644
 +ipset=/park-now.com/gfwlist
 +server=/parkinfo.com/127.0.0.1#5335
 +ipset=/parkinfo.com/gfwlist
++server=/parler.com/127.0.0.1#5335
++ipset=/parler.com/gfwlist
 +server=/parse.com/127.0.0.1#5335
 +ipset=/parse.com/gfwlist
 +server=/parstream.com/127.0.0.1#5335
@@ -21970,6 +21988,40 @@ index b6d2a7d..da57e01 100644
 +ipset=/realamericanstories.org/gfwlist
 +server=/realamericanstories.tv/127.0.0.1#5335
 +ipset=/realamericanstories.tv/gfwlist
++server=/realclear.com/127.0.0.1#5335
++ipset=/realclear.com/gfwlist
++server=/realclearbooks.com/127.0.0.1#5335
++ipset=/realclearbooks.com/gfwlist
++server=/realcleardefense.com/127.0.0.1#5335
++ipset=/realcleardefense.com/gfwlist
++server=/realcleareducation.com/127.0.0.1#5335
++ipset=/realcleareducation.com/gfwlist
++server=/realclearenergy.org/127.0.0.1#5335
++ipset=/realclearenergy.org/gfwlist
++server=/realclearfoundation.org/127.0.0.1#5335
++ipset=/realclearfoundation.org/gfwlist
++server=/realclearhealth.com/127.0.0.1#5335
++ipset=/realclearhealth.com/gfwlist
++server=/realclearhistory.com/127.0.0.1#5335
++ipset=/realclearhistory.com/gfwlist
++server=/realclearinvestigations.com/127.0.0.1#5335
++ipset=/realclearinvestigations.com/gfwlist
++server=/realclearlife.com/127.0.0.1#5335
++ipset=/realclearlife.com/gfwlist
++server=/realclearmarkets.com/127.0.0.1#5335
++ipset=/realclearmarkets.com/gfwlist
++server=/realclearpolicy.com/127.0.0.1#5335
++ipset=/realclearpolicy.com/gfwlist
++server=/realclearpolitics.com/127.0.0.1#5335
++ipset=/realclearpolitics.com/gfwlist
++server=/realclearpublicaffairs.com/127.0.0.1#5335
++ipset=/realclearpublicaffairs.com/gfwlist
++server=/realclearreligion.org/127.0.0.1#5335
++ipset=/realclearreligion.org/gfwlist
++server=/realclearscience.com/127.0.0.1#5335
++ipset=/realclearscience.com/gfwlist
++server=/realclearworld.com/127.0.0.1#5335
++ipset=/realclearworld.com/gfwlist
 +server=/realitykings.com/127.0.0.1#5335
 +ipset=/realitykings.com/gfwlist
 +server=/realmilwaukeenow.com/127.0.0.1#5335
@@ -24495,7 +24547,7 @@ index b6d2a7d..da57e01 100644
  server=/telegra.ph/127.0.0.1#5335
  ipset=/telegra.ph/gfwlist
  server=/telegram.dog/127.0.0.1#5335
-@@ -8056,1502 +16976,1988 @@ server=/telegram.me/127.0.0.1#5335
+@@ -8056,1502 +17012,1990 @@ server=/telegram.me/127.0.0.1#5335
  ipset=/telegram.me/gfwlist
  server=/telegram.org/127.0.0.1#5335
  ipset=/telegram.org/gfwlist
@@ -24645,6 +24697,8 @@ index b6d2a7d..da57e01 100644
 +ipset=/thefind.com/gfwlist
 +server=/thefoxnation.com/127.0.0.1#5335
 +ipset=/thefoxnation.com/gfwlist
++server=/thegatewaypundit.com/127.0.0.1#5335
++ipset=/thegatewaypundit.com/gfwlist
 +server=/thegeorgiascene.com/127.0.0.1#5335
 +ipset=/thegeorgiascene.com/gfwlist
 +server=/thegooglestore.com/127.0.0.1#5335
@@ -27866,7 +27920,7 @@ index b6d2a7d..da57e01 100644
  server=/wikinews.org/127.0.0.1#5335
  ipset=/wikinews.org/gfwlist
  server=/wikipedia.org/127.0.0.1#5335
-@@ -9564,663 +18970,1029 @@ server=/wikiversity.org/127.0.0.1#5335
+@@ -9564,663 +19008,1031 @@ server=/wikiversity.org/127.0.0.1#5335
  ipset=/wikiversity.org/gfwlist
  server=/wikivoyage.org/127.0.0.1#5335
  ipset=/wikivoyage.org/gfwlist
@@ -28494,14 +28548,14 @@ index b6d2a7d..da57e01 100644
 +ipset=/xn--hxtr4rozx.xn--czr694b/gfwlist
  server=/xn--i2ru8q2qg.com/127.0.0.1#5335
  ipset=/xn--i2ru8q2qg.com/gfwlist
--server=/xn--ngstr-lra8j.com/127.0.0.1#5335
--ipset=/xn--ngstr-lra8j.com/gfwlist
--server=/xn--oiq.cc/127.0.0.1#5335
--ipset=/xn--oiq.cc/gfwlist
 +server=/xn--kput3imi374g.xn--hxt814e/127.0.0.1#5335
 +ipset=/xn--kput3imi374g.xn--hxt814e/gfwlist
 +server=/xn--mts47c3w9b1qr.net/127.0.0.1#5335
 +ipset=/xn--mts47c3w9b1qr.net/gfwlist
+ server=/xn--ngstr-lra8j.com/127.0.0.1#5335
+ ipset=/xn--ngstr-lra8j.com/gfwlist
+-server=/xn--oiq.cc/127.0.0.1#5335
+-ipset=/xn--oiq.cc/gfwlist
  server=/xn--p8j9a0d9c9a.xn--q9jyb4c/127.0.0.1#5335
  ipset=/xn--p8j9a0d9c9a.xn--q9jyb4c/gfwlist
 +server=/xn--q41am8x.com/127.0.0.1#5335
@@ -29503,10 +29557,10 @@ index b6d2a7d..da57e01 100644
 +server=/zukunftswerkstatt.de/127.0.0.1#5335
 +ipset=/zukunftswerkstatt.de/gfwlist
 
-From 5eefe519d0b5d36180cb284570c84be87c84de5d Mon Sep 17 00:00:00 2001
+From 825fe9d61568cb74d08c5cbb0da1dba1288e1869 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Tue, 3 Nov 2020 11:55:28 +0800
-Subject: [PATCH 3/8] gfwlist: add v2fly/domain-list
+Subject: [PATCH 3/9] gfwlist: add v2fly/domain-list
 
 ---
  .../model/cbi/shadowsocksr/advanced.lua       |  3 +-
@@ -29670,10 +29724,10 @@ index a654d69..5bde50d 100644
  update(uci:get_first("shadowsocksr", "global", "chnroute_url","https://ispip.clang.cn/all_cn.txt"), "/etc/ssr/china_ssr.txt", "cnip")
  if uci:get_first("shadowsocksr", "global", "adblock","0") == "1" then
 
-From e43e03f4cd3e2a0cdcc440047e68d88640c9dc93 Mon Sep 17 00:00:00 2001
+From 9850e086290c3d47919489640368b2ebeb57ed00 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Tue, 3 Nov 2020 17:40:28 +0800
-Subject: [PATCH 4/8] Fix configuration retention bug
+Subject: [PATCH 4/9] Fix configuration retention bug
 
 ---
  luci-app-ssr-plus/Makefile                    |  9 ++-
@@ -29809,10 +29863,10 @@ index 742fbaf..0000000
 -/etc/ssr/ad.conf
 -/etc/ssr/deny.list
 
-From 136991bf235e3f58edd191c8aa789384e442f93e Mon Sep 17 00:00:00 2001
+From ac6a1f31dce045876cf8e070a10e0545749f500c Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Wed, 4 Nov 2020 17:47:59 +0800
-Subject: [PATCH 5/8] Add mkcp obfuscated password
+Subject: [PATCH 5/9] Add mkcp obfuscated password
 
 ---
  .../luasrc/model/cbi/shadowsocksr/client-config.lua           | 4 ++++
@@ -29876,10 +29930,10 @@ index b5e9982..d7aef0e 100644
  		wsSettings = (server.transport == "ws") and (server.ws_path ~= nil or server.ws_host ~= nil) and {
  			path = server.ws_path,
 
-From 4c2e982f9c2ed351f53418dffa4050d9a55a0430 Mon Sep 17 00:00:00 2001
+From 0ff6312327a70595c71cb676e43f49cbdf223404 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Thu, 5 Nov 2020 15:25:50 +0800
-Subject: [PATCH 6/8] Fix getting lan name error
+Subject: [PATCH 6/9] Fix getting lan name error
 
 ---
  luci-app-ssr-plus/root/usr/bin/ssr-rules | 2 +-
@@ -29899,10 +29953,10 @@ index c88a04f..a7b8c1d 100755
  		create ss_spec_lan_ac hash:net
  		$(for ip in ${LAN_AC_IP:1}; do echo "add ss_spec_lan_ac $ip"; done)
 
-From 0b08ebc41b3912c850403385a6fd2cb80e316d3f Mon Sep 17 00:00:00 2001
+From 0078e53c904f4c1425cd84d0d3fbc0111fde2398 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Thu, 5 Nov 2020 17:36:30 +0800
-Subject: [PATCH 7/8] Fix udp local port and TCP local port duplication
+Subject: [PATCH 7/9] Fix udp local port and TCP local port duplication
 
 ---
  .../root/etc/init.d/shadowsocksr              | 38 +++++++++++--------
@@ -30016,20 +30070,43 @@ index 2de3f10..c4c5ea1 100755
  	get_arg_out() {
  		case "$(uci_get_by_type access_control router_proxy 1)" in
 
-From 319e60e445a484ae896766a00dac91426a19d1c8 Mon Sep 17 00:00:00 2001
+From 4553f642349b543553bdef0163fe8a2f82189a13 Mon Sep 17 00:00:00 2001
 From: Mattraks <16359027+Mattraks@users.noreply.github.com>
 Date: Fri, 6 Nov 2020 15:34:24 +0800
-Subject: [PATCH 8/8] Fix openwrt-master cannot start
+Subject: [PATCH 8/9] Fix openwrt-master cannot start
+
+---
+ luci-app-ssr-plus/root/etc/init.d/shadowsocksr | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
+index c4c5ea1..866eaf4 100755
+--- a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
++++ b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
+@@ -11,7 +11,6 @@
+ START=95
+ STOP=15
+ SERVICE_DAEMONIZE=1
+-EXTRA_COMMANDS=rules
+ MAXFD=32768
+ NAME=shadowsocksr
+ LOCK_FILE=/var/lock/${NAME}.lock
+
+From 879d5030dace9a395e7f176edf353375e2c47ca5 Mon Sep 17 00:00:00 2001
+From: Mattraks <16359027+Mattraks@users.noreply.github.com>
+Date: Fri, 13 Nov 2020 11:53:34 +0800
+Subject: [PATCH 9/9] Fix processing dnsmasq and iptables bug
 
 ---
  .../luasrc/controller/shadowsocksr.lua        |   4 +-
- .../root/etc/init.d/shadowsocksr              | 153 ++++++++----------
- luci-app-ssr-plus/root/usr/bin/ssr-rules      |  49 +++---
+ .../root/etc/init.d/shadowsocksr              | 162 ++++++++----------
+ luci-app-ssr-plus/root/usr/bin/ssr-rules      |  84 ++++-----
  luci-app-ssr-plus/root/usr/bin/ssr-switch     |  12 +-
- .../root/usr/share/shadowsocksr/chinaipset.sh |  12 +-
+ .../root/usr/share/shadowsocksr/chinaipset.sh |  14 +-
+ .../root/usr/share/shadowsocksr/gfw2ipset.sh  |  21 ++-
  .../usr/share/shadowsocksr/ssrplusupdate.sh   |   2 +-
  .../root/usr/share/shadowsocksr/update.lua    |   2 +-
- 7 files changed, 111 insertions(+), 123 deletions(-)
+ 8 files changed, 133 insertions(+), 168 deletions(-)
 
 diff --git a/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua b/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 index 69f146a..9c1ec9e 100644
@@ -30054,30 +30131,22 @@ index 69f146a..9c1ec9e 100644
  	if set == "ad_data" then
  		update(uci:get_first("shadowsocksr", "global", "adblock_url","https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt"), "/etc/ssr/ad.conf", set, "/tmp/dnsmasq.ssr/ad.conf")
 diff --git a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-index c4c5ea1..9623658 100755
+index 866eaf4..bd86fbb 100755
 --- a/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
 +++ b/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
-@@ -11,7 +11,6 @@
- START=95
- STOP=15
- SERVICE_DAEMONIZE=1
--EXTRA_COMMANDS=rules
- MAXFD=32768
- NAME=shadowsocksr
- LOCK_FILE=/var/lock/${NAME}.lock
-@@ -31,6 +30,11 @@ switch_enable=0
+@@ -30,6 +30,11 @@ switch_enable=0
  switch_server=$1
  CRON_FILE=/etc/crontabs/root
  threads=1
-+run_mode="router"
 +GLOBAL_SERVER="nil"
 +NETFLIX_SERVER="nil"
 +UDP_RELAY_SERVER="nil"
++run_mode="router"
 +kcp_server=""
  
  uci_get_by_name() {
  	local ret=$(uci get $NAME.$1.$2 2>/dev/null)
-@@ -59,14 +63,10 @@ uci_get_by_cfgid() {
+@@ -58,14 +63,10 @@ uci_get_by_cfgid() {
  
  get_host_ip() {
  	local host=$1
@@ -30096,7 +30165,7 @@ index c4c5ea1..9623658 100755
  			[ -z "$ip" ] && ip=$(wget -q -O- http://119.29.29.29/d?dn=$1 | awk -F ';' '{print $1}')
  		fi
  	fi
-@@ -129,9 +129,8 @@ gen_config_file() {
+@@ -128,9 +129,8 @@ gen_config_file() {
  	else
  		uci_set_by_name $1 ip $hostip
  	fi
@@ -30107,7 +30176,7 @@ index c4c5ea1..9623658 100755
  	1) config_file=$CONFIG_UDP_FILE ;;
  	2) config_file=$CONFIG_NETFLIX_FILE ;;
  	*) config_file=$CONFIG_SOCK5_FILE ;;
-@@ -263,7 +262,6 @@ start_dns() {
+@@ -262,7 +262,6 @@ start_dns() {
  		local usr_port="$2"
  		[ -z "$usr_dns" ] && usr_dns="8.8.8.8"
  		[ -z "$usr_port" ] && usr_port="53"
@@ -30115,7 +30184,7 @@ index c4c5ea1..9623658 100755
  		if [ ! -f "/var/pdnsd/pdnsd.cache" ]; then
  			mkdir -p /var/pdnsd
  			touch /var/pdnsd/pdnsd.cache
-@@ -299,21 +297,23 @@ start_dns() {
+@@ -298,21 +297,23 @@ start_dns() {
  		EOF
  		/usr/sbin/pdnsd -c /var/etc/pdnsd.conf >/dev/null 2>&1 &
  	}
@@ -30141,7 +30210,7 @@ index c4c5ea1..9623658 100755
  		pdnsd_enable_flag=2
  		;;
  	esac
-@@ -512,8 +512,8 @@ start_shunt() {
+@@ -511,8 +512,8 @@ start_shunt() {
  
  start_local() {
  	local local_server=$(uci_get_by_type socks5_proxy server nil)
@@ -30151,7 +30220,7 @@ index c4c5ea1..9623658 100755
  	local type=$(uci_get_by_name $local_server type)
  	local bin=$(find_bin $type)
  	[ ! -f "$bin" ] && echo "$(date "+%Y-%m-%d %H:%M:%S") Global_Socks5:Can't find $bin program, can't start!" >>/tmp/ssrplus.log && local_enable=0 && return 1
-@@ -581,7 +581,6 @@ start_server() {
+@@ -580,7 +581,6 @@ start_server() {
  		iptables -t filter -A SSR-SERVER-RULE -p udp --dport $(uci_get_by_name $1 server_port) -j ACCEPT
  		return 0
  	}
@@ -30159,7 +30228,7 @@ index c4c5ea1..9623658 100755
  	config_load $NAME
  	config_foreach server_service server_config
  	gen_serv_include
-@@ -627,69 +626,76 @@ check_server() {
+@@ -626,69 +626,76 @@ check_server() {
  }
  
  start_rules() {
@@ -30274,7 +30343,7 @@ index c4c5ea1..9623658 100755
  	/usr/bin/ssr-rules \
  	-s "$server" \
  	-l "$local_port" \
-@@ -702,49 +708,24 @@ start_rules() {
+@@ -701,61 +708,30 @@ start_rules() {
  	-B "$(uci_get_by_type access_control lan_bp_ips)" \
  	-p "$(uci_get_by_type access_control lan_fp_ips)" \
  	-G "$(uci_get_by_type access_control lan_gm_ips)" \
@@ -30307,7 +30376,7 @@ index c4c5ea1..9623658 100755
  start() {
  	[ -f "$LOCK_FILE" ] && exit 2
  	touch "$LOCK_FILE"
- 	echo "-----------start-----------" >>/tmp/ssrplus.log
+-	echo "-----------start-----------" >>/tmp/ssrplus.log
 -	if [ -z "$switch_server" ]; then
 -		GLOBAL_SERVER=$(uci_get_by_type global global_server nil)
 -	else
@@ -30319,6 +30388,7 @@ index c4c5ea1..9623658 100755
 -		NETFLIX_SERVER=$GLOBAL_SERVER
 -	fi
 -	mkdir -p /tmp/dnsmasq.d /tmp/dnsmasq.ssr
++	echo "----------start------------" >>/tmp/ssrplus.log
 +	mkdir -p /tmp/dnsmasq.d /tmp/dnsmasq.ssr /var/run /var/etc
  	cat <<-EOF >/tmp/dnsmasq.d/dnsmasq-ssr.conf
  		conf-dir=/tmp/dnsmasq.ssr
@@ -30328,7 +30398,19 @@ index c4c5ea1..9623658 100755
  		if start_redir_tcp; then
  			start_redir_udp
  			start_shunt
-@@ -778,13 +759,15 @@ start() {
+ 			start_switch
+ 			start_dns
+ 			add_cron
+-			if [ "$run_mode" == "oversea" ]; then
+-				cp -rf /etc/ssr/oversea_list.conf /tmp/dnsmasq.ssr/
+-			else
+-				cp -rf /etc/ssr/gfw_list.conf /tmp/dnsmasq.ssr/
+-				cp -rf /etc/ssr/gfw_base.conf /tmp/dnsmasq.ssr/
+-			fi
+ 			/usr/share/shadowsocksr/gfw2ipset.sh $switch_server
+ 		else
+ 			/usr/bin/ssr-rules -f
+@@ -777,13 +753,15 @@ start() {
  	start_monitor
  	check_server
  	clean_log
@@ -30346,8 +30428,17 @@ index c4c5ea1..9623658 100755
  }
  
  stop() {
+@@ -804,7 +782,7 @@ stop() {
+ 	ps -w | grep -v "grep" | grep "sleep $(uci_get_by_type global switch_time)s" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1 &
+ 	ps -w | grep -v "grep" | grep "sleep 30s" | awk '{print $1}' | xargs kill -9 >/dev/null 2>&1 &
+ 	killall -q -9 ss-redir ss-local obfs-local ssr-redir ssr-local ssr-server v2ray v2ray-plugin trojan naive microsocks ipt2socks dns2socks redsocks2 pdnsd
+-	rm -f /var/lock/ssr-chinaipset.lock /var/lock/ssr-monitor.lock
++	rm -f /var/lock/ssr-monitor.lock
+ 	if [ -f "/tmp/dnsmasq.d/dnsmasq-ssr.conf" ]; then
+ 		rm -rf /tmp/dnsmasq.d/dnsmasq-ssr.conf /tmp/dnsmasq.ssr /tmp/dnsmasq.oversea
+ 		/etc/init.d/dnsmasq restart >/dev/null 2>&1
 diff --git a/luci-app-ssr-plus/root/usr/bin/ssr-rules b/luci-app-ssr-plus/root/usr/bin/ssr-rules
-index a7b8c1d..2219455 100755
+index a7b8c1d..fb155b8 100755
 --- a/luci-app-ssr-plus/root/usr/bin/ssr-rules
 +++ b/luci-app-ssr-plus/root/usr/bin/ssr-rules
 @@ -39,8 +39,10 @@ Valid options are:
@@ -30363,27 +30454,32 @@ index a7b8c1d..2219455 100755
      -h                      show this help message and exit
  EOF
  exit $1
-@@ -81,38 +83,34 @@ flush_r() {
+@@ -79,40 +81,37 @@ flush_r() {
+ }
+ 
  ipset_r() {
- 	ipset -N gmlan hash:net 2>/dev/null
- 	for ip in $LAN_GM_IP; do ipset -! add gmlan $ip; done
++	[ -f "$IGNORE_LIST" ] && /usr/share/shadowsocksr/chinaipset.sh $IGNORE_LIST
 +	$IPT -N SS_SPEC_WAN_AC
 +	$IPT -I SS_SPEC_WAN_AC -p tcp ! --dport 53 -d $server -j RETURN
+ 	ipset -N gmlan hash:net 2>/dev/null
+ 	for ip in $LAN_GM_IP; do ipset -! add gmlan $ip; done
  	case "$RUNMODE" in
  	router)
-+		set_china_ip
  		ipset -! -R <<-EOF || return 1
  			create ss_spec_wan_ac hash:net
- 			$(gen_iplist | sed -e "s/^/add ss_spec_wan_ac /")
+-			$(gen_iplist | sed -e "s/^/add ss_spec_wan_ac /")
++			$(gen_spec_iplist | sed -e "s/^/add ss_spec_wan_ac /")
  		EOF
- 		ipset -N gfwlist hash:net 2>/dev/null
+-		ipset -N gfwlist hash:net 2>/dev/null
 -		$IPT -N SS_SPEC_WAN_AC
 -		$IPT -I SS_SPEC_WAN_AC -p tcp ! --dport 53 -d $server -j RETURN
  		$IPT -A SS_SPEC_WAN_AC -m set --match-set ss_spec_wan_ac dst -j RETURN
++		$IPT -A SS_SPEC_WAN_AC -m set --match-set gmlan src -m set ! --match-set china dst -j SS_SPEC_WAN_FW
 +		$IPT -A SS_SPEC_WAN_AC -m set --match-set china dst -j RETURN
  		$IPT -A SS_SPEC_WAN_AC -j SS_SPEC_WAN_FW
  		;;
  	gfw)
++		ipset -N gmlan hash:net 2>/dev/null
  		ipset -N gfwlist hash:net 2>/dev/null
 -		$IPT -N SS_SPEC_WAN_AC
  		$IPT -A SS_SPEC_WAN_AC -m set --match-set gfwlist dst -j SS_SPEC_WAN_FW
@@ -30394,8 +30490,10 @@ index a7b8c1d..2219455 100755
  	oversea)
  		ipset -N oversea hash:net 2>/dev/null
 -		$IPT -N SS_SPEC_WAN_AC
- 		ipset -N gmlan hash:net 2>/dev/null
- 		for ip in $LAN_GM_IP; do ipset -! add gmlan $ip; done
+-		ipset -N gmlan hash:net 2>/dev/null
+-		for ip in $LAN_GM_IP; do ipset -! add gmlan $ip; done
++		$IPT -I SS_SPEC_WAN_AC -m set --match-set oversea dst -j SS_SPEC_WAN_FW
++		$IPT -A SS_SPEC_WAN_AC -m set --match-set gmlan src -j SS_SPEC_WAN_FW
  		$IPT -A SS_SPEC_WAN_AC -m set --match-set china dst -j SS_SPEC_WAN_FW
 -		$IPT -I SS_SPEC_WAN_AC -p tcp ! --dport 53 -d $server -j RETURN
  		;;
@@ -30406,7 +30504,7 @@ index a7b8c1d..2219455 100755
  		;;
  	esac
  	ipset -N fplan hash:net 2>/dev/null
-@@ -190,10 +188,12 @@ ac_rule() {
+@@ -190,10 +189,12 @@ ac_rule() {
  	EOF
  	$IPT -I PREROUTING 1 ${IFNAME:+-i $IFNAME} -p tcp $EXT_ARGS $MATCH_SET \
  	-m comment --comment "$TAG" -j SS_SPEC_WAN_AC
@@ -30421,7 +30519,7 @@ index a7b8c1d..2219455 100755
  		ipset -! -R <<-EOF || return 1
  			create ssr_gen_router hash:net
  			$(gen_spec_iplist | sed -e "s/^/add ssr_gen_router /")
-@@ -202,7 +202,8 @@ ac_rule() {
+@@ -202,7 +203,8 @@ ac_rule() {
  		$IPT -A SS_SPEC_ROUTER -m set --match-set ssr_gen_router dst -j RETURN && \
  		$IPT -A SS_SPEC_ROUTER -j SS_SPEC_WAN_FW
  		$IPT -I OUTPUT 1 -p tcp -m comment --comment "$TAG" -j SS_SPEC_ROUTER
@@ -30431,22 +30529,47 @@ index a7b8c1d..2219455 100755
  	return $?
  }
  
-@@ -281,10 +282,13 @@ gen_iplist() {
- 		240.0.0.0/4
- 		255.255.255.255
- 		$(get_wan_ip)
--		$(cat ${IGNORE_LIST:=/dev/null} 2>/dev/null)
+@@ -223,7 +225,8 @@ tp_rule() {
+ 	$ipt -A SS_SPEC_TPROXY -p udp -d 192.168.0.0/16 -j RETURN
+ 	$ipt -A SS_SPEC_TPROXY -p udp -d 224.0.0.0/4 -j RETURN
+ 	$ipt -A SS_SPEC_TPROXY -p udp -d 240.0.0.0/4 -j RETURN
+-	$ipt -A SS_SPEC_TPROXY -p udp ! --dport 53 -d $server -j RETURN
++	$ipt -A SS_SPEC_TPROXY -p udp ! --dport 53 -d $SERVER -j RETURN
++	[ "$server" != "$SERVER" ] && $IPT -I SS_SPEC_WAN_AC -p tcp ! --dport 53 -d $SERVER -j RETURN
+ 	$ipt -A SS_SPEC_TPROXY -p udp -m set --match-set bplan src -j RETURN
+ 	$ipt -A SS_SPEC_TPROXY -p udp $PROXY_PORTS -m set --match-set fplan src \
+ 	-j TPROXY --on-port "$LOCAL_PORT" --tproxy-mark 0x01/0x01
+@@ -262,29 +265,6 @@ get_wan_ip() {
  	EOF
  }
  
-+set_china_ip() {
-+	[ -f "$IGNORE_LIST" ] && /usr/share/shadowsocksr/chinaipset.sh $IGNORE_LIST
-+}
-+
+-gen_iplist() {
+-	cat <<-EOF
+-		0.0.0.0/8
+-		10.0.0.0/8
+-		100.64.0.0/10
+-		127.0.0.0/8
+-		169.254.0.0/16
+-		172.16.0.0/12
+-		192.0.0.0/24
+-		192.0.2.0/24
+-		192.88.99.0/24
+-		192.168.0.0/16
+-		198.18.0.0/15
+-		198.51.100.0/24
+-		203.0.113.0/24
+-		224.0.0.0/4
+-		240.0.0.0/4
+-		255.255.255.255
+-		$(get_wan_ip)
+-		$(cat ${IGNORE_LIST:=/dev/null} 2>/dev/null)
+-	EOF
+-}
+-
  gen_spec_iplist() {
  	cat <<-EOF
  		0.0.0.0/8
-@@ -414,13 +418,16 @@ if [ -z "$server" -o -z "$local_port" ]; then
+@@ -414,14 +394,18 @@ if [ -z "$server" -o -z "$local_port" ]; then
  	usage 2
  fi
  
@@ -30469,7 +30592,11 @@ index a7b8c1d..2219455 100755
 +	esac
  
  flush_r && fw_rule && ipset_r && ac_rule && tp_rule && gen_include
- [ "$?" == 0 ] || loger 3 "Start failed!"
+-[ "$?" == 0 ] || loger 3 "Start failed!"
+-exit $?
++RET=$?
++[ "$RET" = 0 ] || loger 3 "Start failed!"
++exit $RET
 diff --git a/luci-app-ssr-plus/root/usr/bin/ssr-switch b/luci-app-ssr-plus/root/usr/bin/ssr-switch
 index c73d975..2fea13a 100755
 --- a/luci-app-ssr-plus/root/usr/bin/ssr-switch
@@ -30494,26 +30621,78 @@ index c73d975..2fea13a 100755
  		fi
  	fi
 diff --git a/luci-app-ssr-plus/root/usr/share/shadowsocksr/chinaipset.sh b/luci-app-ssr-plus/root/usr/share/shadowsocksr/chinaipset.sh
-index ff3dd2c..751678b 100755
+index ff3dd2c..dc27a12 100755
 --- a/luci-app-ssr-plus/root/usr/share/shadowsocksr/chinaipset.sh
 +++ b/luci-app-ssr-plus/root/usr/share/shadowsocksr/chinaipset.sh
-@@ -1,9 +1,11 @@
+@@ -1,9 +1,7 @@
  #!/bin/sh
- LOCK_FILE="/var/lock/ssr-chinaipset.lock"
- [ -f "$LOCK_FILE" ] && exit 2
-+[ -f "$1" ] && china_ip=$1
- touch "$LOCK_FILE"
+-LOCK_FILE="/var/lock/ssr-chinaipset.lock"
+-[ -f "$LOCK_FILE" ] && exit 2
+-touch "$LOCK_FILE"
 -echo "create china hash:net family inet hashsize 1024 maxelem 65536" >/tmp/china.ipset
 -awk '!/^$/&&!/^#/{printf("add china %s'" "'\n",$0)}' /etc/ssr/china_ssr.txt >>/tmp/china.ipset
 -ipset -! flush china
 -ipset -! restore </tmp/china.ipset 2>/dev/null
 -rm -f /tmp/china.ipset $LOCK_FILE
++[ -f "$1" ] && china_ip=$1
 +ipset -! flush china 2>/dev/null
-+ipset -! -R <<-EOF || rm -f $LOCK_FILE && exit 1
++ipset -! -R <<-EOF || exit 1
 +	create china hash:net
 +	$(cat ${china_ip:=/etc/ssr/china_ssr.txt} | sed -e "s/^/add china /")
 +EOF
-+rm -f $LOCK_FILE
+diff --git a/luci-app-ssr-plus/root/usr/share/shadowsocksr/gfw2ipset.sh b/luci-app-ssr-plus/root/usr/share/shadowsocksr/gfw2ipset.sh
+index df2abdf..1468561 100755
+--- a/luci-app-ssr-plus/root/usr/share/shadowsocksr/gfw2ipset.sh
++++ b/luci-app-ssr-plus/root/usr/share/shadowsocksr/gfw2ipset.sh
+@@ -10,16 +10,25 @@ if [ -z "$switch_server" ]; then
+ else
+ 	GLOBAL_SERVER=$switch_server
+ fi
++
++mkdir -p /tmp/dnsmasq.ssr
++if [ "$(uci_get_by_type global run_mode router)" == "oversea" ]; then
++	cp -rf /etc/ssr/oversea_list.conf /tmp/dnsmasq.ssr/
++else
++	cp -rf /etc/ssr/gfw_list.conf /tmp/dnsmasq.ssr/
++	cp -rf /etc/ssr/gfw_base.conf /tmp/dnsmasq.ssr/
++fi
++
+ NETFLIX_SERVER=$(uci_get_by_type global netflix_server nil)
+ [ "$NETFLIX_SERVER" == "same" ] && NETFLIX_SERVER=$GLOBAL_SERVER
+ if [ "$NETFLIX_SERVER" != "nil" ]; then
+ 	netflix() {
++		awk '!/^$/&&!/^#/{printf("ipset=/%s/'"netflix"'\n",$0)}' /etc/ssr/netflix.list >/tmp/dnsmasq.ssr/netflix_forward.conf
++		awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#$1"'\n",$0)}' /etc/ssr/netflix.list >>/tmp/dnsmasq.ssr/netflix_forward.conf
+ 		if [ -f "/tmp/dnsmasq.ssr/gfw_list.conf" ]; then
+ 			for line in $(cat /etc/ssr/netflix.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_list.conf; done
+ 			for line in $(cat /etc/ssr/netflix.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_base.conf; done
+ 		fi
+-		awk '!/^$/&&!/^#/{printf("ipset=/%s/'"netflix"'\n",$0)}' /etc/ssr/netflix.list >/tmp/dnsmasq.ssr/netflix_forward.conf
+-		awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#$1"'\n",$0)}' /etc/ssr/netflix.list >>/tmp/dnsmasq.ssr/netflix_forward.conf
+ 	}
+ 	if [ "$NETFLIX_SERVER" != "$GLOBAL_SERVER" ]; then
+ 		netflix 5555
+@@ -29,16 +38,16 @@ if [ "$NETFLIX_SERVER" != "nil" ]; then
+ else
+ 	rm -f /tmp/dnsmasq.ssr/netflix_forward.conf
+ fi
++awk '!/^$/&&!/^#/{printf("ipset=/%s/'"blacklist"'\n",$0)}' /etc/ssr/black.list >/tmp/dnsmasq.ssr/blacklist_forward.conf
++awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#5335"'\n",$0)}' /etc/ssr/black.list >>/tmp/dnsmasq.ssr/blacklist_forward.conf
++awk '!/^$/&&!/^#/{printf("ipset=/%s/'"whitelist"'\n",$0)}' /etc/ssr/white.list >/tmp/dnsmasq.ssr/whitelist_forward.conf
++awk '!/^$/&&!/^#/{printf("address=/%s/''\n",$0)}' /etc/ssr/deny.list >/tmp/dnsmasq.ssr/denylist.conf
+ for line in $(cat /etc/ssr/black.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_list.conf; done
+ for line in $(cat /etc/ssr/black.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_base.conf; done
+ for line in $(cat /etc/ssr/white.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_list.conf; done
+ for line in $(cat /etc/ssr/white.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_base.conf; done
+ for line in $(cat /etc/ssr/deny.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_list.conf; done
+ for line in $(cat /etc/ssr/deny.list); do sed -i "/$line/d" /tmp/dnsmasq.ssr/gfw_base.conf; done
+-awk '!/^$/&&!/^#/{printf("ipset=/%s/'"blacklist"'\n",$0)}' /etc/ssr/black.list >/tmp/dnsmasq.ssr/blacklist_forward.conf
+-awk '!/^$/&&!/^#/{printf("server=/%s/'"127.0.0.1#5335"'\n",$0)}' /etc/ssr/black.list >>/tmp/dnsmasq.ssr/blacklist_forward.conf
+-awk '!/^$/&&!/^#/{printf("ipset=/%s/'"whitelist"'\n",$0)}' /etc/ssr/white.list >/tmp/dnsmasq.ssr/whitelist_forward.conf
+-awk '!/^$/&&!/^#/{printf("address=/%s/''\n",$0)}' /etc/ssr/deny.list >/tmp/dnsmasq.ssr/denylist.conf
+ if [ "$(uci_get_by_type global adblock 0)" == "1" ]; then
+ 	[ "$1" == "" ] && cp -f /etc/ssr/ad.conf /tmp/dnsmasq.ssr/
+ 	if [ -f "/tmp/dnsmasq.ssr/ad.conf" ]; then
 diff --git a/luci-app-ssr-plus/root/usr/share/shadowsocksr/ssrplusupdate.sh b/luci-app-ssr-plus/root/usr/share/shadowsocksr/ssrplusupdate.sh
 index 818726a..b8ed470 100755
 --- a/luci-app-ssr-plus/root/usr/share/shadowsocksr/ssrplusupdate.sh
