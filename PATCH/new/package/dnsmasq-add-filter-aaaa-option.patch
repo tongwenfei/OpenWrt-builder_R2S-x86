@@ -19,7 +19,7 @@ index 360c7d79eee..c9407f5e649 100644
  	option localservice	1  # disable to allow DNS requests from non-local subnets
 +	option filteraaaa	1
  	option ednspacket_max	1232
-
+ 
  config dhcp lan
  	option interface	lan
 diff --git a/package/network/services/dnsmasq/files/dnsmasq.init b/package/network/services/dnsmasq/files/dnsmasq.init

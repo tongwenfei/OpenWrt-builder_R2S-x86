@@ -4,6 +4,9 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
+# update driver
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/r8152 package/new/r8152
+sed -i '/rtl8152/d' ./target/linux/rockchip/image/armv8.mk
 # blocktrron.git 
 patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
 # HW-RNG
@@ -18,7 +21,8 @@ patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch || true
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O2级别的优化
-sed -i 's/-Os/-O2/g' include/target.mk
+sed -i 's/-Os/-O2 -fno-reorder-blocks -fno-tree-ch -fno-caller-saves/g' include/target.mk
+sed -i 's/-O2/-O2 -fno-reorder-blocks -fno-tree-ch -fno-caller-saves/g' ./rules.mk
 # 更新feed
 ./scripts/feeds update  -a
 ./scripts/feeds install -a
@@ -88,17 +92,17 @@ cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patch
 # IRQ
 sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+# disabed rk3328 ethernet tcp/udp offloading tx/rx
+sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # RNGD
 sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
-# rc.common
-cp -f ../PATCH/duplicate/rc.common ./package/base-files/files/etc/rc.common
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
 
 ### 4. 更新部分软件包 ###
 # AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
+cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardhome
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AutoCore
@@ -185,6 +189,8 @@ git clone -b master --single-branch https://github.com/garypang13/luci-theme-edg
 rm -rf ./feeds/packages/utils/vim
 svn co https://github.com/openwrt/packages/trunk/utils/vim                              feeds/packages/utils/vim
 # 补全部分依赖（实际上并不会用到）
+rm -rf ./feeds/packages/utils/lvm2
+svn co https://github.com/openwrt/packages/trunk/utils/lvm2                             feeds/packages/utils/lvm2
 rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
