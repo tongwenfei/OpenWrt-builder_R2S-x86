@@ -1,6 +1,10 @@
 #!/bin/bash
 clear
 
+#wget -O- https://github.com/project-openwrt/openwrt/commit/d8df86130d172b3ce262d2744e2ddd2a6eed5f50.patch | patch -p1
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/r8152 package/new/r8152
+sed -i '/rtl8152/d' ./target/linux/rockchip/image/armv8.mk
+
 notExce(){ 
 #blocktrron.git 
 patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
@@ -93,6 +97,8 @@ cp -f ../PATCH/new/main/999-unlock-1608mhz-rk3328.patch ./target/linux/rockchip/
 #IRQ
 sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+#disabed rk3328 ethernet tcp/udp offloading tx/rx
+sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 #SWAP LAN WAN
 sed -i 's,"eth1" "eth0","eth0" "eth1",g' target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 sed -i "s,'eth1' 'eth0','eth0' 'eth1',g" target/linux/rockchip/armv8/base-files/etc/board.d/02_network
@@ -182,7 +188,8 @@ git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-
 git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge package/new/luci-theme-edge
 #AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
+cp -rf ../openwrt-lienol/package/diy/adguardhome ./package/new/adguardhome
+#svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ntlf9t/AdGuardHome package/new/AdGuardHome
 #ChinaDNS
 git clone -b luci https://github.com/pexcn/openwrt-chinadns-ng.git package/new/luci-app-chinadns-ng
 git clone https://github.com/pexcn/openwrt-chinadns-ng.git package/new/chinadns-ng
@@ -267,6 +274,8 @@ svn co https://github.com/openwrt/packages/trunk/utils/runc feeds/packages/utils
 ln -sf ../../../feeds/packages/utils/runc ./package/feeds/packages/runc
 svn co https://github.com/openwrt/packages/trunk/utils/yq feeds/packages/utils/yq
 ln -sf ../../../feeds/packages/utils/yq ./package/feeds/packages/yq
+rm -rf ./feeds/packages/utils/lvm2
+svn co https://github.com/openwrt/packages/trunk/utils/lvm2 feeds/packages/utils/lvm2
 #补全部分依赖（实际上并不会用到
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse package/utils/fuse
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/network/services/samba36 package/network/services/samba36
