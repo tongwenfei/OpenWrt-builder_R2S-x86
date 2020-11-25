@@ -140,7 +140,6 @@ jobs:
 
     - name: Cleaning and hashing
       run: |
-        df -h
         rm -rf ./artifact && mkdir -p ./artifact
         cd ./artifact
         echo "FIRMWAREDIR=$(pwd)" >> $GITHUB_ENV
