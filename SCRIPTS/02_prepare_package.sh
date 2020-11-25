@@ -51,7 +51,9 @@ rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-#更换cryptodev-linux
+# 3328 add idle
+wget -P target/linux/rockchip/patches-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/rockchip/patches-5.4/005-arm64-dts-rockchip-Add-RK3328-idle-state.patch
+# 更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
 svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 # luci network
