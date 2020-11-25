@@ -170,8 +170,15 @@ svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook         
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks           package/new/ssocks
 # manually merge SSRP PRs
 pushd package/lean
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/218.patch | patch -p1
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/239.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/229.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/230.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/231.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/232.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/233.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/235.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/234.patch | patch -p1
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/236.patch | patch -p1
 popd
 # OpenClash
 git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
