@@ -8,10 +8,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
 # HW-RNG
 patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
-# 使用19.07的feed源
-rm -f ./feeds.conf.default
-wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
-wget -P include https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
 # 添加UPX支持，以完善v2ray等组件的编译
 patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch || true
 # remove annoying snapshot tag
@@ -24,27 +20,12 @@ sed -i 's/-Os/-O2/g' include/target.mk
 ./scripts/feeds install -a
 
 ### 2. 替换语言支持 ###
-# 更换GCC版本
-rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
-rm -rf ./feeds/packages/devel/gcc/.svn
-#更换Golang版本
-rm -rf ./feeds/packages/lang/golang
-svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-rm -rf ./feeds/packages/lang/golang/.svn
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
 rm -rf ./feeds/packages/lang/node/.svn
 
 ### 3. 必要的Patch ###
-# 重要：补充curl包
-rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
-ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
-# 更换libcap
-rm -rf ./feeds/packages/libs/libcap/
-svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # 3328 add idle
@@ -191,20 +172,6 @@ git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argo
 git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-config  package/new/luci-app-argon-config
 # edge主题
 git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
-# vim
-rm -rf ./feeds/packages/utils/vim
-svn co https://github.com/openwrt/packages/trunk/utils/vim                              feeds/packages/utils/vim
-# 补全部分依赖（实际上并不会用到）
-rm -rf ./feeds/packages/utils/lvm2
-svn co https://github.com/openwrt/packages/trunk/utils/lvm2                             feeds/packages/utils/lvm2
-rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
-svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           feeds/packages/libs/nghttp2
-ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
-svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         feeds/packages/libs/libcap-ng
-ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 cp -rf ../PATCH/duplicate/addition-trans-zh-master ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
