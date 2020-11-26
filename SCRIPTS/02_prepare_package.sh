@@ -40,7 +40,7 @@ rm -rf ./feeds/packages/lang/node/.svn
 ### 3. 必要的Patch ###
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
+cp -rf ../PATCH/version_revert/curl feeds/packages/net/curl
 ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
