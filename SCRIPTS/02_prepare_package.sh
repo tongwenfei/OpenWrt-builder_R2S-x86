@@ -4,9 +4,6 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
-# update driver
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/ctcgfw/r8152 package/new/r8152
-sed -i '/rtl8152/d' ./target/linux/rockchip/image/armv8.mk
 # blocktrron.git 
 patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
 # HW-RNG
