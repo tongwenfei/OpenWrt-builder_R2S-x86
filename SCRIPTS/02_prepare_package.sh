@@ -18,8 +18,7 @@ patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch || true
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O2级别的优化
-sed -i 's/-Os/-O2 -fno-reorder-blocks -fno-tree-ch -fno-caller-saves/g' include/target.mk
-sed -i 's/-O2/-O2 -fno-reorder-blocks -fno-tree-ch -fno-caller-saves/g' ./rules.mk
+sed -i 's/-Os/-O2/g' include/target.mk
 # 更新feed
 ./scripts/feeds update  -a
 ./scripts/feeds install -a
