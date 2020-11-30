@@ -169,7 +169,6 @@ pushd package/lean
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/229.patch | patch -p1
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/230.patch | patch -p1
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/231.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/232.patch | patch -p1
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/235.patch | patch -p1
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/234.patch | patch -p1
 popd
