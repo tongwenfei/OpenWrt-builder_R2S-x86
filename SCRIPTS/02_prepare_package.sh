@@ -160,11 +160,6 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
-# manually merge SSRP PRs
-pushd package/lean
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/235.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/234.patch | patch -p1
-popd
 # OpenClash
 git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
 # 订阅转换
