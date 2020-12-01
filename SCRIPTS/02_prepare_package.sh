@@ -6,8 +6,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 ### 1. 准备工作 ###
 # blocktrron.git 
 patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
-# HW-RNG
-patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
@@ -45,57 +43,58 @@ ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
-# Patch i2c0
-cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-# 3328 add idle
-wget -P target/linux/rockchip/patches-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/rockchip/patches-5.4/005-arm64-dts-rockchip-Add-RK3328-idle-state.patch
 # 更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
 svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
-# luci network
-patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
-# Patch jsonc
-patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
-# dnsmasq filter AAAA
-patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
-cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
-rm -rf ./package/base-files/files/etc/init.d/boot
-wget  -P package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/openwrt-18.06-k5.4/package/base-files/files/etc/init.d/boot
-# Patch FireWall 以增添fullcone功能
-mkdir -p package/network/config/firewall/patches
-wget  -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
-# Patch LuCI 以增添fullcone开关
-pushd feeds/luci
-wget -qO - https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
-popd
-# Patch Kernel 以解决fullcone冲突
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
-popd
-# FullCone模块
-cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
-# Patch FireWall 以增添SFE
-patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
-# SFE内核补丁
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
-popd
-# SFE
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
-cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
-# OC 1.5GHz
-cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
+# 3328 add idle
+wget -P target/linux/rockchip/patches-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/rockchip/patches-5.4/005-arm64-dts-rockchip-Add-RK3328-idle-state.patch
 # IRQ
 sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # disabed rk3328 ethernet tcp/udp offloading tx/rx
 sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-# RNGD
+# HW-RNG and RNGD
+patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
 sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
+# Patch i2c0
+cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+# OC 1.5GHz
+cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # swap LAN WAN
 git apply ../PATCH/swap-LAN-WAN.patch
+# luci network
+patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
+# Patch jsonc
+patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
+# Patch dnsmasq filter AAAA
+patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
+patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
+cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
+rm -rf ./package/base-files/files/etc/init.d/boot
+wget  -P package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/openwrt-18.06-k5.4/package/base-files/files/etc/init.d/boot
+# Patch Kernel 以解决FullCone冲突
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+popd
+# Patch FireWall 以增添FullCone功能
+mkdir -p package/network/config/firewall/patches
+wget  -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
+# Patch LuCI 以增添FullCone开关
+pushd feeds/luci
+wget -qO - https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
+popd
+# FullCone 相关组件
+cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
+# Patch Kernel 以支持SFE
+pushd target/linux/generic/hack-5.4
+wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+popd
+# Patch LuCI 以增添SFE开关
+patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
+# SFE 相关组件
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
 
 ### 4. 更新部分软件包 ###
 # AdGuard
@@ -105,7 +104,9 @@ cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardh
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/coremark package/lean/coremark
+svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
+sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
+ln -sf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
@@ -155,8 +156,8 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks        
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs         package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
+svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
 # PASSWALL
 svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/new/luci-app-passwall
 svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping           package/new/tcping
@@ -188,12 +189,17 @@ git clone -b master --single-branch https://github.com/garypang13/luci-theme-edg
 rm -rf ./feeds/packages/utils/vim
 svn co https://github.com/openwrt/packages/trunk/utils/vim                              feeds/packages/utils/vim
 # 补全部分依赖（实际上并不会用到）
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cttimeout package/libs/libnetfilter-cttimeout
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-log       package/libs/libnetfilter-log
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
+svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
 rm -rf ./feeds/packages/utils/lvm2
 svn co https://github.com/openwrt/packages/trunk/utils/lvm2                             feeds/packages/utils/lvm2
 rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse     package/utils/fuse
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig package/libs/libconfig
 svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           feeds/packages/libs/nghttp2
 ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
 svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         feeds/packages/libs/libcap-ng
