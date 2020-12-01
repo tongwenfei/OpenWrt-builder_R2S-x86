@@ -130,8 +130,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliy
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
-# 状态监控
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata          package/lean/luci-app-netdata
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree          package/lean/luci-app-ramfree
 # 流量监视
@@ -159,12 +157,13 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan           
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
 # PASSWALL
-svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/new/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping           package/new/tcping
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go        package/new/trojan-go
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks           package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall       package/new/luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/new/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
 # manually merge SSRP PRs
 pushd package/lean
 wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/235.patch | patch -p1
