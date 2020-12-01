@@ -34,7 +34,6 @@ uci set dropbear.@dropbear[0].Interface='lan'
 uci commit dropbear
 /etc/init.d/dropbear restart
 #upnp
-uci set upnpd.config.igdv1='1'
 uci set upnpd.config.enabled='1'
 uci del upnpd.config.enable_upnp
 uci del upnpd.config.enable_natpmp
