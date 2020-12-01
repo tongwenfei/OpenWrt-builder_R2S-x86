@@ -25,15 +25,12 @@ sed -i 's/-Os/-O2/g' include/target.mk
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
-rm -rf ./feeds/packages/devel/gcc/.svn
 #更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-rm -rf ./feeds/packages/lang/golang/.svn
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
-rm -rf ./feeds/packages/lang/node/.svn
 
 ### 3. 必要的Patch ###
 # 重要：补充curl包
@@ -137,7 +134,6 @@ git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon      
 git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
-rm -rf ./package/lean/luci-app-ssr-plus/.svn
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
@@ -244,5 +240,7 @@ CONFIG_CRYPTO_SIMD=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 # 删除已有配置
 rm -rf .config
+# 删除.svn目录
+find ./ -type d -name '.svn' -print0 | xargs -0 -s1024 /bin/rm -rf
 unalias wget
 exit 0
