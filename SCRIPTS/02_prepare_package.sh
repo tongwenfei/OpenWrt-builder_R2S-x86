@@ -35,7 +35,7 @@ svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages
 ### 3. 必要的Patch ###
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
-cp -rf ../PATCH/version_revert/curl feeds/packages/net/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
 ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
