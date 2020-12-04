@@ -30,7 +30,7 @@ rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
-svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
+svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
 
 ### 3. 必要的Patch ###
 # 重要：补充curl包
