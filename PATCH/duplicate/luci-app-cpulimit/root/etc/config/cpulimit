@@ -2,5 +2,5 @@
 config list
 	option exename '/sbin/rngd'
 	option limit '2'
-	option enabled '1'
+	option enabled '0'
 

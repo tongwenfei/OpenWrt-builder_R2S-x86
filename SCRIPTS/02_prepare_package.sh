@@ -50,18 +50,6 @@ sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockc
 sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
 # disabed rk3328 ethernet tcp/udp offloading tx/rx
 sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-# HW-RNG and RNGD
-patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
-sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
-echo '
-CONFIG_CRYPTO_DRBG=y
-CONFIG_CRYPTO_DRBG_HMAC=y
-CONFIG_CRYPTO_DRBG_MENU=y
-CONFIG_CRYPTO_JITTERENTROPY=y
-CONFIG_CRYPTO_RNG=y
-CONFIG_CRYPTO_RNG2=y
-CONFIG_CRYPTO_RNG_DEFAULT=y
-' >> ./target/linux/rockchip/armv8/config-5.4
 # Patch i2c0
 cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
 # OC 1.5GHz
@@ -116,8 +104,8 @@ ln -sf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
-git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/luci-app-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/chinadns-ng
+git clone -b luci   --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git          package/new/luci-app-chinadns-ng
+git clone -b master --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git          package/new/chinadns-ng
 cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
 sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
@@ -139,17 +127,15 @@ svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree          package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
-git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt           package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray               package/lean/v2ray
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun              package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin        package/lean/v2ray-plugin
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks          package/lean/microsocks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks           package/lean/dns2socks
@@ -169,8 +155,19 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                   package/new/v2ray
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin            package/new/v2ray-plugin
+# PASSWALL modification
+sed -i 's,default n,default y,g' package/new/luci-app-passwall/Makefile
+sed -i '/V2ray:v2ray/d' package/new/luci-app-passwall/Makefile
+# SSRP modification
+pushd package/lean
+wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/250.patch | git apply
+popd
+sed -i 's,default n,default y,g' package/lean/luci-app-ssr-plus/Makefile
+sed -i '/V2ray:v2ray/d' package/lean/luci-app-ssr-plus/Makefile
 # OpenClash
-git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
+git clone -b master --depth 1 https://github.com/vernesong/OpenClash               package/new/luci-app-openclash
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
@@ -180,13 +177,13 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # argon主题
-git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
-git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-config  package/new/luci-app-argon-config
+git clone -b master --depth 1 https://github.com/jerrykuku/luci-theme-argon        package/new/luci-theme-argon
+git clone -b master --depth 1 https://github.com/jerrykuku/luci-app-argon-config   package/new/luci-app-argon-config
 # edge主题
-git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
+git clone -b master --depth 1 https://github.com/garypang13/luci-theme-edge        package/new/luci-theme-edge
 # vim
 rm -rf ./feeds/packages/utils/vim
-svn co https://github.com/openwrt/packages/trunk/utils/vim                              feeds/packages/utils/vim
+svn co https://github.com/openwrt/packages/trunk/utils/vim                         feeds/packages/utils/vim
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
@@ -195,13 +192,13 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/li
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
-svn co https://github.com/openwrt/packages/trunk/utils/collectd                         feeds/packages/utils/collectd
+svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
 rm -rf ./feeds/packages/utils/lvm2
-svn co https://github.com/openwrt/packages/trunk/utils/lvm2                             feeds/packages/utils/lvm2
+svn co https://github.com/openwrt/packages/trunk/utils/lvm2                        feeds/packages/utils/lvm2
 rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                           feeds/packages/libs/nghttp2
+svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                      feeds/packages/libs/nghttp2
 ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
-svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                         feeds/packages/libs/libcap-ng
+svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                    feeds/packages/libs/libcap-ng
 ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 cp -rf ../PATCH/duplicate/addition-trans-zh-master ./package/lean/lean-translate
