@@ -31,6 +31,10 @@ svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
+# 修复Python编译报错
+popd feeds/packages
+wget -qO - https://github.com/openwrt/packages/commit/fadf7190eaadecbf2661fa70192d91edb84b45aa.patch | git apply
+popd
 
 ### 3. 必要的Patch ###
 # 重要：补充curl包
