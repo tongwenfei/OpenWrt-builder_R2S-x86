@@ -25,9 +25,6 @@ sed -i 's/-Os/-O2/g' include/target.mk
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
-# 更换Python版本
-rm -rf ./feeds/packages/lang/python
-svn co https://github.com/openwrt/packages/trunk/lang/python feeds/packages/lang/python
 #更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
