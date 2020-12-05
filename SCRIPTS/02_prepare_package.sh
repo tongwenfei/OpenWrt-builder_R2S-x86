@@ -24,18 +24,18 @@ sed -i 's/-Os/-O2/g' include/target.mk
 ### 2. 替换语言支持 ###
 # 更换GCC版本
 rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc feeds/packages/devel/gcc
+svn co https://github.com/openwrt/packages/trunk/devel/gcc   feeds/packages/devel/gcc
 #更换Golang版本
 rm -rf ./feeds/packages/lang/golang
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
-svn co https://github.com/openwrt/packages/trunk/lang/node feeds/packages/lang/node
+svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
 
 ### 3. 必要的Patch ###
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl feeds/packages/net/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl    feeds/packages/net/curl
 ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
@@ -125,12 +125,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnsp
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree          package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree    package/lean/luci-app-ramfree
 # 流量监视
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
