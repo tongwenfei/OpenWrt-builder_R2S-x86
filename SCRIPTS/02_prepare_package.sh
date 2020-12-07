@@ -39,8 +39,10 @@ popd
 ### 3. 必要的Patch ###
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl    feeds/packages/net/curl
-ln -sdf ../../../feeds/packages/net/curl ./package/feeds/packages/curl
+svn co https://github.com/openwrt/packages/trunk/net/curl    package/network/utils/curl
+# 补充lzo
+rm -rf ./package/libs/lzo
+svn co https://github.com/openwrt/packages/trunk/libs/lzo    package/libs/lzo
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
@@ -195,10 +197,10 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/li
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
+rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
 rm -rf ./feeds/packages/utils/lvm2
 svn co https://github.com/openwrt/packages/trunk/utils/lvm2                        feeds/packages/utils/lvm2
-rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                      feeds/packages/libs/nghttp2
 ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
 svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                    feeds/packages/libs/libcap-ng
