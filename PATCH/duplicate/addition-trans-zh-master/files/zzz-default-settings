@@ -7,9 +7,6 @@ uci commit luci
 uci set system.@system[0].timezone='CST-8'
 uci set system.@system[0].zonename='Asia/Shanghai'
 uci commit system
-#ssrp
-sed -i 's/local ucic = uci.cursor()/local ucic = luci.model.uci.cursor()/g' /usr/share/shadowsocksr/subscribe.lua
-sed -i "s/'cbid.shadowsocksr.'/'widget.cbid.shadowsocksr.'/g"               /usr/lib/lua/luci/view/shadowsocksr/ssrurl.htm
 #feed
 sed -i '/openwrt_luci/ { s/snapshots\/packages/releases\/packages-19.07/g; }'      /etc/opkg/distfeeds.conf
 sed -i '/openwrt_packages/ { s/snapshots\/packages/releases\/packages-19.07/g; }'  /etc/opkg/distfeeds.conf

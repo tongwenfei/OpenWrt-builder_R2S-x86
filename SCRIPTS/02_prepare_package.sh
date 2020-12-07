@@ -135,6 +135,8 @@ git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon            
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
+# PASSWALL
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall       package/new/luci-app-passwall
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
@@ -151,16 +153,16 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev     
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
-# PASSWALL
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall       package/new/luci-app-passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                   package/new/v2ray
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin            package/new/v2ray-plugin
+# xary (xtls support)
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
+sed -i 's,default n,default y,g' package/new/xray/Makefile
 # PASSWALL modification
 sed -i 's,default n,default y,g' package/new/luci-app-passwall/Makefile
 sed -i '/V2ray:v2ray/d' package/new/luci-app-passwall/Makefile
