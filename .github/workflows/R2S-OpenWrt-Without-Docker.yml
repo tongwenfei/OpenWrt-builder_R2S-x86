@@ -25,7 +25,6 @@ jobs:
 
     - name: Show system
       run: |
-        id
         echo -e "Total CPU cores\t: $(nproc)"
         cat /proc/cpuinfo | grep 'model name'
         free -h
