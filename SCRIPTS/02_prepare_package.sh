@@ -41,8 +41,9 @@ popd
 rm -rf ./package/network/utils/curl
 svn co https://github.com/openwrt/packages/trunk/net/curl    package/network/utils/curl
 # 补充lzo
-rm -rf ./package/libs/lzo
-svn co https://github.com/openwrt/packages/trunk/libs/lzo    package/libs/lzo
+rm -rf ./package/libs/lzo ./feeds/packages/libs/lzo
+svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/libs/lzo
+ln -sdf ../../../feeds/packages/libs/lzo ./package/feeds/packages/lzo
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
@@ -106,7 +107,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
-ln -sf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
+ln -sdf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ChinaDNS
