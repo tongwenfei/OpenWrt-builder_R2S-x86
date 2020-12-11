@@ -46,7 +46,7 @@ svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/libs
 ln -sdf ../../../feeds/packages/libs/lzo ./package/feeds/packages/lzo
 # 补充iftop
 rm -rf ./package/network/utils/iftop ./feeds/packages/net/iftop
-svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/net/iftop
+svn co https://github.com/openwrt/packages/trunk/net/iftop   feeds/packages/net/iftop
 ln -sdf ../../../feeds/packages/net/iftop ./package/feeds/packages/iftop
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
