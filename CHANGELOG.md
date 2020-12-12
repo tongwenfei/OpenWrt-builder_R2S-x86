@@ -2,7 +2,7 @@
 ### 2020/12/12 build 98
 * 内核更新至 `5.4.82`。
 * OpenSSL 更新至 `1.1.1i`，此为安全更新。
-* 移除了 dropbearconvert。
+* 移除了 dropbearconvert，加入了 eject。
 ### 2020/12/09 build 97
 * 更新SSRP，提供问题修复。
 ### 2020/12/07 build 96
