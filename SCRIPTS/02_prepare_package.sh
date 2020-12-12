@@ -97,10 +97,10 @@ popd
 # Patch LuCI 以增添SFE开关
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE 相关组件
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/lean/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/lean/fast-classifier
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
-
+wget -qO - https://github.com/AmadeusGhost/lede/commit/5e95fd8572d5727ccbfe199efbd5d98297d8643b.patch | patch -p1
 ### 4. 更新部分软件包 ###
 # AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
