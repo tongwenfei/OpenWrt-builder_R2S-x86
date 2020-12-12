@@ -102,6 +102,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier p
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
 wget -qO - https://github.com/AmadeusGhost/lede/commit/5e95fd8572d5727ccbfe199efbd5d98297d8643b.patch | patch -p1
 ### 4. 更新部分软件包 ###
+mkdir -p ./package/new/ ./package/lean/
 # AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
 cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardhome
