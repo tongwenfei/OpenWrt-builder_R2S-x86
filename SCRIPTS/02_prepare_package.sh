@@ -100,7 +100,6 @@ patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/lean/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/lean/fast-classifier
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
-wget -qO - https://github.com/AmadeusGhost/lede/commit/5e95fd8572d5727ccbfe199efbd5d98297d8643b.patch | patch -p1
 ### 4. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
@@ -170,13 +169,18 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin            package/new/v2ray-plugin
 # xary (xtls support)
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
-sed -i 's,default n,default y,g' package/new/xray/Makefile
+sed -i 's,default n,default y,g'            package/new/xray/Makefile
 # PASSWALL modification
-sed -i 's,default n,default y,g' package/new/luci-app-passwall/Makefile
-sed -i '/V2ray:v2ray/d' package/new/luci-app-passwall/Makefile
+sed -i 's,default n,default y,g'            package/new/luci-app-passwall/Makefile
+sed -i '/V2ray:v2ray/d'                     package/new/luci-app-passwall/Makefile
+sed -i '/https_dns_proxy:https-dns-proxy/d' package/new/luci-app-passwall/Makefile
+sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305,ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
+sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256,TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
 # SSRP modification
-sed -i 's,default n,default y,g' package/lean/luci-app-ssr-plus/Makefile
-sed -i '/V2ray:v2ray/d' package/lean/luci-app-ssr-plus/Makefile
+sed -i 's,default n,default y,g'            package/lean/luci-app-ssr-plus/Makefile
+sed -i '/V2ray:v2ray/d'                     package/lean/luci-app-ssr-plus/Makefile
+sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305,ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
+sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256,TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
 # OpenClash
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash               package/new/luci-app-openclash
 # 订阅转换
@@ -225,8 +229,6 @@ mkdir -p                               package/base-files/files/usr/bin
 cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
 sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
-#let trojan prefer chacha20 (passwall,ssrp)
-patch -p1 < ../PATCH/new/main/chacha.patch
 # crypto相关
 echo '
 CONFIG_ARM64_CRYPTO=y
