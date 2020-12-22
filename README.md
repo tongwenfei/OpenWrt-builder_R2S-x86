@@ -9,7 +9,7 @@ I **refuse** to switch to "main".
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
 ![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master&event=push)
 
-建议对照[变更日志](./CHANGELOG.md)确认版本之间的变化。
+建议对照 [变更日志](./CHANGELOG.md) 确认版本之间的变化。
 
 ### 本地一键编译命令：
 安装依赖（测试编译环境为 Ubuntu 20.10）：
@@ -53,7 +53,7 @@ LUCI版本：19.07（当日最新）
 4. [清盘刷机教程](./howto_cleanflash.md)  [变更日志](./CHANGELOG.md)
 
 ### 其他信息
-由于添加了 `shadow-utils`组件，管理页面上的 `更改密码` 功能失效。  
+由于添加了 `shadow-utils`组件，管理页面上的 *更改密码* 功能失效。  
 请使用 SSH 空密码登陆后，执行 `passwd` 命令并根据提示设置密码。
 
 ### 三代壳 OLED 相关
