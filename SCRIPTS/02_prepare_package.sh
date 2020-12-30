@@ -40,6 +40,9 @@ popd
 # 重要：补充curl包
 rm -rf ./package/network/utils/curl
 svn co https://github.com/openwrt/packages/trunk/net/curl    package/network/utils/curl
+# 更换htop
+rm -rf ./feeds/packages/admin/htop
+svn co https://github.com/openwrt/packages/trunk/admin/htop  feeds/packages/admin/htop
 # 补充lzo
 rm -rf ./package/libs/lzo ./feeds/packages/libs/lzo
 svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/libs/lzo
@@ -53,7 +56,7 @@ rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
 # 更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
-svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 # 3328 add idle
 wget -P target/linux/rockchip/patches-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/rockchip/patches-5.4/005-arm64-dts-rockchip-Add-RK3328-idle-state.patch
 # IRQ
@@ -158,7 +161,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks        
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs         package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
-svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/tcpping package/lean/tcpping
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/new/trojan-go
