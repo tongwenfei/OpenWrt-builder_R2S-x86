@@ -3,6 +3,7 @@ This repository is going to keep using the term "**master**". It will **never ch
 I **refuse** to switch to "main".
 
 ## R2S 基于原生 OpenWRT 的固件 (AS IS, NO WARRANTY!!!)
+### 请勿用于商业用途!!!
 
 ### 发布地址：
 （可能会翻车，风险自担，需要登录 GitHub 账号后才能下载，不提供任何形式的技术支持）  
