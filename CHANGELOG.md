@@ -1,4 +1,9 @@
 ## 变更历史 stage 3
+### 2021/01/05 build 2
+* 内核更新至 `5.4.86`。
+* SSRP 采用预览版。
+* 恢复 https-dns-proxy。
+* 修复管理页面上修改密码失效的问题。
 ### 2020/12/22 build 1
 * 移除 https-dns-proxy。
 ## 变更历史 stage 2
