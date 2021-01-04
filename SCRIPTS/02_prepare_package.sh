@@ -102,6 +102,11 @@ patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/lean/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/lean/fast-classifier
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
+# 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
+pushd feeds/luci
+git apply < ../../../PATCH/changing-password-compatible-with-shadow-utils.patch
+popd
+
 ### 4. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
