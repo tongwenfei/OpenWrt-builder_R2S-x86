@@ -18,8 +18,7 @@ sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
 # 更新feed
-./scripts/feeds update  -a
-./scripts/feeds install -a
+./scripts/feeds update -a && ./scripts/feeds install -a
 
 ### 2. 替换语言支持 ###
 # 更换GCC版本
@@ -139,42 +138,44 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnsp
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree    package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree        package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
-git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                   package/new/wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon          package/new/luci-app-wrtbwmon
 # SSRP
-svn co https://github.com/Mattraks/helloworld/branches/Preview/luci-app-ssr-plus   package/lean/luci-app-ssr-plus
+svn co https://github.com/Mattraks/helloworld/branches/Preview/luci-app-ssr-plus       package/lean/luci-app-ssr-plus
 rm -rf ./package/lean/luci-app-ssr-plus/po/zh_Hans
 # PASSWALL
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall       package/new/luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall           package/new/luci-app-passwall
+# OpenClash
+git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt           package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun              package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks          package/lean/microsocks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks           package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2           package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng      package/lean/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks           package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs         package/lean/simple-obfs
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                  package/lean/srelay
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks              package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2               package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng          package/lean/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks               package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs             package/lean/simple-obfs
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/tcpping package/lean/tcpping
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/new/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/new/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                   package/new/v2ray
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin            package/new/v2ray-plugin
+svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                   package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                 package/new/trojan-plus
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                       package/new/v2ray
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
 rm -rf ./feeds/packages/net/https-dns-proxy
-svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy        feeds/packages/net/https-dns-proxy
+svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy            feeds/packages/net/https-dns-proxy
 # xary (xtls support)
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                    package/new/xray
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                        package/new/xray
 sed -i 's,default n,default y,g'            package/new/xray/Makefile
 # PASSWALL modification
 sed -i 's,default n,default y,g'            package/new/luci-app-passwall/Makefile
@@ -184,8 +185,6 @@ sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SH
 # SSRP modification
 sed -i 's,default n,default y,g'            package/lean/luci-app-ssr-plus/Makefile
 sed -i '/V2ray:v2ray/d'                     package/lean/luci-app-ssr-plus/Makefile
-# OpenClash
-git clone -b master --depth 1 https://github.com/vernesong/OpenClash               package/new/luci-app-openclash
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
