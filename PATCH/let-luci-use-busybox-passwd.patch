@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: KaneGreen <737445366KG@Gmail.com>
+Date: Mon, 17 Sep 2001 00:00:00 +0000
+Subject: [PATCH] let luci use busybox passwd
+
+make "changes the administrator password" compatible with `shadow-utils`
+---
+ modules/luci-base/luasrc/sys.lua             | 2 +-
+ modules/luci-base/root/usr/libexec/rpcd/luci | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/modules/luci-base/luasrc/sys.lua b/modules/luci-base/luasrc/sys.lua
+index bf21b5f..1818068 100644
+--- a/modules/luci-base/luasrc/sys.lua
++++ b/modules/luci-base/luasrc/sys.lua
+@@ -525,7 +525,7 @@ function user.checkpasswd(username, pass)
+ end
+ 
+ function user.setpasswd(username, password)
+-	return os.execute("(echo %s; sleep 1; echo %s) | passwd %s >/dev/null 2>&1" %{
++	return os.execute("(echo %s; sleep 1; echo %s) | busybox passwd %s >/dev/null 2>&1" %{
+ 		luci.util.shellquote(password),
+ 		luci.util.shellquote(password),
+ 		luci.util.shellquote(username)
+diff --git a/modules/luci-base/root/usr/libexec/rpcd/luci b/modules/luci-base/root/usr/libexec/rpcd/luci
+index 35b85d4..a7eb6ca 100755
+--- a/modules/luci-base/root/usr/libexec/rpcd/luci
++++ b/modules/luci-base/root/usr/libexec/rpcd/luci
+@@ -441,7 +441,7 @@ local methods = {
+ 		call = function(args)
+ 			local util = require "luci.util"
+ 			return {
+-				result = (os.execute("(echo %s; sleep 1; echo %s) | passwd %s >/dev/null 2>&1" %{
++				result = (os.execute("(echo %s; sleep 1; echo %s) | busybox passwd %s >/dev/null 2>&1" %{
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.username)
