@@ -32,7 +32,7 @@ rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
 # 修复Python编译报错
 pushd feeds/packages
-git apply < ../../../PATCH/0001-python3-fix-compilation.patch
+patch -p1 < ../../../PATCH/0001-python3-fix-compilation.patch
 popd
 
 ### 3. 必要的Patch ###
@@ -68,7 +68,7 @@ cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/li
 # OC 1.5GHz
 cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # swap LAN WAN
-git apply ../PATCH/swap-LAN-WAN.patch
+patch -p1 ../PATCH/swap-LAN-WAN.patch
 # luci network
 patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
 # Patch jsonc
@@ -88,7 +88,7 @@ mkdir -p package/network/config/firewall/patches
 wget  -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
 # Patch LuCI 以增添FullCone开关
 pushd feeds/luci
-wget -qO - https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
+wget -qO - https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | patch -p1
 popd
 # FullCone 相关组件
 cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
@@ -104,7 +104,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier p
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
 pushd feeds/luci
-git apply < ../../../PATCH/let-luci-use-busybox-passwd.patch
+patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
 popd
 
 ### 4. 更新部分软件包 ###
@@ -117,7 +117,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 pushd package/lean/autocore
-git apply < ../../../../PATCH/autocore-luci-use-busybox-passwd.patch
+patch -p1 < ../../../../PATCH/autocore-luci-use-busybox-passwd.patch
 popd
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
