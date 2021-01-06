@@ -116,6 +116,9 @@ cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardh
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
+pushd package/lean/autocore
+git apply < ../../../../PATCH/autocore-luci-use-busybox-passwd.patch
+popd
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
 ln -sdf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark

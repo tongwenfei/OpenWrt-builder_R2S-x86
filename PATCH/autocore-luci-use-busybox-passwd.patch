@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: KaneGreen <737445366KG@Gmail.com>
+Date: Mon, 17 Sep 2001 00:00:00 +0000
+Subject: [PATCH] autocore luci use busybox passwd
+
+make "changes the administrator password" compatible with `shadow-utils`
+---
+ files/arm/rpcd_luci | 2 +-
+ files/x86/rpcd_luci | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/files/arm/rpcd_luci b/files/arm/rpcd_luci
+index e4117e8..1bbcfa8 100755
+--- a/files/arm/rpcd_luci
++++ b/files/arm/rpcd_luci
+@@ -441,7 +441,7 @@ local methods = {
+ 		call = function(args)
+ 			local util = require "luci.util"
+ 			return {
+-				result = (os.execute("(echo %s; sleep 1; echo %s) | passwd %s >/dev/null 2>&1" %{
++				result = (os.execute("(echo %s; sleep 1; echo %s) | busybox passwd %s >/dev/null 2>&1" %{
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.username)
+diff --git a/files/x86/rpcd_luci b/files/x86/rpcd_luci
+index 697f237..a906a62 100755
+--- a/files/x86/rpcd_luci
++++ b/files/x86/rpcd_luci
+@@ -441,7 +441,7 @@ local methods = {
+ 		call = function(args)
+ 			local util = require "luci.util"
+ 			return {
+-				result = (os.execute("(echo %s; sleep 1; echo %s) | passwd %s >/dev/null 2>&1" %{
++				result = (os.execute("(echo %s; sleep 1; echo %s) | busybox passwd %s >/dev/null 2>&1" %{
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.password),
+ 					luci.util.shellquote(args.username)
