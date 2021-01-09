@@ -13,7 +13,7 @@ https://github.com/KaneGreen/R2S-OpenWrt/actions
 建议对照 [变更日志](./CHANGELOG.md) 确认版本之间的变化。
 
 ### 本地一键编译命令：
-安装依赖（测试编译环境为 Ubuntu 20.10）：
+安装依赖（测试编译环境为 Ubuntu 20.04）：
 ```shell
 sudo -E apt-get install -y build-essential rsync asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python python3 python-pip python3-pip python-ply python3-ply haveged lrzsz device-tree-compiler scons
 wget -O - https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | bash
