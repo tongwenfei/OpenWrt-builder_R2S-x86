@@ -25,8 +25,10 @@ sed -i 's/-Os/-O2/g' include/target.mk
 rm -rf ./feeds/packages/devel/gcc
 svn co https://github.com/openwrt/packages/trunk/devel/gcc   feeds/packages/devel/gcc
 #更换Golang版本
-rm -rf ./feeds/packages/lang/golang
+rm -rf ./feeds/packages/lang/golang ./feeds/packages/devel/packr
 svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/trunk/devel/packr feeds/packages/devel/packr
+ln -sf ../../../feeds/packages/devel/packr ./package/feeds/packages/packr
 # 更换Node.js版本
 rm -rf ./feeds/packages/lang/node
 svn co https://github.com/openwrt/packages/trunk/lang/node   feeds/packages/lang/node
@@ -111,7 +113,9 @@ popd
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
-cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome feeds/packages/net/adguardhome
+ln -sf ../../../feeds/packages/net/adguardhome ./package/feeds/packages/adguardhome
+sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
 # AutoCore
@@ -218,10 +222,12 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/li
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
-rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
 rm -rf ./feeds/packages/utils/lvm2
 svn co https://github.com/openwrt/packages/trunk/utils/lvm2                        feeds/packages/utils/lvm2
+rm -rf ./feeds/packages/utils/collectd
+svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
+svn co https://github.com/openwrt/packages/trunk/utils/hwdata                      feeds/packages/utils/hwdata
+ln -sf ../../../feeds/packages/utils/hwdata    ./package/feeds/packages/hwdata
 svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                      feeds/packages/libs/nghttp2
 ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
 svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                    feeds/packages/libs/libcap-ng
