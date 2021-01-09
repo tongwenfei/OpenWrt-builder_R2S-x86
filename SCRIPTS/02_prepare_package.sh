@@ -70,7 +70,7 @@ cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/li
 # OC 1.5GHz
 cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
 # swap LAN WAN
-patch -p1 ../PATCH/swap-LAN-WAN.patch
+patch -p1 < ../PATCH/swap-LAN-WAN.patch
 # luci network
 patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
 # Patch jsonc
