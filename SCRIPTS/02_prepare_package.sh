@@ -4,8 +4,6 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 ### 1. 准备工作 ###
-# blocktrron.git 
-patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
 # 使用19.07的feed源
 rm -f ./feeds.conf.default
 wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
