@@ -1,4 +1,7 @@
 ## 变更历史 stage 3
+### 2021/01/15 build 6
+* uboot-rockchip 更新至 v2021.01。
+* 压力测试工具 stress 替换为 stress-ng。
 ### 2021/01/09 build 5
 * 修复上一个版本交换LAN WAN失效的问题。
 ### 2021/01/09 build 4
