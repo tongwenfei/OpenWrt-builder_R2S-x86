@@ -78,7 +78,7 @@ case $MYOPENWRTTARGET in
     ;;
   x86)
     # irqbalance
-    +sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+    sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
 # luci network
