@@ -7,6 +7,7 @@ on:
     paths:
       - 'CHANGELOG.md'
       - '.github/workflows/x86-OpenWrt.yml'
+      - 'build_trigger/x86'
 
 env:
   UPLOAD_FIRMWARE: true
