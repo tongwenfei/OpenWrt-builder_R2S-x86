@@ -9,6 +9,7 @@ I **refuse** to switch to "main".
 （可能会翻车，风险自担，需要登录 GitHub 账号后才能下载，不提供任何形式的技术支持）  
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
 ![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master&event=push)
+![OpenWrt for x86](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20x86/badge.svg?branch=master&event=push)
 
 建议对照 [变更日志](./CHANGELOG.md) 确认版本之间的变化。
 
