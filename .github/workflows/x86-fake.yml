@@ -115,8 +115,6 @@ jobs:
         cd openwrt
         let Make_Process=$(nproc)+1
         /bin/bash -c 'echo $MYOPENWRTTARGET'
-        echo $?
-        /bin/ls -AF staging_dir/toolchain-*/bin/
 
     - name: Compile Openwrt
       id: compileopenwrt
