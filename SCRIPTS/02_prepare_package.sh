@@ -20,7 +20,7 @@ sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
-sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
+  sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
 fi
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
@@ -36,7 +36,7 @@ svn co https://github.com/openwrt/packages/trunk/devel/packr feeds/packages/deve
 ln -sf ../../../feeds/packages/devel/packr ./package/feeds/packages/packr
 # 修复Python编译报错
 pushd feeds/packages
-patch -p1 < ../../../PATCH/0001-python3-fix-compilation.patch
+  patch -p1 < ../../../PATCH/0001-python3-fix-compilation.patch
 popd
 
 ### 3. 必要的Patch ###
@@ -93,7 +93,7 @@ rm -rf ./package/base-files/files/etc/init.d/boot
 wget  -P package/base-files/files/etc/init.d/ https://raw.githubusercontent.com/project-openwrt/openwrt/openwrt-18.06-k5.4/package/base-files/files/etc/init.d/boot
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+  wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
@@ -104,7 +104,7 @@ patch -p1 < ../PATCH/new/package/luci-app-firewall_add_fullcone.patch
 cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
 # Patch Kernel 以支持SFE
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+  wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 popd
 # Patch LuCI 以增添SFE开关
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
@@ -114,7 +114,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier p
 cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d/
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
 pushd feeds/luci
-patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
+  patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
 popd
 
 ### 4. 更新部分软件包 ###
@@ -129,7 +129,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 # AutoCore
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 pushd package/lean/autocore
-patch -p1 < ../../../../PATCH/autocore-luci-use-busybox-passwd.patch
+  patch -p1 < ../../../../PATCH/autocore-luci-use-busybox-passwd.patch
 popd
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
@@ -141,8 +141,8 @@ git clone -b luci   --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git  
 git clone -b master --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git          package/new/chinadns-ng
 cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
 pushd package/new/chinadns-ng
-sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
-/bin/bash ./update-list.sh
+  sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
+  /bin/bash ./update-list.sh
 popd
 # luci-app-cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
@@ -162,12 +162,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 # 流量监视
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                   package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon          package/new/luci-app-wrtbwmon
+# OpenClash
+git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 # PASSWALL
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall           package/new/luci-app-passwall
-# OpenClash
-git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
@@ -194,6 +194,9 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin         
 # xary (xtls support)
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray                        package/new/xray
 sed -i 's,default n,default y,g'            package/new/xray/Makefile
+# SSRP modification
+sed -i 's,default n,default y,g'            package/lean/luci-app-ssr-plus/Makefile
+sed -i '/V2ray:v2ray/d'                     package/lean/luci-app-ssr-plus/Makefile
 # PASSWALL modification
 sed -i 's,default n,default y,g'            package/new/luci-app-passwall/Makefile
 sed -i '/V2ray:v2ray/d'                     package/new/luci-app-passwall/Makefile
@@ -206,19 +209,6 @@ case $MYOPENWRTTARGET in
   x86)
     sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA,ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
     sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384,TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
-    ;;
-esac
-# SSRP modification
-sed -i 's,default n,default y,g'            package/lean/luci-app-ssr-plus/Makefile
-sed -i '/V2ray:v2ray/d'                     package/lean/luci-app-ssr-plus/Makefile
-case $MYOPENWRTTARGET in
-  R2S)
-    sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA,ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
-    sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
-    ;;
-  x86)
-    sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA,ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
-    sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384,TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256,g' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/gentrojanconfig.lua
     ;;
 esac
 # 订阅转换
@@ -258,13 +248,13 @@ svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                 
 ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
-sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
+  sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
 fi
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
-mkdir -p                      package/base-files/files/root
-cp -f ../PRECONFS/vimrc       package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
+mkdir -p                               package/base-files/files/root
+cp -f ../PRECONFS/vimrc                package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc             package/base-files/files/root/.screenrc
 
 ### 5. 最后的收尾工作 ###
 mkdir -p                               package/base-files/files/usr/bin
