@@ -1145,7 +1145,7 @@ msgid "System swappiness"
 msgstr "系统交换空间策略"
 
 msgid "The tendency of the system to swap unused pages instead of dropping file system cache. If your file system is compressed, such as SQUASHFS, UBI or zfs, use a slightly higher swappiness.'"
-msgstr "数值越大，代表越积极的使用Swap空间而不是Ram，建议在SQUASHFS之类的文件系统上使用一个相对更大的值。"
+msgstr "数值越大，代表越积极的使用 Swap 空间而不是 Ram ，建议在 SQUASHFS 之类的文件系统上使用一个相对更大的值。"
 
 msgid "Compressor for zram"
 msgstr "zRam 压缩算法"
