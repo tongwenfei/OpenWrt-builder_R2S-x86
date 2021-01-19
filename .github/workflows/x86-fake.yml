@@ -11,6 +11,7 @@ on:
 env:
   UPLOAD_FIRMWARE: true
   TZ: Asia/Hong_Kong
+  MYOPENWRTTARGET: x86
 
 jobs:
   build:
@@ -40,8 +41,6 @@ jobs:
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
-        sudo -E apt-get -y purge azure* dotnet* firefox ghc* google* hhvm llvm* mono* mysql* openjdk* php* zulu*
-        sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo -E rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /etc/mysql /etc/php /usr/local/share/boost
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
@@ -53,7 +52,6 @@ jobs:
       run: |
         sudo -E rm -rf /etc/apt/sources.list.d
         sudo -E apt-get update -y
-        sudo -E apt-get install -y asciidoc autoconf automake binutils build-essential bzip2 ccache curl device-tree-compiler file flex gcc-multilib g++ g++-multilib gawk gcc gettext git git-core help2man libelf-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool make patch perl-modules python3 python3-distutils python3-pip python3-setuptools qemu-utils rsync scons subversion texinfo time unzip upx wget xsltproc zlib1g-dev
         sudo -E apt-get clean -y
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
@@ -62,9 +60,9 @@ jobs:
       run: |
         sudo chown -R runner:docker ./
         cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
-        echo "MYOPENWRTTARGET=x86" >> $GITHUB_ENV
         echo "FMDATETIME=$(date '+%Y%m%d-%H%M')" >> $GITHUB_ENV
-        /bin/bash ./01_get_ready.sh
+        /bin/bash -c 'echo $MYOPENWRTTARGET
+        mkdir openwrt
 
     - name: Prepare Package
       run: |
@@ -99,7 +97,6 @@ jobs:
         df -h
         cd openwrt
         let Make_Process=$(nproc)*4
-        make download -j${Make_Process}
         /bin/bash -c 'echo $MYOPENWRTTARGET'
 
     - name: Smart chmod
@@ -147,6 +144,7 @@ jobs:
         cd ../openwrt
         cp -f .config ../artifact/kconfig-full
         /bin/bash -c 'echo $MYOPENWRTTARGET'
+        /bin/bash ./06_cleaning.sh
         echo "::set-output name=status::success"
 
     - name: Upload Firmwares
