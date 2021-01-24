@@ -58,7 +58,9 @@ dns:
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576
   cache_time: 30
-  rewrites: []
+  rewrites:
+  - domain: wifi.weixin.qq.com
+    answer: 127.0.0.1
   blocked_services: []
 tls:
   enabled: false

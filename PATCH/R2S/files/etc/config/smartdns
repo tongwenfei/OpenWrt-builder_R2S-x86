@@ -1,35 +1,27 @@
 
 config smartdns
 	option server_name 'smartdns'
-	option port '6050'
+	option port '6051'
 	option dualstack_ip_selection '0'
-	option server_group 'mainland'
-	option seconddns_port '6051'
+	option server_group 'oversea'
+	option seconddns_port '6050'
 	option seconddns_tcp_server '1'
 	option seconddns_no_speed_check '0'
-	option seconddns_no_rule_addr '0'
-	option seconddns_no_rule_nameserver '0'
-	option seconddns_no_rule_ipset '0'
-	option seconddns_no_rule_soa '0'
 	option coredump '0'
 	option seconddns_enabled '1'
 	option seconddns_no_dualstack_selection '1'
 	option ipv6_server '0'
 	option redirect 'none'
-	option force_aaaa_soa '0'
-	option seconddns_server_group 'oversea'
+	option seconddns_server_group 'mainland'
 	option prefetch_domain '1'
 	option serve_expired '1'
 	option tcp_server '1'
 	option seconddns_no_cache '1'
-	option enabled '1'
 	option rr_ttl_min '3600'
 	option rr_ttl '3600'
 	option rr_ttl_max '36000'
-	option cache_size '40960'
-	list old_redirect 'none'
-	list old_port '6050'
-	list old_enabled '1'
+	option cache_size '4194304'
+	option enabled '1'
 
 config server
 	option type 'udp'
@@ -38,6 +30,7 @@ config server
 	option blacklist_ip '0'
 	option server_group 'mainland'
 	option enabled '1'
+	option addition_arg '-exclude-default-group'
 
 config server
 	option type 'udp'
@@ -46,6 +39,7 @@ config server
 	option blacklist_ip '0'
 	option server_group 'mainland'
 	option enabled '1'
+	option addition_arg '-exclude-default-group'
 
 config server
 	option type 'tls'
@@ -54,7 +48,6 @@ config server
 	option no_check_certificate '0'
 	option name 'Google DNS TLS'
 	option enabled '1'
-	option addition_arg '-exclude-default-group'
 	option ip '8.8.4.4'
 
 config server
@@ -65,5 +58,3 @@ config server
 	option ip '1.1.1.1'
 	option enabled '1'
 	option name 'Cloudflare TLS'
-	option addition_arg '-exclude-default-group'
-
