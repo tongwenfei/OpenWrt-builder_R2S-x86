@@ -69,9 +69,6 @@ case $MYOPENWRTTARGET in
     sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
     # disabed rk3328 ethernet tcp/udp offloading tx/rx
     sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    # remove some config
-    sed -i '/CONFIG_SLUB/d' ./target/linux/rockchip/armv8/config-5.4
-    sed -i '/CONFIG_PROC/d' ./target/linux/rockchip/armv8/config-5.4
     # Patch i2c0
     cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
     # OC 1.5GHz
