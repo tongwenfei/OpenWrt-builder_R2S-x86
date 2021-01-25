@@ -13,9 +13,9 @@
 |  |  |  |  |  |  |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | NetData监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | AdGuard Home |
-| SSRP | OpenClash | PASSWALL | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
+| SSRP | OpenClash | SmartDNS | 动态DNS | 硬盘休眠 | WOL网络唤醒 |
 | uHTTPd配置 | Samba4 | Aria2 | UPnP配置 | IP/MAC绑定 | SQM |
-| 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | ChinaDNS-NG | SmartDNS |
+| 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | - | - |
 
 1. BBR 已默认启用。  
 2. SFE Offloading 和 FullCone NAT 已默认启用（其选项在防火墙设置页面中）；软件 Offloading 需要在防火墙设置页面中，默认没有启用。注意：SFE Offloading 和软件 Offloading 只能**二选一**，**不能同时开启**。  
