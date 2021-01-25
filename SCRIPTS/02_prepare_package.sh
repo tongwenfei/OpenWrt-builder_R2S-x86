@@ -182,8 +182,9 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks        
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs             package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/tcpping package/lean/tcpping
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/ipt2socks-alt                         package/lean/ipt2socks-alt
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/tcpping package/lean/tcpping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                   package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
