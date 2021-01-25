@@ -136,14 +136,6 @@ sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
 ln -sdf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
-# ChinaDNS
-git clone -b luci   --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git          package/new/luci-app-chinadns-ng
-git clone -b master --depth 1 https://github.com/pexcn/openwrt-chinadns-ng.git          package/new/chinadns-ng
-cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
-pushd package/new/chinadns-ng
-  sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
-  /bin/bash ./update-list.sh
-popd
 # luci-app-cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
@@ -166,8 +158,6 @@ git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
-# PASSWALL
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall           package/new/luci-app-passwall
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
@@ -198,20 +188,6 @@ sed -i 's,default n,default y,g'            package/new/xray/Makefile
 # SSRP modification
 sed -i 's,default n,default y,g'            package/lean/luci-app-ssr-plus/Makefile
 sed -i '/V2ray:v2ray/d'                     package/lean/luci-app-ssr-plus/Makefile
-# PASSWALL modification
-sed -i 's,default n,default y,g'            package/new/luci-app-passwall/Makefile
-sed -i '/V2ray:v2ray/d'                     package/new/luci-app-passwall/Makefile
-sed -i '/https_dns_proxy:https-dns-proxy/d' package/new/luci-app-passwall/Makefile
-case $MYOPENWRTTARGET in
-  R2S)
-    sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA,ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
-    sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384,TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384:TLS_AES_128_GCM_SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
-    ;;
-  x86)
-    sed -i 's,ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:AES128-SHA:AES256-SHA:DES-CBC3-SHA,ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
-    sed -i 's,TLS_AES_128_GCM_SHA256:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_256_GCM_SHA384,TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256,g' package/new/luci-app-passwall/luasrc/model/cbi/passwall/server/api/trojan.lua
-    ;;
-esac
 # 订阅转换
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
@@ -258,8 +234,6 @@ cp -f ../PRECONFS/vimrc                package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc             package/base-files/files/root/.screenrc
 
 ### 5. 最后的收尾工作 ###
-mkdir -p                               package/base-files/files/usr/bin
-cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
 # 最大连接
 sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
