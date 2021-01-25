@@ -12,7 +12,7 @@ on:
 env:
   UPLOAD_FIRMWARE: true
   TZ: Asia/Hong_Kong
-  MYOPENWRTTARGET: x86
+  MYOPENWRTTARGET: R2S
 
 jobs:
   build:
