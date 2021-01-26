@@ -1,4 +1,7 @@
 ## 变更历史 stage 4
+### 2021/01/26 build 4
+* 内核更新至 `5.4.92`。
+* SSRP 更新至 `183-5`。
 ### 2021/01/25 build 3
 * 移除 passwall 和 chinadns-ng。
 * SSRP 移除 kcp 和 redsocks2 支持。
