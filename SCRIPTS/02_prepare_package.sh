@@ -66,7 +66,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/master/package/kernel
 case $MYOPENWRTTARGET in
   R2S)
     # show cpu model name
-    wget -P target/linux/generic/pending-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/generic/pending-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/project-openwrt/openwrt/master/target/linux/generic/pending-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # 3328 add idle
     wget -P target/linux/rockchip/patches-5.4 https://raw.githubusercontent.com/project-openwrt/openwrt/master/target/linux/rockchip/patches-5.4/007-arm64-dts-rockchip-Add-RK3328-idle-state.patch
     # IRQ
