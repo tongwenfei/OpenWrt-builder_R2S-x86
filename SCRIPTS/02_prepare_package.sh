@@ -199,7 +199,8 @@ rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 rm -rf ./feeds/packages/utils/vim
 svn co https://github.com/openwrt/packages/trunk/utils/vim                         feeds/packages/utils/vim
 # stress-ng
-svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                   package/utils/stress-ng
+svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                   feeds/packages/utils/stress-ng
+ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
