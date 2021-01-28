@@ -49,14 +49,14 @@ svn co https://github.com/openwrt/packages/trunk/admin/htop  feeds/packages/admi
 # 补充lzo
 rm -rf ./package/libs/lzo ./feeds/packages/libs/lzo
 svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/libs/lzo
-ln -sdf ../../../feeds/packages/libs/lzo ./package/feeds/packages/lzo
+ln -sf ../../../feeds/packages/libs/lzo   ./package/feeds/packages/lzo
 # 补充iftop
 rm -rf ./package/network/utils/iftop ./feeds/packages/net/iftop
 svn co https://github.com/openwrt/packages/trunk/net/iftop   feeds/packages/net/iftop
-ln -sdf ../../../feeds/packages/net/iftop ./package/feeds/packages/iftop
+ln -sf ../../../feeds/packages/net/iftop  ./package/feeds/packages/iftop
 # 补充iperf3
 svn co https://github.com/openwrt/packages/trunk/net/iperf3  feeds/packages/net/iperf3
-ln -sdf ../../../feeds/packages/net/iperf3 ./package/feeds/packages/iperf3
+ln -sf ../../../feeds/packages/net/iperf3 ./package/feeds/packages/iperf3
 # 更换libcap
 rm -rf ./feeds/packages/libs/libcap/
 svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
@@ -135,7 +135,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
-ln -sdf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
+ln -sf ../../../feeds/packages/utils/coremark  ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # luci-app-cpulimit
@@ -214,13 +214,13 @@ svn co https://github.com/openwrt/packages/trunk/utils/lvm2                     
 rm -rf ./feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
 svn co https://github.com/openwrt/packages/trunk/utils/usbutils                    feeds/packages/utils/usbutils
-ln -sf ../../../feeds/packages/utils/usbutils ./package/feeds/packages/usbutils
+ln -sf ../../../feeds/packages/utils/usbutils  ./package/feeds/packages/usbutils
 svn co https://github.com/openwrt/packages/trunk/utils/hwdata                      feeds/packages/utils/hwdata
 ln -sf ../../../feeds/packages/utils/hwdata    ./package/feeds/packages/hwdata
 svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                      feeds/packages/libs/nghttp2
-ln -sdf ../../../feeds/packages/libs/nghttp2   ./package/feeds/packages/nghttp2
+ln -sf ../../../feeds/packages/libs/nghttp2    ./package/feeds/packages/nghttp2
 svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                    feeds/packages/libs/libcap-ng
-ln -sdf ../../../feeds/packages/libs/libcap-ng ./package/feeds/packages/libcap-ng
+ln -sf ../../../feeds/packages/libs/libcap-ng  ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
