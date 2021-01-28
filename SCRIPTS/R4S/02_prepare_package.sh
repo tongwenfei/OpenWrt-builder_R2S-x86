@@ -179,6 +179,9 @@ sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
 #迅雷快鸟
 #svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-xlnetacc package/lean/luci-app-xlnetacc
 git clone --depth 1 https://github.com/garypang13/luci-app-xlnetacc.git package/lean/luci-app-xlnetacc
+#stress-ng
+svn co https://github.com/openwrt/packages/trunk/utils/stress-ng feeds/packages/utils/stress-ng
+ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
 #DDNS
 rm -rf ./feeds/packages/net/ddns-scripts
 rm -rf ./feeds/luci/applications/luci-app-ddns
@@ -230,6 +233,7 @@ pushd package/lean
 popd
 sed -i 's,default n,default y,g' package/lean/luci-app-ssr-plus/Makefile
 sed -i '/V2ray:v2ray/d' package/lean/luci-app-ssr-plus/Makefile
+sed -i '/result.encrypt_method/a\result.fast_open = "1"' package/lean/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 #SSRP依赖
 rm -rf ./feeds/packages/net/kcptun
 rm -rf ./feeds/packages/net/shadowsocks-libev
