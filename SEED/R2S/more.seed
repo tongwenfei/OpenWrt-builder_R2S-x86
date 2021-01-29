@@ -189,6 +189,7 @@ CONFIG_PACKAGE_samba4-utils=y
 CONFIG_PACKAGE_screen=y
 CONFIG_PACKAGE_shadow-utils=y
 CONFIG_PACKAGE_smartmontools=y
+CONFIG_PACKAGE_socat=y
 CONFIG_PACKAGE_sqlite3-cli=y
 CONFIG_PACKAGE_ss=y
 CONFIG_PACKAGE_stress-ng=y
