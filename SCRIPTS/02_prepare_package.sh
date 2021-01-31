@@ -106,7 +106,7 @@ wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
-cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
+cp -rf ../openwrt-lienol/package/network/fullconenat                         ./package/network/fullconenat
 # Patch Kernel 以支持SFE
 pushd target/linux/generic/hack-5.4
   wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
@@ -116,7 +116,7 @@ patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
 # SFE 相关组件
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/lean/shortcut-fe
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/lean/fast-classifier
-cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d/
+cp -f ../PATCH/duplicate/shortcut-fe                                         ./package/base-files/files/etc/init.d/
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
 pushd feeds/luci
   patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
@@ -125,37 +125,37 @@ popd
 ### 4. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
-svn co https://github.com/openwrt/packages/trunk/net/adguardhome feeds/packages/net/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
 ln -sf ../../../feeds/packages/net/adguardhome ./package/feeds/packages/adguardhome
-sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
+sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 # arpbind
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind           package/lean/luci-app-arpbind
 # AutoCore & coremark
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
-svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
-sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore   package/lean/autocore
+svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                   feeds/packages/utils/coremark
+sed -i 's,default n,default y,g' ./feeds/packages/utils/coremark/Makefile
 ln -sf ../../../feeds/packages/utils/coremark  ./package/feeds/packages/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
-svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
-svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun        package/lean/ddns-scripts_aliyun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod        package/lean/ddns-scripts_dnspod
+svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts        feeds/packages/net/ddns-scripts
+svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns  feeds/luci/applications/luci-app-ddns
 # ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                           package/lean/ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                package/lean/ipv6-helper
 # CPU限制
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree        package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                   package/new/wrtbwmon
-git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon          package/new/luci-app-wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # stress-ng
-svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                   feeds/packages/utils/stress-ng
+svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                          feeds/packages/utils/stress-ng
 ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
 # SmartDNS
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
@@ -197,7 +197,7 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
 # vim
 rm -rf ./feeds/packages/utils/vim
-svn co https://github.com/openwrt/packages/trunk/utils/vim                         feeds/packages/utils/vim
+svn co https://github.com/openwrt/packages/trunk/utils/vim                                           feeds/packages/utils/vim
 # Zerotier
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
@@ -227,13 +227,13 @@ if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
 fi
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
-mkdir -p                               package/base-files/files/root
-cp -f ../PRECONFS/vimrc                package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc             package/base-files/files/root/.screenrc
+mkdir -p                                    ./package/base-files/files/root/
+cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.screenrc
 
 ### 5. 最后的收尾工作 ###
 # 最大连接
-sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
 echo '
