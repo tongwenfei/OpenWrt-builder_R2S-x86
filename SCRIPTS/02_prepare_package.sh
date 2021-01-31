@@ -201,6 +201,9 @@ svn co https://github.com/openwrt/packages/trunk/utils/vim                      
 # Zerotier
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
+# Zstd
+rm -rf ./feeds/packages/utils/zstd
+svn co https://github.com/openwrt/packages/trunk/utils/zstd                                          feeds/packages/utils/zstd
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
