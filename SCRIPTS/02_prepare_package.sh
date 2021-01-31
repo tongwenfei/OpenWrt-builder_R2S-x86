@@ -131,31 +131,36 @@ ln -sf ../../../feeds/packages/net/adguardhome ./package/feeds/packages/adguardh
 sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
 # arpbind
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
-# AutoCore
+# AutoCore & coremark
 svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/project-openwrt/packages/trunk/utils/coremark                 feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' feeds/packages/utils/coremark/Makefile
 ln -sf ../../../feeds/packages/utils/coremark  ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
-# luci-app-cpulimit
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
-# SmartDNS
-cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
-cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
-sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
 svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
+# ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                           package/lean/ipv6-helper
+# CPU限制
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree        package/lean/luci-app-ramfree
 # 流量监视
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                   package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon          package/new/luci-app-wrtbwmon
+# stress-ng
+svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                   feeds/packages/utils/stress-ng
+ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
+# SmartDNS
+cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
+cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
+sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
 # OpenClash
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
@@ -190,17 +195,12 @@ svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
-# ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                           package/lean/ipv6-helper
-# Zerotier
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
-rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # vim
 rm -rf ./feeds/packages/utils/vim
 svn co https://github.com/openwrt/packages/trunk/utils/vim                         feeds/packages/utils/vim
-# stress-ng
-svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                   feeds/packages/utils/stress-ng
-ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
+# Zerotier
+svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
+rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
