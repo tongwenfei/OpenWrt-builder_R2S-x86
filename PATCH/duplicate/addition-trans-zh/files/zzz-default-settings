@@ -1,8 +1,4 @@
 #!/bin/sh
-
-uci set luci.main.mediaurlbase='/luci-static/argon'
-uci commit luci
-
 #timezone
 uci set system.@system[0].timezone='CST-8'
 uci set system.@system[0].zonename='Asia/Shanghai'
@@ -41,6 +37,10 @@ echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
 #packet_steering
 uci set network.globals.packet_steering='1'
 uci commit network
+#SSRP
+uci set shadowsocksr.@global[0].gfwlist_url='https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gfw.txt'
+uci set shadowsocksr.@global[0].chnroute_url='https://cdn.jsdelivr.net/gh/QiuSimons/Chnroute@master/dist/chnroute/chnroute.txt'
+uci commit shadowsocksr
 #symlink for ip command
 ln -sf /sbin/ip /usr/bin/ip
 #opkg hold patched packages

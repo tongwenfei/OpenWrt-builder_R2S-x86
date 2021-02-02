@@ -165,6 +165,9 @@ sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-s
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
+pushd package/lean
+  patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
+popd
 # SSRP依赖
 rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
