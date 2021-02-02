@@ -55,4 +55,4 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 需要 OLED 功能的用户，自行寻找/选择适合的软件包安装即可。也可从源代码，利用本固件自带的 GCC 编译。同时不要忘记安装依赖包 i2c-tools。
 
 ### 区别
-x86 版相比于 R2S版，移除了 SquashFS 的支持，添加了 hdparm 和 irqbalance，同时 x86 具有 qemu-ga 提供作为虚拟客户机的支持，以及 AMD 和 Intel 的 CPU 微码。
+x86 版相比于 R2S版，添加了 irqbalance，同时 x86 具有 qemu-ga 提供作为虚拟客户机的支持，以及 AMD 和 Intel 的 CPU 微码。
