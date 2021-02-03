@@ -82,15 +82,15 @@ fi
 check_hash sha256
 check_hash md5
 if [ "${IMAGE_GZ}" == "N" ] ; then
-    mv "${IMAGE_NAME}$" firmware.img
+    mv "${IMAGE_NAME}" firmware.img
 elif [ "${IMAGE_GZ}" == "Y" ] ; then
-    if gzip -t "${IMAGE_NAME}$" ; then
+    if gzip -t "${IMAGE_NAME}" ; then
         color_echo green '压缩包测试通过'
     else
         color_echo red '压缩包可能已经损坏'
         exit 131
     fi
-    mv "${IMAGE_NAME}$" firmware.img.gz
+    mv "${IMAGE_NAME}" firmware.img.gz
 else
     color_echo BOLDred 'unreachable'
     exit 134
