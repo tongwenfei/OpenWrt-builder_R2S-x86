@@ -24,86 +24,76 @@ function color_echo {
     echo -e "${prefixstr}$2\033[00m"
 }
 
+function type_image {
+    if ls "$1"*.img >/dev/null 2>&1 ; then
+        IMAGE_GZ="N"
+        IMAGE_NAME=$(ls "$1"*.img | head -n 1)
+        color_echo green "检测到IMG文件 ${IMAGE_NAME}"
+    elif ls "$1"*.img.gz >/dev/null 2>&1 ; then
+        IMAGE_GZ="Y"
+        IMAGE_NAME=$(ls "$1"*.img.gz | head -n 1)
+        color_echo green "检测到GZ文件 ${IMAGE_NAME}"
+    else
+        color_echo BOLDred '没有找到受支持的刷机包'
+        exit 132
+    fi
+}
+
+function check_hash {
+    local hashtype="$1"
+    if grep "${IMAGE_NAME}$" "${hashtype}"_*.hash >"${hashtype}hash.txt" 2>/dev/null ; then
+        if "${hashtype}sum" -c "${hashtype}hash.txt" ; then
+            color_echo green "${hashtype^^}校验通过"
+            rm -f "${hashtype}hash.txt"
+        else
+            color_echo BOLDred "${hashtype^^}校验失败"
+            rm -f "${hashtype}hash.txt"
+            case ${hashtype} in
+              sha256)
+                exit 129
+                ;;
+              md5)
+                exit 130
+                ;;
+              *)
+                exit 133
+                ;;
+            esac
+        fi
+    else
+        color_echo yellow "跳过${hashtype^^}校验"
+    fi
+}
+
+cd /tmp || exit 135
+[ -d "uploads" ] || mkdir uploads && cd uploads || exit 134
+
+type_image openwrt
+
 color_echo BOLDred '您确认要开始刷机吗？'
 color_echo red '此操作将清空您的MicroSD卡上的数据。'
 color_echo red '如果您打算放弃操作，请在20秒内按下Ctrl+C组合键。'
 ( set -x ; sleep 20 )
 color_echo green '已启动刷机流程...\n请不要操作键盘等输入设备，并保持电源接通。'
-cd /tmp
-[ -d "uploads" ] || mkdir uploads && cd uploads
-type shred >/dev/null 2>&1
-    if [ $? -eq 0 ] ; then
-        cp -f $(which shred) ./
-    fi
-cp -f $(which busybox) ./
-if [ -f openwrt*.img ] ; then
-    color_echo green "检测到IMG文件 $(ls openwrt*.img)"
-    if [ -f sha256_????????.hash ] ; then
-        grep ".img$" sha256_????????.hash > sha256hash
-        sha256sum -c sha256hash
-        if [ $? -eq 0 ] ; then
-            color_echo green 'SHA256校验通过'
-            rm -f sha256hash
-        else
-            color_echo BOLDred 'SHA256校验失败'
-            exit 129
-        fi
-    else
-        color_echo yellow '跳过SHA256校验'
-    fi
-    if [ -f md5_????????.hash ] ; then
-        grep ".img$" md5_????????.hash > md5hash
-        md5sum -c md5hash
-        if [ $? -eq 0 ] ; then
-            color_echo green 'MD5校验通过'
-            rm -f md5hash
-        else
-            color_echo BOLDred 'MD5校验失败'
-            exit 130
-        fi
-    else
-        color_echo yellow '跳过MD5校验'
-    fi
+cp -f "$(which busybox)" ./
+if type shred >/dev/null 2>&1 ; then
+    cp -f "$(which shred)" ./
+fi
+check_hash sha256
+check_hash md5
+if [ "${IMAGE_GZ}" == "N" ] ; then
     mv openwrt*.img firmware.img
-elif [ -f openwrt*.img.gz ] ; then
-    color_echo green "检测到GZ文件 $(ls openwrt*.img.gz)"
-    gzip -t openwrt*.img.gz
-    if [ $? -eq 0 ] ; then
+elif [ "${IMAGE_GZ}" == "Y" ] ; then
+    if gzip -t openwrt*.img.gz ; then
         color_echo green '压缩包测试通过'
     else
         color_echo red '压缩包可能已经损坏'
         exit 131
     fi
-    if [ -f sha256_????????.hash ] ; then
-        grep ".img.gz$" sha256_????????.hash > sha256hash
-        sha256sum -c sha256hash
-        if [ $? -eq 0 ] ; then
-            color_echo green 'SHA256校验通过'
-            rm -f sha256hash
-        else
-            color_echo BOLDred 'SHA256校验失败'
-            exit 129
-        fi
-    else
-        color_echo yellow '跳过SHA256校验'
-    fi
-    if [ -f md5_????????.hash ] ; then
-        grep ".img.gz$" md5_????????.hash > md5hash
-        md5sum -c md5hash
-        if [ $? -eq 0 ] ; then
-            color_echo green 'MD5校验通过'
-            rm -f md5hash
-        else
-            color_echo BOLDred 'MD5校验失败'
-            exit 130
-        fi
-    else
-        color_echo yellow '跳过MD5校验'
-    fi
     mv openwrt*.img.gz firmware.img.gz
 else
-    color_echo BOLDred '没有找到受支持的刷机包'
-    exit 132
+    color_echo BOLDred 'unreachable'
+    exit 134
 fi
 echo 1 > /proc/sys/kernel/sysrq
 echo u > /proc/sysrq-trigger
