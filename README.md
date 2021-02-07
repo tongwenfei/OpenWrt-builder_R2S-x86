@@ -46,5 +46,5 @@ x86 版不支持此功能。
 ### 感谢
 * [QiuSimons](https://github.com/QiuSimons/)
 * [quintus-lab](https://github.com/quintus-lab/)
-* [CTCGFW](https://github.com/project-openwrt/openwrt)
+* [CTCGFW](https://github.com/immortalwrt/immortalwrt)
 * 以及其他所有曾为 R2S 做出努力的贡献者们。
