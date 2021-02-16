@@ -8,12 +8,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: $MYOPENWRTTARGET"
 
 ### 1. 准备工作 ###
-# 使用19.07的feed源
-rm -f ./feeds.conf.default
-wget            https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/feeds.conf.default
-wget -P include https://raw.githubusercontent.com/openwrt/openwrt/openwrt-19.07/include/scons.mk
-# 添加UPX支持，以完善v2ray等组件的编译
-patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch || true
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
@@ -25,44 +19,10 @@ fi
 # 更新feed
 ./scripts/feeds update -a && ./scripts/feeds install -a
 
-### 2. 替换语言支持 ###
-# 更换GCC版本
-rm -rf ./feeds/packages/devel/gcc
-svn co https://github.com/openwrt/packages/trunk/devel/gcc   feeds/packages/devel/gcc
-#更换Golang版本
-rm -rf ./feeds/packages/lang/golang ./feeds/packages/devel/packr
-svn co https://github.com/openwrt/packages/trunk/lang/golang feeds/packages/lang/golang
-svn co https://github.com/openwrt/packages/trunk/devel/packr feeds/packages/devel/packr
-ln -sf ../../../feeds/packages/devel/packr ./package/feeds/packages/packr
-# 修复Python编译报错
-pushd feeds/packages
-  patch -p1 < ../../../PATCH/0001-python3-fix-compilation.patch
-popd
-
-### 3. 必要的Patch ###
-# 重要：补充curl包
-rm -rf ./package/network/utils/curl
-svn co https://github.com/openwrt/packages/trunk/net/curl    package/network/utils/curl
-# 更换htop
-rm -rf ./feeds/packages/admin/htop
-svn co https://github.com/openwrt/packages/trunk/admin/htop  feeds/packages/admin/htop
-# 补充lzo
-rm -rf ./package/libs/lzo ./feeds/packages/libs/lzo
-svn co https://github.com/openwrt/packages/trunk/libs/lzo    feeds/packages/libs/lzo
-ln -sf ../../../feeds/packages/libs/lzo   ./package/feeds/packages/lzo
-# 补充iftop
-rm -rf ./package/network/utils/iftop ./feeds/packages/net/iftop
-svn co https://github.com/openwrt/packages/trunk/net/iftop   feeds/packages/net/iftop
-ln -sf ../../../feeds/packages/net/iftop  ./package/feeds/packages/iftop
-# 补充iperf3
-svn co https://github.com/openwrt/packages/trunk/net/iperf3  feeds/packages/net/iperf3
-ln -sf ../../../feeds/packages/net/iperf3 ./package/feeds/packages/iperf3
-# 更换libcap
-rm -rf ./feeds/packages/libs/libcap/
-svn co https://github.com/openwrt/packages/trunk/libs/libcap feeds/packages/libs/libcap
+### 2. 必要的Patch ###
 # 更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
+svn co https://github.com/openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 case $MYOPENWRTTARGET in
   R2S)
     # show cpu model name
@@ -86,8 +46,6 @@ case $MYOPENWRTTARGET in
     sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
-# luci network
-patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
 # Patch jsonc
 patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
 # Patch dnsmasq filter AAAA
@@ -122,11 +80,9 @@ pushd feeds/luci
   patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
 popd
 
-### 4. 更新部分软件包 ###
+### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
-ln -sf ../../../feeds/packages/net/adguardhome ./package/feeds/packages/adguardhome
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 # arpbind
@@ -154,9 +110,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 # 流量监视
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
-# stress-ng
-svn co https://github.com/openwrt/packages/trunk/utils/stress-ng                          feeds/packages/utils/stress-ng
-ln -sf ../../../feeds/packages/utils/stress-ng ./package/feeds/packages/stress-ng
 # SmartDNS
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
 cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
@@ -197,15 +150,9 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
-# vim
-rm -rf ./feeds/packages/utils/vim
-svn co https://github.com/openwrt/packages/trunk/utils/vim                                           feeds/packages/utils/vim
 # Zerotier
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
-# Zstd
-rm -rf ./feeds/packages/utils/zstd
-svn co https://github.com/openwrt/packages/trunk/utils/zstd                                          feeds/packages/utils/zstd
 # 补全部分依赖（实际上并不会用到）
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
@@ -214,18 +161,6 @@ svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/li
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
 svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
-rm -rf ./feeds/packages/utils/lvm2
-svn co https://github.com/openwrt/packages/trunk/utils/lvm2                        feeds/packages/utils/lvm2
-rm -rf ./feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/collectd                    feeds/packages/utils/collectd
-svn co https://github.com/openwrt/packages/trunk/utils/usbutils                    feeds/packages/utils/usbutils
-ln -sf ../../../feeds/packages/utils/usbutils  ./package/feeds/packages/usbutils
-svn co https://github.com/openwrt/packages/trunk/utils/hwdata                      feeds/packages/utils/hwdata
-ln -sf ../../../feeds/packages/utils/hwdata    ./package/feeds/packages/hwdata
-svn co https://github.com/openwrt/packages/trunk/libs/nghttp2                      feeds/packages/libs/nghttp2
-ln -sf ../../../feeds/packages/libs/nghttp2    ./package/feeds/packages/nghttp2
-svn co https://github.com/openwrt/packages/trunk/libs/libcap-ng                    feeds/packages/libs/libcap-ng
-ln -sf ../../../feeds/packages/libs/libcap-ng  ./package/feeds/packages/libcap-ng
 # 翻译及部分功能优化
 if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
@@ -236,7 +171,7 @@ mkdir -p                                    ./package/base-files/files/root/
 cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.screenrc
 
-### 5. 最后的收尾工作 ###
+### 4. 最后的收尾工作 ###
 # 最大连接
 sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
