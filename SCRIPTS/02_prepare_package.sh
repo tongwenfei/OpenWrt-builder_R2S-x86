@@ -112,10 +112,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # SmartDNS
-rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
-cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
-sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
 # OpenClash
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
@@ -124,7 +121,7 @@ pushd package/lean
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
-rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
