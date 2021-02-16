@@ -153,14 +153,6 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package
 # Zerotier
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
-# 补全部分依赖（实际上并不会用到）
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libconfig              package/libs/libconfig
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cthelper  package/libs/libnetfilter-cthelper
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-cttimeout package/libs/libnetfilter-cttimeout
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-log       package/libs/libnetfilter-log
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libnetfilter-queue     package/libs/libnetfilter-queue
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/libs/libusb-compat          package/libs/libusb-compat
-svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/utils/fuse                  package/utils/fuse
 # 翻译及部分功能优化
 if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
