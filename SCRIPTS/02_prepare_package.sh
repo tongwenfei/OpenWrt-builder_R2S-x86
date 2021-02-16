@@ -4,7 +4,8 @@ clear
 #使用O2级别的优化
 sed -i 's/Os/O2/g' include/target.mk
 #更新feed
-./scripts/feeds update -a && ./scripts/feeds install -a
+./scripts/feeds update -a
+./scripts/feeds install -a -f
 #irqbalance
 sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
 
