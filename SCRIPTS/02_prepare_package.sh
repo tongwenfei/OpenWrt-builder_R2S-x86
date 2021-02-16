@@ -8,16 +8,17 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: $MYOPENWRTTARGET"
 
 ### 1. 准备工作 ###
-# remove annoying snapshot tag
-sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
-sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
+# 暂时移除 freifunk 的 feed
+sed -i '/freifunk/d' ./feeds.conf.default
+
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
 fi
 # 更新feed
-./scripts/feeds update -a && ./scripts/feeds install -a
+./scripts/feeds update -a
+./scripts/feeds install -a
 
 ### 2. 必要的Patch ###
 # 更换cryptodev-linux
@@ -91,7 +92,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind 
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
 sed -i 's,default n,default y,g' ./feeds/packages/utils/coremark/Makefile
-ln -sf ../../../feeds/packages/utils/coremark  ./package/feeds/packages/coremark
+ln -sf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
 # DDNS
@@ -111,6 +112,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # SmartDNS
+rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
 cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
 cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
 sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
@@ -122,7 +124,7 @@ pushd package/lean
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
-rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
@@ -146,10 +148,10 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core                   package/new/xray-core
 # 订阅转换
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/subconverter package/new/subconverter
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/jpcre2       package/new/jpcre2
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/rapidjson    package/new/rapidjson
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # Zerotier
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
