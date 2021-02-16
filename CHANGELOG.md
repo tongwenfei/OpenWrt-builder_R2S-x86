@@ -1,5 +1,5 @@
 ## 变更历史 stage 5
-### 2021/02/16 test build
+### 2021/02/16 test build 1~2
 * 采用最新的 `openwrt-21.02` 分支。
 
 ## 变更历史 stage 4
