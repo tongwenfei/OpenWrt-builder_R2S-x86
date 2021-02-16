@@ -7,7 +7,6 @@ CONFIG_KERNEL_BUILD_DOMAIN="buildhost"
 CONFIG_KERNEL_BUILD_USER="builder"
 CONFIG_EXTRA_OPTIMIZATION="-fno-caller-saves -fno-plt -ftree-vectorize"
 CONFIG_LUCI_LANG_zh_Hans=y
-CONFIG_LUCI_LANG_zh-cn=y
 CONFIG_PACKAGE_kmod-usb-net=y
 CONFIG_PACKAGE_kmod-usb-net-rtl8150=y
 CONFIG_PACKAGE_kmod-usb-net-rtl8152=y

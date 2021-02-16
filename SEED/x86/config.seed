@@ -7,7 +7,6 @@ CONFIG_GRUB_TIMEOUT="0"
 CONFIG_KERNEL_BUILD_DOMAIN="buildhost"
 CONFIG_KERNEL_BUILD_USER="builder"
 CONFIG_LUCI_LANG_zh_Hans=y
-CONFIG_LUCI_LANG_zh-cn=y
 CONFIG_PACKAGE_kmod-shortcut-fe=y
 # CONFIG_PACKAGE_kmod-shortcut-fe-cm is not set
 CONFIG_PACKAGE_kmod-fast-classifier=y
