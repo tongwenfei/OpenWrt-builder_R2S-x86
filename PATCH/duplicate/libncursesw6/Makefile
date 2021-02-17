@@ -12,17 +12,17 @@ define Package/libncursesw6
 endef
 
 define Package/libncursesw6/description
-this is fake, add a no operation executable to bin
+	this is fake, add a no operation executable to bin
 endef
 
 define Build/Prepare
-        mkdir -p $(PKG_BUILD_DIR)
-        $(CP) ./src/* $(PKG_BUILD_DIR)/
+	mkdir -p $(PKG_BUILD_DIR)
+	$(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
 define Package/libncursesw6/install
-        $(INSTALL_DIR) $(1)/bin
-        $(INSTALL_BIN) $(PKG_BUILD_DIR)/noop $(1)/bin/
+	$(INSTALL_DIR) $(1)/bin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/noop $(1)/bin/
 endef
 
 $(eval $(call BuildPackage,libncursesw6))
