@@ -8,9 +8,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: $MYOPENWRTTARGET"
 
 ### 1. 准备工作 ###
-# 暂时移除 freifunk 的 feed
-sed -i '/freifunk/d' ./feeds.conf.default
-
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
