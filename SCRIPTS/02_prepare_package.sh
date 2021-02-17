@@ -158,6 +158,8 @@ cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 mkdir -p                                    ./package/base-files/files/root/
 cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
 cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.screenrc
+# 暂时解决要求libncursesw6的问题
+cp -rf ../PATCH/duplicate/libncursesw6      ./package/lean/libncursesw6
 
 ### 4. 最后的收尾工作 ###
 # 最大连接
