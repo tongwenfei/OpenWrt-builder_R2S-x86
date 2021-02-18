@@ -24,7 +24,6 @@
 ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问时间控制、WiFi 排程、beardropper（SSH 公网访问限制）、应用过滤、三代壳 OLED 程序、Server 酱、网易云音乐解锁、USB 打印机、迅雷快鸟、pandownload-fake-server、frpc/frps 内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
 
 ### 命令行特性
-* 添加 `shadow-utils` 组件，便于配置文件共享时新建用户。
 * `cmp`、`find`、`grep`、`gzip`、`gunzip`、`ip`、`login`、`md5sum`、`mount`、`passwd`、`sha256sum`、`tar`、`umount`、`xargs`、`zcat` 等命令替换为 GNU 实现或其他更标准的实现。
 * SSH 客户端由 OpenSSH 提供（而不是 Dropbear），提供更标准的 SSH 连接体验。（服务端仍然是 Dropbear）
 * F2FS、EXT4、FAT32、BTRFS 文件系统支持。EXT4 支持 acl 和 attr 。
