@@ -4,8 +4,8 @@ uci set system.@system[0].timezone='CST-8'
 uci set system.@system[0].zonename='Asia/Shanghai'
 uci commit system
 #feed
-sed -i '/natelol/d'                                                                /etc/opkg/distfeeds.conf
-sed -i 's,downloads.openwrt.org,mirrors.cloud.tencent.com/lede,g'                  /etc/opkg/distfeeds.conf
+sed -i '/natelol/d'                                               /etc/opkg/distfeeds.conf
+sed -i 's,downloads.openwrt.org,mirrors.cloud.tencent.com/lede,g' /etc/opkg/distfeeds.conf
 #uhttpd
 uci set uhttpd.main.rfc1918_filter='0'
 uci set uhttpd.main.redirect_https='0'
