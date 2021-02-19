@@ -40,7 +40,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 * 密码学工具：GnuPG。
 * 压力测试工具：stress-ng。
 * 硬盘自检工具：smartmontools。
-* 磁盘分区工具：fdisk、cfdisk（MBR/GPT 分区表均支持）。
+* 磁盘分区工具：cfdisk（MBR/GPT 分区表均支持）。
 * 其他工具：oath-toolkit、qrencode、sqlite3-cli。
 
 ### OpneSSL
