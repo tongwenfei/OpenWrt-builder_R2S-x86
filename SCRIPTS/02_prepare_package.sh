@@ -138,7 +138,6 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go            
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                 package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray                       package/new/v2ray
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                             package/new/xray-core
 # 订阅转换
