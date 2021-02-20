@@ -83,8 +83,6 @@ mkdir -p ./package/new/ ./package/lean/
 # AdGuard
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
-# arpbind
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind           package/lean/luci-app-arpbind
 # AutoCore & coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
