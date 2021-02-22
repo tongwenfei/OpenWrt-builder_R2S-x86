@@ -50,8 +50,6 @@ patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
 patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
 patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
 cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
-rm -rf ./package/base-files/files/etc/init.d/boot
-wget  -P package/base-files/files/etc/init.d/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-18.06-k5.4/package/base-files/files/etc/init.d/boot
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
   wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
@@ -81,13 +79,14 @@ popd
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
+rm -rf ./feeds/packages/net/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
+sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
 # AutoCore & coremark
+rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
-sed -i 's,default n,default y,g' ./feeds/packages/utils/coremark/Makefile
-ln -sf ../../../feeds/packages/utils/coremark ./package/feeds/packages/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
 # DDNS
@@ -107,7 +106,10 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
 git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # SmartDNS
-cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
+rm -rf ./feeds/packages/net/smartdns
+mkdir package/new/smartdns
+wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
+sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'      ./package/new/smartdns/Makefile
 # OpenClash
 git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
