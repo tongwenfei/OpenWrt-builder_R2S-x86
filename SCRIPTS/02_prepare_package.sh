@@ -79,9 +79,8 @@ popd
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-rm -rf ./feeds/packages/net/adguardhome ./feeds/packages/lang/node-yarn
+rm -rf ./feeds/packages/net/adguardhome
 svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
-svn co https://github.com/openwrt/packages/trunk/lang/node-yarn                           feeds/packages/lang/node-yarn
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
 # AutoCore & coremark
