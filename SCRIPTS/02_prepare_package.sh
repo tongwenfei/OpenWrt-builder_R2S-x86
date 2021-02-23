@@ -144,6 +144,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus          
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                             package/new/xray-core
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-plugin                 package/new/xray-plugin
 # 订阅转换
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/subconverter package/new/subconverter
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/jpcre2       package/new/jpcre2
