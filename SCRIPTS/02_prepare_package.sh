@@ -83,6 +83,10 @@ rm -rf ./feeds/packages/net/adguardhome
 svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
+# AdGuard需要补充node-yarn
+rm -rf ./feeds/packages/lang/node-yarn
+svn co https://github.com/openwrt/packages/trunk/lang/node-yarn                           feeds/packages/lang/node-yarn
+ln -sdf ../../../feeds/packages/lang/node-yarn ./package/feeds/packages/node-yarn
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
