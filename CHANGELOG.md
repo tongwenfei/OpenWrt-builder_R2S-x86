@@ -1,4 +1,7 @@
 ## 变更历史 stage 5
+### 2021/02/24 build 03
+* 编译器采用 GCC 10。
+* 定制了 busybox 的功能。
 ### 2021/02/23 build 02
 * zerotier 更新至 `1.6.4`。
 * 移除了 arpbind。
