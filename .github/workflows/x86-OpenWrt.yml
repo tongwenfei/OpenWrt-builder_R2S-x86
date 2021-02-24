@@ -33,8 +33,6 @@ jobs:
         uname -a
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
-        [ -f /etc/issue ] && cat /etc/issue
-        ulimit -a
 
     - name: Free disk space
       run: |
@@ -156,7 +154,7 @@ jobs:
 
     - name: Upload Firmwares
       uses: actions/upload-artifact@v2
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && ${{ success() }}
       with:
         name: OpenWrt_x86_${{ env.FMDATETIME }}
         path: ${{ env.FIRMWAREDIR }}
