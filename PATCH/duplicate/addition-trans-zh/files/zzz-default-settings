@@ -33,8 +33,9 @@ echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
 #packet_steering
 uci set network.globals.packet_steering='1'
 uci commit network
-#symlink for ip command
+#symlink for ip and wget-ssl command
 ln -sf /sbin/ip /usr/bin/ip
+ln -sf /usr/bin/wget /usr/bin/wget-ssl
 #opkg hold patched packages
 opkg flag hold luci-app-ddns
 opkg flag hold luci-i18n-ddns-zh-cn
