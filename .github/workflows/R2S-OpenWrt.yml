@@ -38,6 +38,7 @@ jobs:
 
     - name: Free disk space
       run: |
+        sleep 30
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
