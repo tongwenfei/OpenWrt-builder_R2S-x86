@@ -3,190 +3,170 @@ set -x
 set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
+# 如果没有环境变量或无效，则默认构建R2S版本
+[ -n "$MYOPENWRTTARGET" ] && [ -d ../SEED/$MYOPENWRTTARGET ] || MYOPENWRTTARGET='R2S'
+echo "==> Now building: $MYOPENWRTTARGET"
+
 ### 1. 准备工作 ###
-# blocktrron.git 
-patch -p1 < ../PATCH/new/main/exp/uboot-rockchip-update-to-v2020.10.patch
-# HW-RNG
-patch -p1 < ../PATCH/new/main/Support-hardware-random-number-generator-for-RK3328.patch
-# 添加UPX支持，以完善v2ray等组件的编译
-patch -p1 < ../PATCH/new/main/0001-tools-add-upx-ucl-support.patch || true
-# remove annoying snapshot tag
-sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
-sed -i "s,snapshots,$(date '+%Y.%m.%d'),g" package/base-files/image-config.in
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
+if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
+  sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
+fi
 # 更新feed
-./scripts/feeds update  -a
+./scripts/feeds update -a
 ./scripts/feeds install -a
 
-### 2. 替换语言支持 ###
-# 更换Node.js版本
-rm -rf ./feeds/packages/lang/node
-svn co https://github.com/nxhack/openwrt-node-packages/trunk/node feeds/packages/lang/node
-rm -rf ./feeds/packages/lang/node/.svn
-
-### 3. 必要的Patch ###
-# Patch i2c0
-cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-# 3328 add idle
-wget -P target/linux/rockchip/patches-5.4 https://github.com/project-openwrt/openwrt/raw/master/target/linux/rockchip/patches-5.4/005-arm64-dts-rockchip-Add-RK3328-idle-state.patch
+### 2. 必要的Patch ###
 # 更换cryptodev-linux
 rm -rf ./package/kernel/cryptodev-linux
-svn co https://github.com/project-openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
-# luci network
-patch -p1 < ../PATCH/new/main/luci_network-add-packet-steering.patch
+svn co https://github.com/openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
+case $MYOPENWRTTARGET in
+  R2S)
+    # show cpu model name
+    wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    # 3328 add idle
+    wget -P target/linux/rockchip/patches-5.4 https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/rockchip/patches-5.4/007-arm64-dts-rockchip-Add-RK3328-idle-state.patch
+    # IRQ
+    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    # disabed rk3328 ethernet tcp/udp offloading tx/rx
+    sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    # Patch i2c0
+    cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
+    # OC 1.5GHz
+    cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
+    # swap LAN WAN
+    patch -p1 < ../PATCH/swap-LAN-WAN.patch
+    ;;
+  x86)
+    # irqbalance
+    sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+    ;;
+esac
 # Patch jsonc
 patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
-# dnsmasq filter AAAA
+# Patch dnsmasq filter AAAA
 patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
 patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
 cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
-rm -rf ./package/base-files/files/etc/init.d/boot
-wget  -P package/base-files/files/etc/init.d https://raw.githubusercontent.com/project-openwrt/openwrt/openwrt-18.06-k5.4/package/base-files/files/etc/init.d/boot
-# Patch FireWall 以增添fullcone功能
+# Patch Kernel 以解决FullCone冲突
+pushd target/linux/generic/hack-5.4
+  wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+popd
+# Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
-wget  -P package/network/config/firewall/patches https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/fullconenat.patch
-# Patch LuCI 以增添fullcone开关
-pushd feeds/luci
-wget -qO - https://raw.githubusercontent.com/LGA1150/fullconenat-fw3-patch/master/luci.patch | git apply
-popd
-# Patch Kernel 以解决fullcone冲突
+wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
+# Patch LuCI 以增添FullCone开关
+patch -p1 < ../PATCH/new/package/luci-app-firewall_add_fullcone.patch
+# FullCone 相关组件
+cp -rf ../openwrt-lienol/package/network/fullconenat                         ./package/network/fullconenat
+# Patch Kernel 以支持SFE
 pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+  wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
 popd
-# FullCone模块
-cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
-# Patch FireWall 以增添SFE
+# Patch LuCI 以增添SFE开关
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_sfe_switch.patch
-# SFE内核补丁
-pushd target/linux/generic/hack-5.4
-wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/953-net-patch-linux-kernel-to-support-shortcut-fe.patch
+# SFE 相关组件
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/lean/shortcut-fe
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/lean/fast-classifier
+cp -f ../PATCH/duplicate/shortcut-fe                                         ./package/base-files/files/etc/init.d/
+# 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
+pushd feeds/luci
+  patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
 popd
-# SFE
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shortcut-fe     package/new/shortcut-fe
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/fast-classifier package/new/fast-classifier
-cp -f ../PATCH/duplicate/shortcut-fe ./package/base-files/files/etc/init.d
-# OC 1.5GHz
-cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
-# IRQ
-sed -i '/;;/i\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-sed -i '/;;/i\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-# disabed rk3328 ethernet tcp/udp offloading tx/rx
-sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-# RNGD
-sed -i 's/-f/-f -i/g' feeds/packages/utils/rng-tools/files/rngd.init
-# swap LAN WAN
-git apply ../PATCH/swap-LAN-WAN.patch
 
-### 4. 更新部分软件包 ###
+### 3. 更新部分软件包 ###
+mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome ./package/new/luci-app-adguardhome
-cp -rf ../openwrt-lienol/package/diy/adguardhome          ./package/new/adguardhome
-# arpbind
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-arpbind         package/lean/luci-app-arpbind
-# AutoCore
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/autocore package/lean/autocore
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/coremark package/lean/coremark
+rm -rf ./feeds/packages/net/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
+sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
+# AdGuard需要补充node-yarn
+rm -rf ./feeds/packages/lang/node-yarn
+svn co https://github.com/openwrt/packages/trunk/lang/node-yarn                           feeds/packages/lang/node-yarn
+ln -sdf ../../../feeds/packages/lang/node-yarn ./package/feeds/packages/node-yarn
+# AutoCore & coremark
+rm -rf ./feeds/packages/utils/coremark
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
+svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
-# ChinaDNS
-git clone -b luci   --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/luci-app-chinadns-ng
-git clone -b master --single-branch https://github.com/pexcn/openwrt-chinadns-ng.git    package/new/chinadns-ng
-cp -f ../PATCH/new/script/chinadnslist package/new/chinadns-ng/update-list.sh
-pushd package/new/chinadns-ng
-sed -i 's,/etc/chinadns-ng,files,g' ./update-list.sh
-/bin/bash ./update-list.sh
-popd
-# luci-app-cpulimit
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
-# SmartDNS
-cp -rf ../packages-lienol/net/smartdns                  ./package/new/smartdns
-cp -rf ../luci-lienol/applications/luci-app-smartdns    ./package/new/luci-app-smartdns
-sed -i 's,include ../..,include $(TOPDIR)/feeds/luci,g' ./package/new/luci-app-smartdns/Makefile
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
 # DDNS
 rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun       package/lean/ddns-scripts_aliyun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod       package/lean/ddns-scripts_dnspod
-svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts       feeds/packages/net/ddns-scripts
-svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns feeds/luci/applications/luci-app-ddns
-# 状态监控
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-netdata          package/lean/luci-app-netdata
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun        package/lean/ddns-scripts_aliyun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod        package/lean/ddns-scripts_dnspod
+svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts        feeds/packages/net/ddns-scripts
+svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns  feeds/luci/applications/luci-app-ddns
+# ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                package/lean/ipv6-helper
+# CPU限制
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree          package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --single-branch https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
-git clone -b master --single-branch https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
-# SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                       package/lean/luci-app-ssr-plus
-rm -rf ./package/lean/luci-app-ssr-plus/.svn
-# SSRP依赖
-rm -rf ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev  package/lean/shadowsocksr-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt           package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray               package/lean/v2ray
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun              package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin        package/lean/v2ray-plugin
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks          package/lean/microsocks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks           package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2           package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng      package/lean/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks           package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs         package/lean/simple-obfs
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan              package/lean/trojan
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
-svn co https://github.com/project-openwrt/openwrt/trunk/package/lean/tcpping       package/lean/tcpping
-# PASSWALL
-svn co https://github.com/xiaorouji/openwrt-package/trunk/lienol/luci-app-passwall package/new/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/tcping           package/new/tcping
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-go        package/new/trojan-go
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/trojan-plus      package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/brook            package/new/brook
-svn co https://github.com/xiaorouji/openwrt-package/trunk/package/ssocks           package/new/ssocks
-# manually merge SSRP PRs
-pushd package/lean
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/239.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/229.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/230.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/231.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/232.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/233.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/235.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/234.patch | patch -p1
-wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/236.patch | patch -p1
-popd
+git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
+git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
+# SmartDNS
+rm -rf ./feeds/packages/net/smartdns
+mkdir package/new/smartdns
+wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
+sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'      ./package/new/smartdns/Makefile
 # OpenClash
-git clone -b master --single-branch https://github.com/vernesong/OpenClash         package/new/luci-app-openclash
+git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
+# SSRP
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
+pushd package/lean
+  patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
+popd
+# SSRP依赖
+rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                  package/lean/srelay
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks              package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2               package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng          package/lean/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks               package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs             package/lean/simple-obfs
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
+svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/tcpping package/lean/tcpping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                   package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                 package/new/trojan-plus
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
+svn co https://github.com/fw876/helloworld/trunk/xray-core                             package/new/xray-core
 # 订阅转换
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/subconverter package/new/subconverter
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/jpcre2       package/new/jpcre2
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/rapidjson    package/new/rapidjson
-svn co https://github.com/project-openwrt/openwrt/branches/openwrt-19.07/package/ctcgfw/duktape      package/new/duktape
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/subconverter package/new/subconverter
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/jpcre2       package/new/jpcre2
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/rapidjson    package/new/rapidjson
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # Zerotier
-svn co https://github.com/project-openwrt/openwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
-# argon主题
-git clone -b master --single-branch https://github.com/jerrykuku/luci-theme-argon       package/new/luci-theme-argon
-git clone -b master --single-branch https://github.com/jerrykuku/luci-app-argon-config  package/new/luci-app-argon-config
-# edge主题
-git clone -b master --single-branch https://github.com/garypang13/luci-theme-edge       package/new/luci-theme-edge
 # 翻译及部分功能优化
-cp -rf ../PATCH/duplicate/addition-trans-zh-master ./package/lean/lean-translate
+if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
+  sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
+fi
+cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
-mkdir -p                      package/base-files/files/root
-cp -f ../PRECONFS/vimrc       package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc    package/base-files/files/root/.screenrc
+mkdir -p                                    ./package/base-files/files/root/
+cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.screenrc
 
-### 5. 最后的收尾工作 ###
-mkdir -p                               package/base-files/files/usr/bin
-cp -f ../PATCH/new/script/chinadnslist package/base-files/files/usr/bin/update-chinadns-list
+### 4. 最后的收尾工作 ###
 # 最大连接
-sed -i 's/16384/65536/g'               package/kernel/linux/files/sysctl-nf-conntrack.conf
-#let trojan prefer chacha20 (passwall,ssrp)
-patch -p1 < ../PATCH/new/main/chacha.patch
+sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
+if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
 echo '
 CONFIG_ARM64_CRYPTO=y
 CONFIG_CRYPTO_AES_ARM64=y
@@ -211,7 +191,10 @@ CONFIG_CRYPTO_SIMD=y
 # CONFIG_CRYPTO_SM3_ARM64_CE is not set
 # CONFIG_CRYPTO_SM4_ARM64_CE is not set
 ' >> ./target/linux/rockchip/armv8/config-5.4
+fi
 # 删除已有配置
 rm -rf .config
+# 删除.svn目录
+find ./ -type d -name '.svn' -print0 | xargs -0 -s1024 /bin/rm -rf
 unalias wget
 exit 0

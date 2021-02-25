@@ -3,8 +3,8 @@
 ```bash
 mkdir /tmp/uploads
 cd /tmp/uploads
-curl --proto '=https' --tlsv1.2 -sSf -o clean_flash.sh \
-     https://raw.githubusercontent.com/KaneGreen/R2S-OpenWrt/master/clean_flash.sh
+curl --proto '=https' --tlsv1.2 -sSf -O \
+     https://cdn.jsdelivr.net/gh/KaneGreen/R2S-OpenWrt@master/clean_flash.sh
 ```
 ### 2. 上传固件
 使用 sftp 工具或 scp 命令将固件上传到 `/tmp/uploads` 目录下。  

@@ -1,4 +1,4 @@
-name: OpenWrt for R2S
+name: experimental OpenWrt for R2S
 
 on:
   push:
@@ -6,11 +6,13 @@ on:
       - experimental
     paths:
       - 'CHANGELOG.md'
-      - '.github/workflows/R2S-OpenWrt-Without-Docker.yml'
+      - '.github/workflows/R2S-OpenWrt.yml'
+      - 'build_trigger/r2s'
 
 env:
   UPLOAD_FIRMWARE: true
   TZ: Asia/Hong_Kong
+  MYOPENWRTTARGET: R2S
 
 jobs:
   build:
@@ -31,11 +33,10 @@ jobs:
         uname -a
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
-        [ -f /etc/issue ] && cat /etc/issue
-        ulimit -a
 
     - name: Free disk space
       run: |
+        sleep 30
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
@@ -53,13 +54,13 @@ jobs:
       run: |
         sudo -E rm -rf /etc/apt/sources.list.d
         sudo -E apt-get update -y
-        sudo -E apt-get install -y build-essential rsync asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core p7zip p7zip-full msmtp libssl-dev texinfo libreadline-dev libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint ccache curl wget vim nano python3 python3-pip python3-ply haveged lrzsz device-tree-compiler scons
+        sudo -E apt-get install -y asciidoc autoconf automake autopoint binutils build-essential bzip2 ccache curl device-tree-compiler file flex g++ g++-multilib gawk gcc gcc-multilib gettext git git-core haveged help2man jq lib32gcc1 libc6-dev-i386 libelf-dev libglib2.0-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool libz-dev lrzsz make msmtp nano p7zip p7zip-full patch perl-modules python3 python3-distutils python3-pip python3-ply python3-setuptools qemu-utils rsync scons subversion texinfo time uglifyjs unzip upx vim wget xmlto xsltproc zlib1g-dev
         wget -qO - https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | sed 's/python-/python3-/g' | /bin/bash
         sudo -E apt-get clean -y
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
 
-    - name: Prepare Mixedwrt
+    - name: Prepare OpenWrt
       run: |
         sudo chown -R runner:docker ./
         cp -f ./SCRIPTS/01_get_ready.sh ./01_get_ready.sh
@@ -90,8 +91,8 @@ jobs:
     - name: Make Config
       run: |
         cd openwrt
-        cp -f ../SEED/config_no_docker.seed .config
-        cat   ../SEED/more.seed          >> .config
+        cp -f ../SEED/R2S/config.seed  .config
+        cat   ../SEED/R2S/more.seed >> .config
         make defconfig
 
     - name: Make Download
@@ -148,13 +149,14 @@ jobs:
         cp -f .config           ../artifact/kconfig-full
         /bin/bash ./scripts/diffconfig.sh > ../artifact/kconfig-lite
         cd bin/targets/rockchip/armv8
+        ls -Ahl
         /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
         mv -f ./* ../../../../../artifact/
         echo "::set-output name=status::success"
 
     - name: Upload Firmwares
       uses: actions/upload-artifact@v2
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && ${{ success() }}
       with:
         name: OpenWrt_R2S_${{ env.FMDATETIME }}
         path: ${{ env.FIRMWAREDIR }}
