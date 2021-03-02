@@ -27,7 +27,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 * `cmp`、`find`、`grep`、`gzip`、`gunzip`、`ip`、`login`、`md5sum`、`mount`、`passwd`、`sha256sum`、`tar`、`umount`、`xargs`、`zcat` 等命令替换为 GNU 实现或其他更标准的实现。
 * SSH 客户端由 OpenSSH 提供（而不是 Dropbear），提供更标准的 SSH 连接体验。（服务端仍然是 Dropbear）
 * F2FS、EXT4、FAT32、BTRFS 文件系统支持。EXT4 支持 acl 和 attr 。
-* Python3、Perl 解释型语言支持。C 语言支持由 GCC 和 make 提供。
+* Python3、Perl 解释型语言支持。
 * Git 版本控制工具。
 * `curl` 和 `wget` 两大常用工具。
 * 由 openssh-sftp-server 提供 SFTP 协议文件传输功能。由 lrzsz 提供终端内小文件传输功能。由 openssh-keygen 提供 SSH 密钥对生成。
@@ -49,9 +49,9 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 ### 无线网卡
 * 理论上支持部分 USB 无线网卡，未测试。
 
-### 三代壳OLED相关 （仅 R2S 版）
+### 三代壳 OLED 相关 （仅 R2S 版）
 * 未安装 OLED 的 luci-app 和对应的程序。  
-需要 OLED 功能的用户，自行寻找/选择适合的软件包安装即可。也可从源代码，利用本固件自带的 GCC 编译。同时不要忘记安装依赖包 i2c-tools。
+需要 OLED 功能的用户，自行寻找/选择适合的软件包安装即可，同时不要忘记安装依赖包 i2c-tools。
 
 ### 区别
 x86 版相比于 R2S版，添加了 irqbalance，同时 x86 具有 qemu-ga 提供作为虚拟客户机的支持，以及 AMD 和 Intel 的 CPU 微码。

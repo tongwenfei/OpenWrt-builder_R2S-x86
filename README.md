@@ -40,7 +40,7 @@ LUCI版本：21.02（当日最新）
 4. [清盘刷机教程](./howto_cleanflash.md)  [变更日志](./CHANGELOG.md)
 
 ### 三代壳 OLED 相关
-R2S 版未编译安装 OLED 的 luci-app ，有需要者自行寻找软件包安装，或者下载源码后使用本固件自带的 gcc 和 make 编译。
+R2S 版未编译安装 OLED 的 luci-app，有需要者自行寻找软件包安装。
 x86 版不支持此功能。
 
 ### 感谢
