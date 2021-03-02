@@ -47,4 +47,7 @@ x86 版不支持此功能。
 * [QiuSimons](https://github.com/QiuSimons/)
 * [quintus-lab](https://github.com/quintus-lab/)
 * [CTCGFW](https://github.com/immortalwrt/immortalwrt)
+* [coolsnowwolf](https://github.com/coolsnowwolf)
+* [Lienol](https://github.com/Lienol)
+* [NoTengoBattery](https://github.com/NoTengoBattery)
 * 以及其他所有曾为 R2S 做出努力的贡献者们。
