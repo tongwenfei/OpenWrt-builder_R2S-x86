@@ -91,9 +91,6 @@ svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scrip
 svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns  feeds/luci/applications/luci-app-ddns
 # ipv6-helper
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                package/lean/ipv6-helper
-# CPU限制
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t/cpulimit package/lean/cpulimit
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                             ./package/lean/luci-app-cpulimit
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
 # 流量监视
@@ -140,8 +137,15 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/jpcre2       package/new/jpcre2
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
+# CPU主频
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq  package/lean/luci-app-cpufreq
+rm -f ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
+wget -P package/lean/luci-app-cpufreq/root/etc/config/ https://raw.githubusercontent.com/QiuSimons/R2S-R4S-X86-OpenWrt/master/PATCH/R2S/files/etc/config/cpufreq
+# CPU限制
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t/cpulimit        package/lean/cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                                    ./package/lean/luci-app-cpulimit
 # Zerotier
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier     package/lean/luci-app-zerotier
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
