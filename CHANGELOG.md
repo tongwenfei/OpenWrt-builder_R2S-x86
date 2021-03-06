@@ -1,4 +1,7 @@
 ## 变更历史 stage 5
+### 2021/03/06 build 05
+* 移除 SFE、GCC、make。
+* 加入 luci-app-cpufreq。
 ### 2021/02/24 build 04
 * 编译器采用 GCC 9。
 ### 2021/02/24 build 03
