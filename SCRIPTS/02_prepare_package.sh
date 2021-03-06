@@ -113,27 +113,27 @@ pushd package/lean
 popd
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                  package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks              package/lean/microsocks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2               package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng          package/lean/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks               package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks              package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng          package/lean/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2               package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs             package/lean/simple-obfs
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                  package/lean/srelay
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/xray-core                             package/new/xray-core
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/tcpping package/lean/tcpping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                   package/new/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                 package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
-svn co https://github.com/fw876/helloworld/trunk/xray-core                             package/new/xray-core
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-plugin                 package/new/xray-plugin
 # 订阅转换
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/subconverter package/new/subconverter
