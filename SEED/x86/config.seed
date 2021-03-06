@@ -8,6 +8,8 @@ CONFIG_TARGET_ROOTFS_PARTSIZE=992
 CONFIG_KERNEL_BUILD_USER="builder"
 CONFIG_KERNEL_BUILD_DOMAIN="buildhost"
 CONFIG_DEVEL=y
+CONFIG_EXTRA_OPTIMIZATION="-fno-caller-saves -fno-plt -ftree-vectorize"
+# CONFIG_KERNEL_CGROUPS is not set
 CONFIG_PACKAGE_block-mount=y
 # CONFIG_PACKAGE_dnsmasq is not set
 CONFIG_PACKAGE_dnsmasq-full=y
@@ -27,6 +29,8 @@ CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_diffutils=y
 CONFIG_PACKAGE_autocore-x86=y
 CONFIG_PACKAGE_ipv6helper=y
+CONFIG_PACKAGE_amd64-microcode=y
+CONFIG_PACKAGE_intel-microcode=y
 CONFIG_PACKAGE_kmod-fs-f2fs=y
 CONFIG_PACKAGE_kmod-ipt-nat6=y
 # CONFIG_PACKAGE_kmod-fast-classifier is not set
