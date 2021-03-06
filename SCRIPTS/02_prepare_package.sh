@@ -138,9 +138,10 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # CPU主频
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq  package/lean/luci-app-cpufreq
-rm -f ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
-wget -P package/lean/luci-app-cpufreq/root/etc/config/ https://raw.githubusercontent.com/QiuSimons/R2S-R4S-X86-OpenWrt/master/PATCH/R2S/files/etc/config/cpufreq
+if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
+  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
+  cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
+fi
 # CPU限制
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t/cpulimit        package/lean/cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                                                    ./package/lean/luci-app-cpulimit
