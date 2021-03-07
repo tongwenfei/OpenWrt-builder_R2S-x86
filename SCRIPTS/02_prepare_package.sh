@@ -4,13 +4,13 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 # 如果没有环境变量或无效，则默认构建R2S版本
-[ -n "$MYOPENWRTTARGET" ] && [ -d ../SEED/$MYOPENWRTTARGET ] || MYOPENWRTTARGET='R2S'
-echo "==> Now building: $MYOPENWRTTARGET"
+[ -n "${MYOPENWRTTARGET}" ] && [ -f "../SEED/${MYOPENWRTTARGET}.config.seed" ] || MYOPENWRTTARGET='R2S'
+echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
-if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
+if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
   cp -f ../PATCH/new/package/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
@@ -30,7 +30,7 @@ sed -i 's/luci.git/luci.git;openwrt-21.02/g' ./feeds.conf.default
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 
 ### 2. 必要的Patch ###
-case $MYOPENWRTTARGET in
+case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
@@ -135,7 +135,7 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/rapidjson    package/new/rapidjson
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # CPU主频
-if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
+if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
   cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
 fi
@@ -146,7 +146,7 @@ cp -rf ../PATCH/duplicate/luci-app-cpulimit                                     
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
-if [ "$MYOPENWRTTARGET" != 'R2S' ] ; then
+if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
 fi
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
@@ -159,7 +159,7 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 # 最大连接
 sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
-if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
+if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
 CONFIG_ARM64_CRYPTO=y
 CONFIG_CRYPTO_AES_ARM64=y
