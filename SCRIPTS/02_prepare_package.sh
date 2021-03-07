@@ -16,6 +16,8 @@ fi
 # 更新feed
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+# remove annoying snapshot tag
+sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 
 ### 2. 必要的Patch ###
 # 更换cryptodev-linux
