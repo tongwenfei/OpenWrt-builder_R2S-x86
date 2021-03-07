@@ -1,5 +1,5 @@
 #!/bin/bash
-case $MYOPENWRTTARGET in
+case ${MYOPENWRTTARGET} in
   R2S)
     /bin/ls | grep -v -E '(squashfs|manifest)' | xargs -s1024 /bin/rm -rf
     ;;
