@@ -1,3 +1,8 @@
+## 变更历史 stage 6
+### 2021/03/07 build 01
+* 使用 master 分支。
+* R2S 使用 immortalwrt 的优化。
+
 ## 变更历史 stage 5
 ### 2021/03/06 build 05
 * 移除 SFE、GCC、make。
