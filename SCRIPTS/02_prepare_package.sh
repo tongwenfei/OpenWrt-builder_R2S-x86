@@ -12,6 +12,13 @@ echo "==> Now building: $MYOPENWRTTARGET"
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
+  cp -f ../PATCH/new/package/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
+  # 采用immortalwrt的优化
+  rm -rf ./target/linux/rockchip
+  svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip       target/linux/rockchip
+  cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
+  rm -rf ./package/boot/uboot-rockchip
+  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip package/boot/uboot-rockchip
 fi
 # 更新feed
 ./scripts/feeds update -a
@@ -24,19 +31,13 @@ case $MYOPENWRTTARGET in
   R2S)
     # show cpu model name
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
-    # 3328 add idle
-    wget -P target/linux/rockchip/patches-5.4 https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/rockchip/patches-5.4/007-arm64-dts-rockchip-Add-RK3328-idle-state.patch
     # IRQ
     sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
     sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
     # disabed rk3328 ethernet tcp/udp offloading tx/rx
     sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    # Patch i2c0
-    cp -f ../PATCH/new/main/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch ./target/linux/rockchip/patches-5.4/998-rockchip-enable-i2c0-on-NanoPi-R2S.patch
-    # OC 1.5GHz
-    cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch ./target/linux/rockchip/patches-5.4/999-RK3328-enable-1512mhz-opp.patch
     # swap LAN WAN
-    patch -p1 < ../PATCH/swap-LAN-WAN.patch
+    patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
   x86)
     # irqbalance

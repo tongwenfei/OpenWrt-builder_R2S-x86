@@ -10,13 +10,13 @@ now LAN is on eth0
  2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
-index bba3e2aa56..35a13b22f3 100755
+index bfecd0874c..429bc5d608 100644
 --- a/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
 +++ b/target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
 @@ -10,8 +10,8 @@ board_config_update
- 
  case $board in
- friendlyarm,nanopi-r2s)
+ friendlyarm,nanopi-r2s|\
+ friendlyarm,nanopi-r4s)
 -	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth0"
 -	ucidef_set_led_netdev "lan" "LAN" "$boardname:green:lan" "eth1"
 +	ucidef_set_led_netdev "wan" "WAN" "$boardname:green:wan" "eth1"
@@ -25,13 +25,13 @@ index bba3e2aa56..35a13b22f3 100755
  esac
  
 diff --git a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
-index e129fd6a67..07cbdeee2b 100755
+index 0c22601c95..69d3850300 100644
 --- a/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 +++ b/target/linux/rockchip/armv8/base-files/etc/board.d/02_network
 @@ -9,7 +9,7 @@ rockchip_setup_interfaces()
- 
  	case "$board" in
- 	friendlyarm,nanopi-r2s)
+ 	friendlyarm,nanopi-r2s|\
+ 	friendlyarm,nanopi-r4s)
 -		ucidef_set_interfaces_lan_wan 'eth1' 'eth0'
 +		ucidef_set_interfaces_lan_wan 'eth0' 'eth1'
  		;;
