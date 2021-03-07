@@ -20,6 +20,9 @@ if [ "$MYOPENWRTTARGET" = 'R2S' ] ; then
   rm -rf ./package/boot/uboot-rockchip
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip package/boot/uboot-rockchip
 fi
+# feed调节
+sed -i '/telephony/d' ./feeds.conf.default
+sed -i 's/luci.git/luci.git;openwrt-21.02/g' ./feeds.conf.default
 # 更新feed
 ./scripts/feeds update -a
 ./scripts/feeds install -a

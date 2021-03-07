@@ -25,7 +25,7 @@ https://github.com/KaneGreen/R2S-OpenWrt/actions
 5. R2S 版 sys 灯引导时闪烁，启动后常亮，也是上游的设定，有疑问请联系 OpenWrt 官方社区。
 
 ### 版本信息：
-LUCI版本：master（当日最新）
+LUCI版本：21.02（当日最新）
 
 其他模块版本：master（当日最新）
 
