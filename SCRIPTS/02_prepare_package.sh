@@ -20,9 +20,6 @@ fi
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 
 ### 2. 必要的Patch ###
-# 更换cryptodev-linux
-rm -rf ./package/kernel/cryptodev-linux
-svn co https://github.com/openwrt/openwrt/trunk/package/kernel/cryptodev-linux package/kernel/cryptodev-linux
 case $MYOPENWRTTARGET in
   R2S)
     # show cpu model name
@@ -71,14 +68,8 @@ popd
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-rm -rf ./feeds/packages/net/adguardhome
-svn co https://github.com/openwrt/packages/trunk/net/adguardhome                          feeds/packages/net/adguardhome
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
-# AdGuard需要补充node-yarn
-rm -rf ./feeds/packages/lang/node-yarn
-svn co https://github.com/openwrt/packages/trunk/lang/node-yarn                           feeds/packages/lang/node-yarn
-ln -sdf ../../../feeds/packages/lang/node-yarn ./package/feeds/packages/node-yarn
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
