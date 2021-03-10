@@ -8,10 +8,10 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
-# 使用O2级别的优化
-sed -i 's/-Os/-O2/g' include/target.mk
+# 使用O3级别的优化
+sed -i 's/-Os/-O3/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53,g' include/target.mk
+  sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mabi=lp64,g' include/target.mk
   cp -f ../PATCH/new/package/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
   rm -rf ./target/linux/rockchip ./package/boot/uboot-rockchip ./package/boot/arm-trusted-firmware-rk3328
@@ -162,27 +162,25 @@ sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
 CONFIG_ARM64_CRYPTO=y
-CONFIG_CRYPTO_AES_ARM64=y
-CONFIG_CRYPTO_AES_ARM64_BS=y
-CONFIG_CRYPTO_AES_ARM64_CE=y
-CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
-CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
-CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
-CONFIG_CRYPTO_CHACHA20=y
-CONFIG_CRYPTO_CHACHA20_NEON=y
-CONFIG_CRYPTO_CRYPTD=y
-CONFIG_CRYPTO_GF128MUL=y
-CONFIG_CRYPTO_GHASH_ARM64_CE=y
-CONFIG_CRYPTO_SHA1=y
-CONFIG_CRYPTO_SHA1_ARM64_CE=y
 CONFIG_CRYPTO_SHA256_ARM64=y
-CONFIG_CRYPTO_SHA2_ARM64_CE=y
-# CONFIG_CRYPTO_SHA3_ARM64 is not set
 CONFIG_CRYPTO_SHA512_ARM64=y
+CONFIG_CRYPTO_SHA1_ARM64_CE=y
+CONFIG_CRYPTO_SHA2_ARM64_CE=y
 # CONFIG_CRYPTO_SHA512_ARM64_CE is not set
-CONFIG_CRYPTO_SIMD=y
-# CONFIG_CRYPTO_SM3_ARM64_CE is not set
-# CONFIG_CRYPTO_SM4_ARM64_CE is not set
+CONFIG_CRYPTO_SHA3_ARM64=y
+CONFIG_CRYPTO_SM3_ARM64_CE=y
+CONFIG_CRYPTO_SM4_ARM64_CE=y
+CONFIG_CRYPTO_GHASH_ARM64_CE=y
+# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
+CONFIG_CRYPTO_AES_ARM64=y
+CONFIG_CRYPTO_AES_ARM64_CE=y
+CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
+CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
+CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
+CONFIG_CRYPTO_CHACHA20_NEON=y
+CONFIG_CRYPTO_POLY1305_NEON=y
+CONFIG_CRYPTO_NHPOLY1305_NEON=y
+CONFIG_CRYPTO_AES_ARM64_BS=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 fi
 # 删除已有配置
