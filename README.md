@@ -43,6 +43,14 @@ LUCI版本：21.02（当日最新）
 R2S 版未编译安装 OLED 的 luci-app，有需要者自行寻找软件包安装。
 x86 版不支持此功能。
 
+### 本地一键编译脚本（实验性）
+1. 首先自行配置环境， Ubuntu 20.04 可以参考 [Actions 脚本的第 57-58 行](.github/workflows/R2S-OpenWrt.yml)。
+2. 获取一键编译脚本：[onekeybuild.sh](./onekeybuild.sh)。根据具体情况修改脚本，例如第 42 行的编译工具链的并行数。
+3. 确保工作目录下没有同名目录或文件：`R2S-OpenWrt`、`buildtime.txt`。
+4. 通过环境变量 `MYOPENWRTTARGET` 指定编译的固件：`R2S`、`x86`；注意区分大小写，默认编译 R2S 的固件。
+5. 通过环境变量 `Make_Process` 指定编译的并行数，默认 4 并行。
+6. 用 bash 执行脚本，开始编译。
+
 ### 感谢
 * [QiuSimons](https://github.com/QiuSimons/)
 * [quintus-lab](https://github.com/quintus-lab/)
