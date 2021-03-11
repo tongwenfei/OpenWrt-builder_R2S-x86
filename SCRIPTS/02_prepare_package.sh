@@ -22,7 +22,6 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 fi
 # feed调节
 sed -i '/telephony/d' ./feeds.conf.default
-sed -i 's/luci.git/luci.git;openwrt-21.02/g' ./feeds.conf.default
 # 更新feed
 ./scripts/feeds update -a
 ./scripts/feeds install -a
