@@ -20,8 +20,9 @@ echo "Modification     $(date)" | tee -a ../../buildtime.txt
 /bin/bash ./05_create_acl_for_luci.sh -a
 
 echo "Make Defconfig   $(date)" | tee -a ../../buildtime.txt
-cp -f ../SEED/x86.config.seed .config
-cat   ../SEED/more.seed    >> .config
+[ -f "../SEED/${MYOPENWRTTARGET}.config.seed" ] || MYOPENWRTTARGET='R2S'
+cp -f "../SEED/${MYOPENWRTTARGET}.config.seed" .config
+cat ../SEED/more.seed >> .config
 make defconfig
 
 echo "Make Download    $(date)" | tee -a ../../buildtime.txt
@@ -39,7 +40,7 @@ unset MY_Filter
 cd openwrt
 
 echo "Make Toolchain   $(date)" | tee -a ../../buildtime.txt
-make toolchain/install -j17
+make toolchain/install -j16
 
 echo "Compile Openwrt  $(date)" | tee -a ../../buildtime.txt
 [[ ${Make_Process} =~ ^[0-9]+$ ]] && Make_Process=4

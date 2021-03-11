@@ -4,7 +4,7 @@ set -e
 alias wget="$(which wget) --https-only --retry-connrefused"
 
 # 如果没有环境变量或无效，则默认构建R2S版本
-[ -n "${MYOPENWRTTARGET}" ] && [ -f "../SEED/${MYOPENWRTTARGET}.config.seed" ] || MYOPENWRTTARGET='R2S'
+[ -f "../SEED/${MYOPENWRTTARGET}.config.seed" ] || MYOPENWRTTARGET='R2S'
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
