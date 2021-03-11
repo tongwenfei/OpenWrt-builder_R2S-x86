@@ -34,12 +34,6 @@ jobs:
         [ -f /proc/version ] && cat /proc/version
         [ -f /etc/issue.net ] && cat /etc/issue.net
 
-    - name: package test
-      run: |
-        find / -type f -name 'arm_neon.h' || true
-        sudo apt list --installed | grep -E "cross-?build" || true
-        false
-
     - name: Free disk space
       run: |
         sleep 30
@@ -65,6 +59,15 @@ jobs:
         sudo -E apt-get clean -y
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
+
+    - name: package test
+      run: |
+        sudo find / -type f -name 'arm_neon.h' 2>/dev/null || true
+        echo  '--------------------------------------------------------------------'
+        sudo apt list --installed | grep -E "cross-?build" || true
+        echo  '--------------------------------------------------------------------'
+        sudo apt list --installed
+        false
 
     - name: Prepare OpenWrt
       run: |
