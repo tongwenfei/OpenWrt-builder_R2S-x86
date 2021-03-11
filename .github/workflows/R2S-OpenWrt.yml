@@ -60,15 +60,6 @@ jobs:
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
 
-    - name: package test
-      run: |
-        sudo find / -type f -name 'arm_neon.h' 2>/dev/null || true
-        echo  '--------------------------------------------------------------------'
-        sudo apt list --installed | grep -E "cross-?build" || true
-        echo  '--------------------------------------------------------------------'
-        sudo apt list --installed
-        false
-
     - name: Prepare OpenWrt
       run: |
         sudo chown -R runner:docker ./
