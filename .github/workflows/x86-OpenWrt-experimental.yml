@@ -1,12 +1,12 @@
-name: OpenWrt for x86
+name: experimental OpenWrt for x86
 
 on:
   push:
     branches:
-      - master
+      - experimental
     paths:
       - 'CHANGELOG.md'
-      - '.github/workflows/x86-OpenWrt.yml'
+      - '.github/workflows/x86-OpenWrt-experimental.yml'
       - 'build_trigger/x86'
 
 env:
@@ -23,7 +23,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        ref: 'master'
+        ref: 'experimental'
 
     - name: Show system
       run: |

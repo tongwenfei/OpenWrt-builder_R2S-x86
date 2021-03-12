@@ -1,17 +1,9 @@
-# This is the master branch!
-This repository is going to keep using the term "**master**". It will **never change**.
-I **refuse** to switch to "main".
+# This is the experimental branch!
+此分支包含测试性内容！
 
 ## R2S 基于原生 OpenWRT 的固件编译脚本 (AS IS, NO WARRANTY!!!)
 ### 请勿用于商业用途!!!
 **同时也包含了 x86_64 版本**
-### 发布地址：
-（可能会翻车，风险自担，需要登录 GitHub 账号后才能下载，不提供任何形式的技术支持）  
-https://github.com/KaneGreen/R2S-OpenWrt/actions  
-![OpenWrt for R2S](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20R2S/badge.svg?branch=master&event=push)
-![OpenWrt for x86](https://github.com/KaneGreen/R2S-OpenWrt/workflows/OpenWrt%20for%20x86/badge.svg?branch=master&event=push)
-
-建议对照 [变更日志](./CHANGELOG.md) 确认版本之间的变化。
 
 ### 注意事项：
 1. 登陆 IP：`192.168.1.1`，密码：无。
@@ -42,14 +34,6 @@ LUCI版本：master（当日最新）
 ### 三代壳 OLED 相关
 R2S 版未编译安装 OLED 的 luci-app，有需要者自行寻找软件包安装。
 x86 版不支持此功能。
-
-### 本地一键编译脚本（实验性）
-1. 首先自行配置环境， Ubuntu 20.04 可以参考 [Actions 脚本的第 57-58 行](.github/workflows/R2S-OpenWrt.yml)。
-2. 获取一键编译脚本：[onekeybuild.sh](./onekeybuild.sh)。根据具体情况修改脚本，例如第 42 行的编译工具链的并行数。
-3. 确保工作目录下没有同名目录或文件：`R2S-OpenWrt`、`buildtime.txt`。
-4. 通过环境变量 `MYOPENWRTTARGET` 指定编译的固件：`R2S`、`x86`；注意区分大小写，默认编译 R2S 的固件。
-5. 通过环境变量 `Make_Process` 指定编译的并行数，默认 4 并行。
-6. 用 bash 执行脚本，开始编译。
 
 ### 感谢
 * [QiuSimons](https://github.com/QiuSimons/)
