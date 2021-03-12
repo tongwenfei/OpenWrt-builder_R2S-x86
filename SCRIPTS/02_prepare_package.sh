@@ -8,6 +8,10 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
+# kernel 5.4.105
+wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3970.patch | patch -p1
+# busybox backport upstream fixes
+wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3980.patch | patch -p1
 # 使用O3级别的优化
 sed -i 's/-Os/-O3/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
@@ -102,6 +106,7 @@ git clone -b master --depth 1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
+  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/425.patch | patch -p1
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
