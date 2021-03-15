@@ -18,6 +18,7 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip                    target/linux/rockchip
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip              package/boot/uboot-rockchip
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/arm-trusted-firmware-rk3328 package/boot/arm-trusted-firmware-rk3328
+  # overclocking 1.5GHz
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
 # feed调节
@@ -33,11 +34,8 @@ case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
-    # IRQ
-    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    # disabed rk3328 ethernet tcp/udp offloading tx/rx
-    sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
+    patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # swap LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
@@ -102,6 +100,7 @@ git clone -b master --depth 1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
+  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/430.patch | patch -p1
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
@@ -119,6 +118,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay           
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                      package/lean/shadowsocks-rust
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
@@ -160,25 +160,28 @@ sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
 CONFIG_ARM64_CRYPTO=y
-CONFIG_CRYPTO_SHA256_ARM64=y
-CONFIG_CRYPTO_SHA512_ARM64=y
-CONFIG_CRYPTO_SHA1_ARM64_CE=y
-CONFIG_CRYPTO_SHA2_ARM64_CE=y
-# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
-CONFIG_CRYPTO_SHA3_ARM64=y
-CONFIG_CRYPTO_SM3_ARM64_CE=y
-CONFIG_CRYPTO_SM4_ARM64_CE=y
-CONFIG_CRYPTO_GHASH_ARM64_CE=y
-# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
+CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y
+CONFIG_ARM_PSCI_FW=y
+CONFIG_ARM_RK3328_DMC_DEVFREQ=y
 CONFIG_CRYPTO_AES_ARM64=y
+CONFIG_CRYPTO_AES_ARM64_BS=y
 CONFIG_CRYPTO_AES_ARM64_CE=y
-CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
 CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
+CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
 CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
 CONFIG_CRYPTO_CHACHA20_NEON=y
-CONFIG_CRYPTO_POLY1305_NEON=y
+# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
+CONFIG_CRYPTO_GHASH_ARM64_CE=y
 CONFIG_CRYPTO_NHPOLY1305_NEON=y
-CONFIG_CRYPTO_AES_ARM64_BS=y
+CONFIG_CRYPTO_POLY1305_NEON=y
+CONFIG_CRYPTO_SHA1_ARM64_CE=y
+CONFIG_CRYPTO_SHA2_ARM64_CE=y
+CONFIG_CRYPTO_SHA256_ARM64=y
+CONFIG_CRYPTO_SHA3_ARM64=y
+CONFIG_CRYPTO_SHA512_ARM64=y
+# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
+CONFIG_CRYPTO_SM3_ARM64_CE=y
+CONFIG_CRYPTO_SM4_ARM64_CE=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 fi
 # 删除已有配置

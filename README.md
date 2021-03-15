@@ -5,6 +5,7 @@ I **refuse** to switch to "main".
 ## R2S 基于原生 OpenWRT 的固件编译脚本 (AS IS, NO WARRANTY!!!)
 ### 请勿用于商业用途!!!
 **同时也包含了 x86_64 版本**
+由于 x86_64 版本启动问题，暂时停止更新。
 ### 发布地址：
 （可能会翻车，风险自担，需要登录 GitHub 账号后才能下载，不提供任何形式的技术支持）  
 https://github.com/KaneGreen/R2S-OpenWrt/actions  
