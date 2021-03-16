@@ -93,15 +93,15 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper      
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
-git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns
 mkdir package/new/smartdns
 wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
 sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'      ./package/new/smartdns/Makefile
 # OpenClash
-git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
+git clone -b master --depth=1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
