@@ -8,10 +8,6 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
-# kernel 5.4.105
-wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3970.patch | patch -p1
-# busybox backport upstream fixes
-wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/3980.patch | patch -p1
 # 使用O3级别的优化
 sed -i 's/-Os/-O3/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
@@ -22,6 +18,7 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip                    target/linux/rockchip
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip              package/boot/uboot-rockchip
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/arm-trusted-firmware-rk3328 package/boot/arm-trusted-firmware-rk3328
+  # overclocking 1.5GHz
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
 # feed调节
@@ -37,16 +34,13 @@ case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
-    # IRQ
-    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 8 "ff160000" "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    sed -i '/set_interface_core 4 "eth1"/a\set_interface_core 1 "ff150000" "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    # disabed rk3328 ethernet tcp/udp offloading tx/rx
-    sed -i '/;;/i\ethtool -K eth0 rx off tx off && logger -t disable-offloading "disabed rk3328 ethernet tcp/udp offloading tx/rx"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
-    # swap LAN WAN
+    # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
+    patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
+    # 交换 LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
   x86)
-    # irqbalance
+    # 默认开启 irqbalance
     sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
@@ -83,30 +77,23 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/a
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
-# DDNS
-rm -rf ./feeds/packages/net/ddns-scripts ./feeds/luci/applications/luci-app-ddns
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_aliyun        package/lean/ddns-scripts_aliyun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ddns-scripts_dnspod        package/lean/ddns-scripts_dnspod
-svn co https://github.com/openwrt/packages/branches/openwrt-18.06/net/ddns-scripts        feeds/packages/net/ddns-scripts
-svn co https://github.com/openwrt/luci/branches/openwrt-18.06/applications/luci-app-ddns  feeds/luci/applications/luci-app-ddns
 # ipv6-helper
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                package/lean/ipv6-helper
 # 清理内存
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth 1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
-git clone -b master --depth 1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns
 mkdir package/new/smartdns
 wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
 sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'      ./package/new/smartdns/Makefile
 # OpenClash
-git clone -b master --depth 1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
+git clone -b master --depth=1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
-  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/425.patch | patch -p1
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
@@ -124,6 +111,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay           
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                      package/lean/shadowsocks-rust
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
@@ -151,6 +139,7 @@ rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
+  sed -i '/upnp/Id'        ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
 fi
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
@@ -160,30 +149,33 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 
 ### 4. 最后的收尾工作 ###
 # 最大连接
-sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65535/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
 CONFIG_ARM64_CRYPTO=y
-CONFIG_CRYPTO_SHA256_ARM64=y
-CONFIG_CRYPTO_SHA512_ARM64=y
-CONFIG_CRYPTO_SHA1_ARM64_CE=y
-CONFIG_CRYPTO_SHA2_ARM64_CE=y
-# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
-CONFIG_CRYPTO_SHA3_ARM64=y
-CONFIG_CRYPTO_SM3_ARM64_CE=y
-CONFIG_CRYPTO_SM4_ARM64_CE=y
-CONFIG_CRYPTO_GHASH_ARM64_CE=y
-# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
+CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y
+CONFIG_ARM_PSCI_FW=y
+CONFIG_ARM_RK3328_DMC_DEVFREQ=y
 CONFIG_CRYPTO_AES_ARM64=y
+CONFIG_CRYPTO_AES_ARM64_BS=y
 CONFIG_CRYPTO_AES_ARM64_CE=y
-CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
 CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
+CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
 CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
 CONFIG_CRYPTO_CHACHA20_NEON=y
-CONFIG_CRYPTO_POLY1305_NEON=y
+# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
+CONFIG_CRYPTO_GHASH_ARM64_CE=y
 CONFIG_CRYPTO_NHPOLY1305_NEON=y
-CONFIG_CRYPTO_AES_ARM64_BS=y
+CONFIG_CRYPTO_POLY1305_NEON=y
+CONFIG_CRYPTO_SHA1_ARM64_CE=y
+CONFIG_CRYPTO_SHA2_ARM64_CE=y
+CONFIG_CRYPTO_SHA256_ARM64=y
+CONFIG_CRYPTO_SHA3_ARM64=y
+CONFIG_CRYPTO_SHA512_ARM64=y
+# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
+CONFIG_CRYPTO_SM3_ARM64_CE=y
+CONFIG_CRYPTO_SM4_ARM64_CE=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 fi
 # 删除已有配置

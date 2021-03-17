@@ -1,50 +1,46 @@
 #!/bin/sh
-#timezone
+# timezone
 uci set system.@system[0].timezone='CST-8'
 uci set system.@system[0].zonename='Asia/Shanghai'
 uci commit system
-#feed
+# feed
 sed -i '/natelol/d'                                               /etc/opkg/distfeeds.conf
 sed -i 's,downloads.openwrt.org,mirrors.cloud.tencent.com/lede,g' /etc/opkg/distfeeds.conf
-#uhttpd
+# uhttpd
 uci set uhttpd.main.rfc1918_filter='0'
 uci set uhttpd.main.redirect_https='0'
 uci commit uhttpd
 /etc/init.d/uhttpd restart
-#firewall
+# enable Fullcone NAT
 uci set firewall.@defaults[0].fullcone='1'
 uci commit firewall
-#dropbear
+# dropbear
 uci set dropbear.@dropbear[0].Interface='lan'
 uci commit dropbear
 /etc/init.d/dropbear restart
-#upnp
+# enable UPnP
 uci set upnpd.config.enabled='1'
 uci del upnpd.config.enable_upnp
 uci del upnpd.config.enable_natpmp
 uci set upnpd.config.external_iface='wan'
 uci commit upnpd
-#openssl.cnf
+# openssl.cnf
 sed -i 's,#devcrypto,devcrypto,g' /etc/ssl/openssl.cnf
 sed -i 's,#USE_SOFTDRIVERS = 2,USE_SOFTDRIVERS = 1,g' /etc/ssl/openssl.cnf
-#dnsmasq
+# dnsmasq
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
-#packet_steering
+# enable Packet Steering
 uci set network.globals.packet_steering='1'
 uci commit network
-#symlink for ip and wget-ssl command
+# symlink for ip and wget-ssl command
 ln -sf /sbin/ip /usr/bin/ip
 ln -sf /usr/bin/wget /usr/bin/wget-ssl
-#opkg hold patched packages
-opkg flag hold luci-app-ddns
-opkg flag hold luci-i18n-ddns-zh-cn
-opkg flag hold ddns-scripts
-opkg flag hold ddns-scripts_cloudflare.com-v4
+# opkg hold patched packages
 opkg flag hold luci-app-firewall
 opkg flag hold firewall
 opkg flag hold dnsmasq-full
-#luci cache
+# delete luci cache
 rm -rf /tmp/luci-modulecache
 rm  -f /tmp/luci-indexcache
 exit 0

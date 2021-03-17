@@ -26,7 +26,7 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 * `cmp`、`find`、`grep`、`gzip`、`gunzip`、`ip`、`login`、`md5sum`、`mount`、`passwd`、`sha256sum`、`tar`、`umount`、`xargs`、`zcat` 等命令替换为 GNU 实现或其他更标准的实现。
 * SSH 客户端由 OpenSSH 提供（而不是 Dropbear），提供更标准的 SSH 连接体验。（服务端仍然是 Dropbear）
 * F2FS、EXT4、FAT32、BTRFS 文件系统支持。EXT4 支持 acl 和 attr 。
-* Python3、Perl 解释型语言支持。
+* Python3 解释型语言支持。
 * Git 版本控制工具。
 * `curl` 和 `wget` 两大常用工具。
 * 由 openssh-sftp-server 提供 SFTP 协议文件传输功能。由 lrzsz 提供终端内小文件传输功能。由 openssh-keygen 提供 SSH 密钥对生成。
@@ -55,3 +55,4 @@ ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问�
 ### 区别
 x86 版相比于 R2S 版，添加了 irqbalance，同时 x86 具有 AMD 和 Intel 的 CPU 微码。  
 而 R2S 版比 x86 版，添加了 CPU 频率调节。
+x86 版的 UPnP 默认没有开启，有需要的请手动开启。
