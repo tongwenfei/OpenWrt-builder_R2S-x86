@@ -41,6 +41,7 @@ sed -i '/ghproxy/d'  scripts/download.pl
 sed -i '/sevencdn/d' scripts/download.pl
 sed -i '/tencent/d'  scripts/download.pl
 sed -i '/zwc365/d'   scripts/download.pl
+sed -i '/182\.140\.223\.146/d' scripts/download.pl
 
 ### 2. 必要的Patch ###
 case ${MYOPENWRTTARGET} in
