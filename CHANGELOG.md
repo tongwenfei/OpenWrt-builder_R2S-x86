@@ -1,4 +1,10 @@
 ## 变更历史 stage 6
+### 2021/03/17 build 02
+* 移除 Perl，添加了 UDF 文件系统的支持。
+* x86 版移除 qemu-ga，添加了 vmxnet3 虚拟机网卡驱动。
+* 内核更新至 `5.4.105`。
+* 编译器采用 GCC 8。
+* luci 采用 master 分支。
 ### 2021/03/07 build 01
 * 使用 master 分支。
 * R2S 使用 immortalwrt 的优化。
