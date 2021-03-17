@@ -65,11 +65,6 @@ cp -rf ../openwrt-lienol/package/network/fullconenat                         ./p
 pushd feeds/luci
   patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
 popd
-# 添加更多镜像源用于下载提速
-rm -rf ./scripts/download.pl
-rm -rf ./include/download.mk
-wget -P scripts/ https://github.com/immortalwrt/immortalwrt/raw/master/scripts/download.pl
-wget -P include/ https://github.com/immortalwrt/immortalwrt/raw/master/include/download.mk
 
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
