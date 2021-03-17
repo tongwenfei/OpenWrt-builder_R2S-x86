@@ -38,7 +38,7 @@ sed -i '/aliyun/d'   scripts/download.pl
 sed -i '/cnpmjs/d'   scripts/download.pl
 sed -i '/fastgit/d'  scripts/download.pl
 sed -i '/ghproxy/d'  scripts/download.pl
-sed -i '/sevencdn'   scripts/download.pl
+sed -i '/sevencdn/d' scripts/download.pl
 sed -i '/tencent/d'  scripts/download.pl
 sed -i '/zwc365/d'   scripts/download.pl
 
