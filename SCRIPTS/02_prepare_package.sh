@@ -36,11 +36,11 @@ case ${MYOPENWRTTARGET} in
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
-    # swap LAN WAN
+    # 交换 LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
   x86)
-    # irqbalance
+    # 默认开启 irqbalance
     sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
@@ -150,6 +150,7 @@ rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
+  sed -i '/upnp/Id'        ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
 fi
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 # 给root用户添加vim和screen的配置文件
@@ -159,7 +160,7 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 
 ### 4. 最后的收尾工作 ###
 # 最大连接
-sed -i 's/16384/65536/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65535/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '

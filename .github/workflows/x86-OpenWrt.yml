@@ -5,8 +5,8 @@ on:
     branches:
       - master
     paths:
-      #- 'CHANGELOG.md'
-      #- '.github/workflows/x86-OpenWrt.yml'
+      - 'CHANGELOG.md'
+      - '.github/workflows/x86-OpenWrt.yml'
       - 'build_trigger/x86'
 
 env:
