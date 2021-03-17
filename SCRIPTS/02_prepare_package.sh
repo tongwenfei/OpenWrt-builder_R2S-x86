@@ -28,6 +28,19 @@ sed -i '/telephony/d' ./feeds.conf.default
 ./scripts/feeds install -a
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
+# something called magic
+rm -rf ./scripts/download.pl
+rm -rf ./include/download.mk
+wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/scripts/download.pl
+wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/download.mk
+sed -i '/\.cn\//d'  scripts/download.pl
+sed -i '/aliyun/d'  scripts/download.pl
+sed -i '/cnpmjs/d'  scripts/download.pl
+sed -i '/fastgit/d'  scripts/download.pl
+sed -i '/ghproxy/d' scripts/download.pl
+sed -i '/sevencdn'  scripts/download.pl
+sed -i '/tencent/d' scripts/download.pl
+sed -i '/zwc365/d'  scripts/download.pl
 
 ### 2. 必要的Patch ###
 case ${MYOPENWRTTARGET} in
