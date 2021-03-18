@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 使用 O2 级别的优化
+sed -i 's/O3/O2/g' include/target.mk
+
 # 翻译及部分功能优化
 cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
 echo "
