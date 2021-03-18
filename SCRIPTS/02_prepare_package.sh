@@ -56,7 +56,7 @@ case ${MYOPENWRTTARGET} in
     ;;
   x86)
     # 默认开启 irqbalance
-    sed -i 's/0/1/g' feeds/packages/utils/irqbalance/files/irqbalance.config
+    sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
 # Patch jsonc
