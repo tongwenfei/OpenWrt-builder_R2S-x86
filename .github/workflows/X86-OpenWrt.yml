@@ -116,14 +116,15 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/x86/64/*squashfs-rootfs.img.gz ./artifact/
+        mv openwrt/bin/targets/x86/64/*rootfs.img* ./artifact/
         cd ./artifact/
         ls -Ahl
         gzip -d *.gz && exit 0
         gzip --best *.img
         ls -Ahl
         sha256sum openwrt*x86* | tee X86-GC404-$(date +%Y-%m-%d)-21.02.sha256sum
-        zip X86-GC404-$(date +%Y-%m-%d)-21.02-sfs.zip *combined.img
+        zip X86-GC404-$(date +%Y-%m-%d)-21.02-ext4.zip *ext4-rootfs*
+        zip X86-GC404-$(date +%Y-%m-%d)-21.02-sfs.zip *squashfs-rootfs*
         ls -Ahl
     - name: Upload artifact
       uses: actions/upload-artifact@main
