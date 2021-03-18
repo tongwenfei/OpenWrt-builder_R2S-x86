@@ -8,8 +8,8 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
-# 使用O3级别的优化
-sed -i 's/-Os/-O3/g' include/target.mk
+# 使用O2级别的优化
+sed -i 's/-Os/-O2/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mabi=lp64,g' include/target.mk
   cp -f ../PATCH/new/package/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
