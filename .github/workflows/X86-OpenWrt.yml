@@ -116,7 +116,7 @@ jobs:
       run: |
         rm -rf ./artifact/
         mkdir -p ./artifact/
-        mv openwrt/bin/targets/x86/64/*squashfs-combined.img.gz ./artifact/
+        mv openwrt/bin/targets/x86/64/*squashfs-rootfs.img.gz ./artifact/
         cd ./artifact/
         ls -Ahl
         gzip -d *.gz && exit 0
