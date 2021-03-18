@@ -60,11 +60,6 @@ jobs:
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
 
-    - name: list packages
-      run: |
-        sudo -E apt list --installed
-        false
-
     - name: Prepare OpenWrt
       run: |
         sudo chown -R runner:docker ./
