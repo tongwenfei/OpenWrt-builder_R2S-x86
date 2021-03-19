@@ -29,8 +29,7 @@ sed -i '/telephony/d' ./feeds.conf.default
 # remove annoying snapshot tag
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 # something called magic
-rm -rf ./scripts/download.pl
-rm -rf ./include/download.mk
+rm -rf ./scripts/download.pl ./include/download.mk
 wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/scripts/download.pl
 wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/download.mk
 sed -i '/\.cn\//d'   scripts/download.pl
@@ -75,7 +74,7 @@ wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/new/package/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
-cp -rf ../openwrt-lienol/package/network/fullconenat                         ./package/network/fullconenat
+cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
 pushd feeds/luci
   patch -p1 < ../../../PATCH/let-luci-use-busybox-passwd.patch
@@ -85,20 +84,20 @@ popd
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
 sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                               ./package/new/luci-app-adguardhome
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                             ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore   package/lean/autocore
-svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                       feeds/packages/utils/coremark
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore package/lean/autocore
+svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                     feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot        package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                package/lean/ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper              package/lean/ipv6-helper
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree           package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree         package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                      package/new/wrtbwmon
-git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon             package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                    package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon           package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns
 mkdir package/new/smartdns
@@ -109,6 +108,7 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
+  curl -sSf https://raw.githubusercontent.com/fw876/helloworld/8b0399ab367a40b23f690b1345744a3fd5611555/luci-app-ssr-plus/root/etc/init.d/shadowsocksr > package/lean/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
