@@ -142,7 +142,7 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
+  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/442.patch | patch -p1
   cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
 fi
 # CPU限制
