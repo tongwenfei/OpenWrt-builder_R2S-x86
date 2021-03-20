@@ -22,7 +22,7 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
 # feed调节
-sed -i '/telephony/d' ./feeds.conf.default
+sed -i '/telephony/d' feeds.conf.default
 # 更新feed
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -83,7 +83,7 @@ popd
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
-sed -i '/init/d' ./feeds/packages/net/adguardhome/Makefile
+sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                             ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
@@ -102,7 +102,7 @@ git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 rm -rf ./feeds/packages/net/smartdns
 mkdir package/new/smartdns
 wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
-sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'      ./package/new/smartdns/Makefile
+sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'        package/new/smartdns/Makefile
 # OpenClash
 git clone -b master --depth=1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
@@ -164,7 +164,7 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 
 ### 4. 最后的收尾工作 ###
 # 最大连接
-sed -i 's/16384/65535/g'   ./package/kernel/linux/files/sysctl-nf-conntrack.conf
+sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
