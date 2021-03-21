@@ -108,7 +108,7 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
-  curl -sSf https://raw.githubusercontent.com/fw876/helloworld/8b0399ab367a40b23f690b1345744a3fd5611555/luci-app-ssr-plus/root/etc/init.d/shadowsocksr > package/lean/luci-app-ssr-plus/root/etc/init.d/shadowsocksr
+  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/442.patch | patch -p1
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # SSRP依赖
@@ -142,7 +142,7 @@ svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ctcgfw/duktape      package/new/duktape
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/442.patch | patch -p1
+  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
   cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
 fi
 # CPU限制
