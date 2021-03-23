@@ -99,10 +99,11 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                    package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon           package/new/luci-app-wrtbwmon
 # SmartDNS
-rm -rf ./feeds/packages/net/smartdns
-mkdir package/new/smartdns
+rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
+mkdir   package/new/smartdns
 wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
 sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'        package/new/smartdns/Makefile
+svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-18.06/package/ntlf9t/luci-app-smartdns package/new/luci-app-smartdns
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
@@ -132,7 +133,6 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
-  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/442.patch | patch -p1
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # 订阅转换
