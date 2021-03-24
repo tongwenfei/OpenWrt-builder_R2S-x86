@@ -137,9 +137,9 @@ pushd package/lean
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/net/subconverter package/new/subconverter
-svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2 package/new/jpcre2
-svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson package/new/rapidjson
-svn co https://github.com/immortalwrt/packages/trunk/libs/duktape package/new/duktape
+svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      package/new/jpcre2
+svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   package/new/rapidjson
+svn co https://github.com/immortalwrt/packages/trunk/libs/duktape     package/new/duktape
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
