@@ -147,7 +147,7 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
 fi
 # CPU限制
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/ntlf9t/cpulimit        package/lean/cpulimit
+svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit                              package/lean/cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                                                    ./package/lean/luci-app-cpulimit
 # Zerotier
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier package/lean/luci-app-zerotier
