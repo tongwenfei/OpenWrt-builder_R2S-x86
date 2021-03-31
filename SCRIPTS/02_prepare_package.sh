@@ -141,16 +141,17 @@ svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      package/ne
 svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   package/new/rapidjson
 svn co https://github.com/immortalwrt/packages/trunk/libs/libcron     package/new/libcron
 svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   package/new/quickjspp
+# CPU限制
+svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit   package/lean/cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/lean/luci-app-cpulimit
+
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
   cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
 fi
-# CPU限制
-svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit                              package/lean/cpulimit
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                                    ./package/lean/luci-app-cpulimit
 # Zerotier
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier package/lean/luci-app-zerotier
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier  package/lean/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
