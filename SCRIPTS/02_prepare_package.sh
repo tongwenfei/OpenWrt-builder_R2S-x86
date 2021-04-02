@@ -100,10 +100,10 @@ git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon            
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon           package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
+svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns package/new/luci-app-smartdns
 mkdir   package/new/smartdns
 wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
 sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'        package/new/smartdns/Makefile
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-18.06-k5.4/package/ntlf9t/luci-app-smartdns package/new/luci-app-smartdns
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
