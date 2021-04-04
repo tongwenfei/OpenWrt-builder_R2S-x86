@@ -50,6 +50,9 @@ case ${MYOPENWRTTARGET} in
     wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
+    # 添加 GPU 驱动
+    rm -rf  package/kernel/linux/modules/video.mk
+    wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk
     # 交换 LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
@@ -89,7 +92,6 @@ cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                       
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                     feeds/packages/utils/coremark
-wget -qO - https://github.com/immortalwrt/immortalwrt/commit/13d6e338f1f7eba45e1aada749ac74fc391b9216.patch | patch -Rp1
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
 # ipv6-helper
