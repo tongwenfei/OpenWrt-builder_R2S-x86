@@ -147,6 +147,9 @@ svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   package/ne
 # CPU限制
 svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit   package/lean/cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/lean/luci-app-cpulimit
+# 额外DDNS脚本
+git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod package/lean/ddns-scripts_dnspod
+git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun package/lean/ddns-scripts_aliyun
 
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
