@@ -43,9 +43,6 @@ sed -i '/zwc365/d'   scripts/download.pl
 sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
-# kernel update
-wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/4057.patch | patch -p1
-
 ### 2. 必要的Patch ###
 case ${MYOPENWRTTARGET} in
   R2S)
