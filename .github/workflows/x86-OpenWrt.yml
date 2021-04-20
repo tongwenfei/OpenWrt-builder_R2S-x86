@@ -98,7 +98,7 @@ jobs:
       run: |
         df -h
         cd openwrt
-        let Make_Process=$(nproc)*4
+        let Make_Process=$(nproc)*8
         make download -j${Make_Process}
         echo $?
 
