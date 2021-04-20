@@ -122,7 +122,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay           
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
-svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                      package/lean/shadowsocks-rust
+svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust              package/lean/shadowsocks-rust
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
@@ -137,6 +137,7 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
+  wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/net/subconverter package/new/subconverter
