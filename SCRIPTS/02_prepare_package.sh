@@ -48,7 +48,7 @@ chmod +x scripts/download.pl
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
-    wget -P target/linux/generic/pending-5.4  https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    wget -P target/linux/generic/pending-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # 添加 GPU 驱动
@@ -104,37 +104,37 @@ git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon            
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon           package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
-svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
 svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns                             feeds/packages/net/smartdns
+svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks               package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                  package/lean/kcptun
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks              package/lean/microsocks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt               package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng          package/lean/proxychains-ng
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2               package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev      package/lean/shadowsocksr-libev
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs             package/lean/simple-obfs
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                  package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
-svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/v2ray             package/new/v2ray
-svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust              package/lean/shadowsocks-rust
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                      package/new/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                   package/new/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                 package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                package/new/v2ray-plugin
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core                   package/new/xray-core
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-plugin                 package/new/xray-plugin
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks                package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                   package/lean/kcptun
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks               package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng           package/lean/proxychains-ng
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2                package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev       package/lean/shadowsocksr-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs              package/lean/simple-obfs
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                   package/lean/trojan
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
+svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
+svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/v2ray              package/new/v2ray
+svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               package/lean/shadowsocks-rust
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                       package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/new/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core                    package/new/xray-core
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-plugin                  package/new/xray-plugin
 # OpenClash
-git clone -b master --depth=1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
+git clone -b master --depth=1 https://github.com/vernesong/OpenClash                    package/new/luci-app-openclash
 # SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                     package/lean/luci-app-ssr-plus
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
   wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
@@ -149,8 +149,8 @@ svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   package/ne
 svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit   package/lean/cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/lean/luci-app-cpulimit
 # 额外DDNS脚本
-git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod package/lean/ddns-scripts_dnspod
-git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun package/lean/ddns-scripts_aliyun
+git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod    package/lean/ddns-scripts_dnspod
+git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun    package/lean/ddns-scripts_aliyun
 
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
