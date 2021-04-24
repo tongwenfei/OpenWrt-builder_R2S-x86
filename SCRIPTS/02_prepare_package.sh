@@ -37,6 +37,7 @@ sed -i '/aliyun/d'   scripts/download.pl
 sed -i '/cnpmjs/d'   scripts/download.pl
 sed -i '/fastgit/d'  scripts/download.pl
 sed -i '/ghproxy/d'  scripts/download.pl
+sed -i '/mirror02/d' scripts/download.pl
 sed -i '/sevencdn/d' scripts/download.pl
 sed -i '/tencent/d'  scripts/download.pl
 sed -i '/zwc365/d'   scripts/download.pl
@@ -104,9 +105,7 @@ git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
 svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
-mkdir   package/new/smartdns
-wget -P package/new/smartdns/ https://raw.githubusercontent.com/HiGarfield/lede-17.01.4-Mod/master/package/extra/smartdns/Makefile
-sed -i 's,files/etc/config,$(PKG_BUILD_DIR)/package/openwrt/files/etc/config,g'        package/new/smartdns/Makefile
+svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns                             feeds/packages/net/smartdns
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks               package/lean/dns2socks
@@ -122,6 +121,7 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay           
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                  package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev            package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                            package/lean/naiveproxy
+svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/v2ray             package/new/v2ray
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust              package/lean/shadowsocks-rust
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                       package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                      package/new/ssocks
