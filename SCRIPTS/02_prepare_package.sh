@@ -121,8 +121,8 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay           
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                   package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
-svn co https://github.com/immortalwrt/immortalwrt/trunk/package/lean/v2ray              package/new/v2ray
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               package/lean/shadowsocks-rust
+svn co https://github.com/immortalwrt/packages/trunk/net/v2ray-core                     package/new/v2ray-core
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                       package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/new/tcping
