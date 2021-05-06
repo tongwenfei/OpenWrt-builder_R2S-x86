@@ -44,6 +44,9 @@ sed -i '/zwc365/d'   scripts/download.pl
 sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
+# kernel update
+wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/4133.patch | patch -p1
+
 ### 2. 必要的Patch ###
 case ${MYOPENWRTTARGET} in
   R2S)
@@ -137,6 +140,7 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
+  wget -qO - https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/509.patch | patch -p1
   wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
 popd
 # 订阅转换
