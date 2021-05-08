@@ -30,6 +30,8 @@ sed -i 's,#USE_SOFTDRIVERS = 2,USE_SOFTDRIVERS = 1,g' /etc/ssl/openssl.cnf
 # dnsmasq
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
+uci del dhcp.@dnsmasq[0].filteraaaa
+uci commit dhcp
 # enable Packet Steering
 uci set network.globals.packet_steering='1'
 uci commit network
