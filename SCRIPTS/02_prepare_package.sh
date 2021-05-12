@@ -115,12 +115,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks       
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng           package/lean/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2                package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev       package/lean/shadowsocksr-libev
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs              package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                   package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev                     package/lean/shadowsocksr-libev
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
