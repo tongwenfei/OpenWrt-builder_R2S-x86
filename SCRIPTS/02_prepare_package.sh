@@ -30,8 +30,8 @@ sed -i '/telephony/d' feeds.conf.default
 sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 # something called magic
 rm -rf ./scripts/download.pl ./include/download.mk
-wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/scripts/download.pl
-wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/include/download.mk
+wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/include/download.mk
+wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/scripts/download.pl
 sed -i '/\.cn\//d'   scripts/download.pl
 sed -i '/aliyun/d'   scripts/download.pl
 sed -i '/cnpmjs/d'   scripts/download.pl
@@ -87,6 +87,8 @@ popd
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
+rm -rf ./feeds/packages/net/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome                        feeds/packages/net/adguardhome
 sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                             ./package/new/luci-app-adguardhome
 # AutoCore & coremark
@@ -151,7 +153,9 @@ cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/le
 # 额外DDNS脚本
 git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod    package/lean/ddns-scripts_dnspod
 git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun    package/lean/ddns-scripts_aliyun
-
+# UPnP
+rm -rf ./feeds/packages/net/miniupnpd
+svn co https://github.com/openwrt/packages/trunk/net/miniupnpd        feeds/packages/net/miniupnpd
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
