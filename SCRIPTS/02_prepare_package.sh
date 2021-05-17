@@ -26,8 +26,6 @@ sed -i '/telephony/d' feeds.conf.default
 # 更新feed
 ./scripts/feeds update -a
 ./scripts/feeds install -a
-# remove annoying snapshot tag
-sed -i "s,SNAPSHOT,$(date '+%Y.%m.%d'),g"  include/version.mk
 # something called magic
 rm -rf ./scripts/download.pl ./include/download.mk
 wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/include/download.mk
