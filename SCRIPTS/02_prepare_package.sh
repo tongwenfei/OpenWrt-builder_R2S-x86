@@ -86,28 +86,28 @@ popd
 mkdir -p ./package/new/ ./package/lean/
 # AdGuard
 rm -rf ./feeds/packages/net/adguardhome
-svn co https://github.com/openwrt/packages/trunk/net/adguardhome                        feeds/packages/net/adguardhome
+svn co https://github.com/openwrt/packages/trunk/net/adguardhome                           feeds/packages/net/adguardhome
 sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                             ./package/new/luci-app-adguardhome
+cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                                ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
-svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                     feeds/packages/utils/coremark
+svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                        feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot         package/lean/luci-app-autoreboot
 # ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper              package/lean/ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                 package/lean/ipv6-helper
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree         package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree            package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                    package/new/wrtbwmon
-git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon           package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
 # SmartDNS
 rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
 svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns                             feeds/packages/net/smartdns
 svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
 # SSRP依赖
-rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng
+rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks                package/lean/ipt2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                   package/lean/kcptun
@@ -131,7 +131,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go            
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
-ln -sf ../../../feeds/packages/net/shadowsocks-rust ./package/feeds/packages/shadowsocks-rust
+ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
 # OpenClash
 git clone -b master --depth=1 https://github.com/vernesong/OpenClash                    package/new/luci-app-openclash
 # SSRP
@@ -151,26 +151,26 @@ ln -sf ../../../feeds/packages/libs/libcron     ./package/feeds/packages/libcron
 ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjspp
 ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
-# CPU限制
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/lean/luci-app-cpulimit
-svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit feeds/packages/utils/cpulimit
-ln -sf ../../../feeds/packages/utils/cpulimit ./package/feeds/packages/cpulimit
 # 额外DDNS脚本
-git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod    package/lean/ddns-scripts_dnspod
-git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun    package/lean/ddns-scripts_aliyun
+git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod               package/lean/ddns-scripts_dnspod
+git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun               package/lean/ddns-scripts_aliyun
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
-svn co https://github.com/openwrt/packages/trunk/net/miniupnpd        feeds/packages/net/miniupnpd
+svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
+# Zerotier
+svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier  feeds/luci/applications/luci-app-zerotier
+ln -sf ../../../feeds/luci/applications/luci-app-zerotier                      ./package/feeds/luci/luci-app-zerotier
+rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
+# CPU限制
+svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit              feeds/packages/utils/cpulimit
+ln -sf ../../../feeds/packages/utils/cpulimit                                  ./package/feeds/packages/cpulimit
+cp -rf ../PATCH/duplicate/luci-app-cpulimit                                    ./package/lean/luci-app-cpulimit
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
-  ln -sf ../../../feeds/luci/applications/luci-app-cpufreq ./package/feeds/luci/luci-app-cpufreq
-  cp -f ../PRECONFS/cpufreq ./feeds/luci/applications/luci-app-cpufreq/root/etc/config/cpufreq
+  ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                     ./package/feeds/luci/luci-app-cpufreq
+  cp -f ../PRECONFS/cpufreq                                                    ./feeds/luci/applications/luci-app-cpufreq/root/etc/config/cpufreq
 fi
-# Zerotier
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
-ln -sf ../../../feeds/luci/applications/luci-app-zerotier ./package/feeds/luci/luci-app-zerotier
-rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
