@@ -91,7 +91,7 @@ sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
 cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                             ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/autocore package/lean/autocore
+svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                     feeds/packages/utils/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot      package/lean/luci-app-autoreboot
@@ -124,13 +124,14 @@ svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev             
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
-svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               package/lean/shadowsocks-rust
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                       package/new/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
+svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
+ln -sf ../../../feeds/packages/net/shadowsocks-rust ./package/feeds/packages/shadowsocks-rust
 # OpenClash
 git clone -b master --depth=1 https://github.com/vernesong/OpenClash                    package/new/luci-app-openclash
 # SSRP
@@ -140,14 +141,20 @@ pushd package/lean
   wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
 popd
 # 订阅转换
-svn co https://github.com/immortalwrt/packages/trunk/net/subconverter package/new/subconverter
-svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      package/new/jpcre2
-svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   package/new/rapidjson
-svn co https://github.com/immortalwrt/packages/trunk/libs/libcron     package/new/libcron
-svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   package/new/quickjspp
+svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
+svn co https://github.com/immortalwrt/packages/trunk/libs/libcron     feeds/packages/libs/libcron
+svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   feeds/packages/libs/quickjspp
+svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   feeds/packages/libs/rapidjson
+svn co https://github.com/immortalwrt/packages/trunk/net/subconverter feeds/packages/net/subconverter
+ln -sf ../../../feeds/packages/libs/jpcre2      ./package/feeds/packages/jpcre2
+ln -sf ../../../feeds/packages/libs/libcron     ./package/feeds/packages/libcron
+ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjspp
+ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
+ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
 # CPU限制
-svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit   package/lean/cpulimit
 cp -rf ../PATCH/duplicate/luci-app-cpulimit                         ./package/lean/luci-app-cpulimit
+svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit feeds/packages/utils/cpulimit
+ln -sf ../../../feeds/packages/utils/cpulimit ./package/feeds/packages/cpulimit
 # 额外DDNS脚本
 git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod    package/lean/ddns-scripts_dnspod
 git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun    package/lean/ddns-scripts_aliyun
@@ -156,11 +163,13 @@ rm -rf ./feeds/packages/net/miniupnpd
 svn co https://github.com/openwrt/packages/trunk/net/miniupnpd        feeds/packages/net/miniupnpd
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-cpufreq package/lean/luci-app-cpufreq
-  cp -f ../PRECONFS/cpufreq ./package/lean/luci-app-cpufreq/root/etc/config/cpufreq
+  svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
+  ln -sf ../../../feeds/luci/applications/luci-app-cpufreq ./package/feeds/luci/luci-app-cpufreq
+  cp -f ../PRECONFS/cpufreq ./feeds/luci/applications/luci-app-cpufreq/root/etc/config/cpufreq
 fi
 # Zerotier
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lean/luci-app-zerotier  package/lean/luci-app-zerotier
+svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
+ln -sf ../../../feeds/luci/applications/luci-app-zerotier ./package/feeds/luci/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
