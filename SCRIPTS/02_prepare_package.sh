@@ -169,7 +169,6 @@ cp -rf ../PATCH/duplicate/luci-app-cpulimit                                    .
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
   ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                     ./package/feeds/luci/luci-app-cpufreq
-  cp -f ../PRECONFS/cpufreq                                                    ./feeds/luci/applications/luci-app-cpufreq/root/etc/config/cpufreq
 fi
 # 翻译及部分功能优化
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
