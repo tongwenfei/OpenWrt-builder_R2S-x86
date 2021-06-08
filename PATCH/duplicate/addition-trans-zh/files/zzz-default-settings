@@ -36,8 +36,8 @@ uci commit dhcp
 uci set network.globals.packet_steering='1'
 uci commit network
 # symlink for ip and wget-ssl command
-ln -sf /sbin/ip /usr/bin/ip
-ln -sf /usr/bin/wget /usr/bin/wget-ssl
+ln -sf /usr/libexec/ip-full  /usr/bin/ip
+ln -sf /usr/libexec/wget-ssl /usr/bin/wget-ssl
 # opkg hold patched packages
 opkg flag hold luci-app-firewall
 opkg flag hold firewall
