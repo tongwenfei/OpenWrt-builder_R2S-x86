@@ -112,7 +112,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks        
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks                package/lean/ipt2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks               package/lean/microsocks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng           package/lean/proxychains-ng
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2                package/lean/redsocks2
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs              package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
@@ -129,6 +128,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping               
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
+svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng                 package/lean/proxychains-ng
 svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
 ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
