@@ -68,7 +68,7 @@ patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
 cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
-  wget https://raw.githubusercontent.com/coolsnowwolf/lede/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+  wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
@@ -110,7 +110,6 @@ svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/l
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks                package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/kcptun                   package/lean/kcptun
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks               package/lean/microsocks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/proxychains-ng           package/lean/proxychains-ng
@@ -130,7 +129,9 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping               
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
+svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
+ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
 # OpenClash
 git clone -b master --depth=1 https://github.com/vernesong/OpenClash                    package/new/luci-app-openclash
@@ -184,6 +185,7 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 ### 4. 最后的收尾工作 ###
 # 最大连接
 sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
+echo 'net.netfilter.nf_conntrack_helper = 1' >> package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 echo '
