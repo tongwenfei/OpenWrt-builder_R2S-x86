@@ -16,7 +16,7 @@ cp -f ../SCRIPTS/*.sh ./
 
 echo "Modification     $(date)" | tee -a ../../buildtime.txt
 /bin/bash ./03_convert_translation.sh
-/bin/bash ./04_remove_upx.sh
+#/bin/bash ./04_remove_upx.sh
 /bin/bash ./05_create_acl_for_luci.sh -a
 
 echo "Make Defconfig   $(date)" | tee -a ../../buildtime.txt
