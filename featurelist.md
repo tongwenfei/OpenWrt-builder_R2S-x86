@@ -11,7 +11,7 @@
 ### 常用功能
 |  |  |  |  |  |  |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| NetData 监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | dnsfilter |
+| NetData 监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | adblock-plus |
 | SSRP | OpenClash | 动态 DNS | 硬盘休眠 | WOL 网络唤醒 | dnsproxy |
 | uHTTPd 配置 | Samba4 | Aria2 | UPnP 配置 | SQM QoS | CPU 占用率限制 |
 | 流量监控 | BBR (1) | FullCone NAT (2) | Offloading (2) | - | - |

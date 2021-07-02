@@ -84,6 +84,9 @@ popd
 
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
+# adblock-plus
+git clone -b master --depth=1 https://github.com/small-5/luci-app-adblock-plus.git         package/new/luci-app-adblock-plus
+cp -f ../PATCH/adblock-plus_config/adblock                                               ./package/new/luci-app-adblock-plus/root/etc/config/adblock
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
@@ -97,9 +100,6 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 # 流量监视
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
-# Dnsfilter
-git clone -b master --depth=1 https://github.com/garypang13/luci-app-dnsfilter.git         package/new/luci-app-dnsfilter
-cp -f ../PATCH/dnsfilter_config/dnsfilter                                                ./package/new/luci-app-dnsfilter/root/etc/config/dnsfilter
 # Dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy                          feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy                                              ./package/feeds/packages/dnsproxy
