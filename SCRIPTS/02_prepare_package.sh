@@ -12,7 +12,7 @@ echo "==> Now building: ${MYOPENWRTTARGET}"
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mabi=lp64,g' include/target.mk
-  cp -f ../PATCH/new/package/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
+  cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
   rm -rf ./target/linux/rockchip ./package/boot/uboot-rockchip ./package/boot/arm-trusted-firmware-rk3328
   svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip                    target/linux/rockchip
@@ -48,7 +48,7 @@ case ${MYOPENWRTTARGET} in
     # show cpu model name
     wget -P target/linux/generic/pending-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
-    patch -p1 < ../PATCH/new/main/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
+    patch -p1 < ../PATCH/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # 添加 GPU 驱动
     rm -rf  package/kernel/linux/modules/video.mk
     wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk
@@ -61,11 +61,11 @@ case ${MYOPENWRTTARGET} in
     ;;
 esac
 # Patch jsonc
-patch -p1 < ../PATCH/new/package/use_json_object_new_int64.patch
+patch -p1 < ../PATCH/jsonc/use_json_object_new_int64.patch
 # Patch dnsmasq filter AAAA
-patch -p1 < ../PATCH/new/package/dnsmasq-add-filter-aaaa-option.patch
-patch -p1 < ../PATCH/new/package/luci-add-filter-aaaa-option.patch
-cp  -f      ../PATCH/new/package/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
+patch -p1 < ../PATCH/dnsmasq/dnsmasq-add-filter-aaaa-option.patch
+patch -p1 < ../PATCH/dnsmasq/luci-add-filter-aaaa-option.patch
+cp  -f      ../PATCH/dnsmasq/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
   wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
@@ -74,7 +74,7 @@ popd
 mkdir -p package/network/config/firewall/patches
 wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
 # Patch LuCI 以增添FullCone开关
-patch -p1 < ../PATCH/new/package/luci-app-firewall_add_fullcone.patch
+patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
 cp -rf ../openwrt-lienol/package/network/fullconenat ./package/network/fullconenat
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
@@ -84,11 +84,6 @@ popd
 
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
-# AdGuard
-rm -rf ./feeds/packages/net/adguardhome
-svn co https://github.com/openwrt/packages/trunk/net/adguardhome                           feeds/packages/net/adguardhome
-sed -i '/init/d' feeds/packages/net/adguardhome/Makefile
-cp -rf ../openwrt-lienol/package/diy/luci-app-adguardhome                                ./package/new/luci-app-adguardhome
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
@@ -102,10 +97,13 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 # 流量监视
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
-# SmartDNS
-rm -rf ./feeds/packages/net/smartdns ./feeds/luci/applications/luci-app-smartdns
-svn co https://github.com/Lienol/openwrt-packages/trunk/net/smartdns                             feeds/packages/net/smartdns
-svn co https://github.com/immortalwrt/luci/branches/openwrt-18.06/applications/luci-app-smartdns feeds/luci/applications/luci-app-smartdns
+# Dnsfilter
+git clone -b master --depth=1 https://github.com/garypang13/luci-app-dnsfilter.git         package/new/luci-app-dnsfilter
+cp -f ../PATCH/dnsfilter_config/dnsfilter                                                ./package/new/luci-app-dnsfilter/root/etc/config/dnsfilter
+# Dnsproxy
+svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy                          feeds/packages/net/dnsproxy
+ln -sf ../../../feeds/packages/net/dnsproxy                                              ./package/feeds/packages/dnsproxy
+wget -P package/base-files/files/etc/init.d/ https://github.com/QiuSimons/OpenWrt-Add/raw/master/dnsproxy
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
@@ -138,7 +136,7 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
-  patch -p1 < ../../../PATCH/0002-add-QiuSimons-Chnroute-to-chnroute-url.patch
+  patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
   wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
 popd
 # 订阅转换
@@ -165,18 +163,20 @@ rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # CPU限制
 svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit              feeds/packages/utils/cpulimit
 ln -sf ../../../feeds/packages/utils/cpulimit                                  ./package/feeds/packages/cpulimit
-cp -rf ../PATCH/duplicate/luci-app-cpulimit                                    ./package/lean/luci-app-cpulimit
+svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit          package/lean/luci-app-cpulimit
+cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                               ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
   ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                     ./package/feeds/luci/luci-app-cpufreq
 fi
 # 翻译及部分功能优化
+svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
-  sed -i '/openssl\.cnf/d' ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
-  sed -i '/upnp/Id'        ../PATCH/duplicate/addition-trans-zh/files/zzz-default-settings
+  sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh_files/zzz-default-settings
+  sed -i '/upnp/Id'        ../PATCH/addition-trans-zh_files/zzz-default-settings
 fi
-cp -rf ../PATCH/duplicate/addition-trans-zh ./package/lean/lean-translate
+cp -f ../PATCH/addition-trans-zh_files/zzz-default-settings ./package/lean/lean-translate/files/zzz-default-settings
 # 给root用户添加vim和screen的配置文件
 mkdir -p                                    ./package/base-files/files/root/
 cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
@@ -219,4 +219,3 @@ rm -rf .config
 # 删除.svn目录
 find ./ -type d -name '.svn' -print0 | xargs -0 -s1024 /bin/rm -rf
 unalias wget
-exit 0

@@ -8,7 +8,6 @@ sed -i '/natelol/d'                                               /etc/opkg/dist
 sed -i 's,downloads.openwrt.org,mirrors.cloud.tencent.com/lede,g' /etc/opkg/distfeeds.conf
 # uhttpd
 uci set uhttpd.main.rfc1918_filter='0'
-uci set uhttpd.main.redirect_https='0'
 uci commit uhttpd
 /etc/init.d/uhttpd restart
 # enable Fullcone NAT
@@ -28,6 +27,9 @@ uci commit upnpd
 sed -i 's,#devcrypto,devcrypto,g' /etc/ssl/openssl.cnf
 sed -i 's,#USE_SOFTDRIVERS = 2,USE_SOFTDRIVERS = 1,g' /etc/ssl/openssl.cnf
 # dnsmasq
+uci set dhcp.lan.ra='hybrid'
+uci set dhcp.lan.dhcpv6='hybrid'
+uci set dhcp.lan.ndp='hybrid'
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
 uci del dhcp.@dnsmasq[0].filteraaaa
@@ -39,9 +41,12 @@ uci commit network
 ln -sf /usr/libexec/ip-full  /usr/bin/ip
 ln -sf /usr/libexec/wget-ssl /usr/bin/wget-ssl
 # opkg hold patched packages
-opkg flag hold luci-app-firewall
-opkg flag hold firewall
 opkg flag hold dnsmasq-full
+opkg flag hold firewall
+opkg flag hold luci-app-firewall
+# disable dnsproxy
+/etc/init.d/dnsproxy stop
+/etc/init.d/dnsproxy disable
 # delete luci cache
 rm -rf /tmp/luci-modulecache
 rm  -f /tmp/luci-indexcache
