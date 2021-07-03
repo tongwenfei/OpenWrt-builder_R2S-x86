@@ -1,5 +1,5 @@
 ## 变更历史 stage 7
-### 2021/07/02 build 05
+### 2021/07/03 build 05
 * 移除 SmartDNS、AdGuard Home，加入 luci-app-adblock-plus。
 * 内核更新至 `5.4.128`。
 ### 2021/06/18 build 04
