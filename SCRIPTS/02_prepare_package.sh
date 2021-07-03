@@ -177,11 +177,14 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 fi
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
+pushd ./package/lean/lean-translate
+  patch -p1 < ../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
+popd
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
-  sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh_files/zzz-default-settings
-  sed -i '/upnp/Id'        ../PATCH/addition-trans-zh_files/zzz-default-settings
+  sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
+  sed -i '/upnp/Id'        ../PATCH/addition-trans-zh/files/zzz-default-settings
 fi
-cp -f ../PATCH/addition-trans-zh_files/zzz-default-settings ./package/lean/lean-translate/files/zzz-default-settings
+cp -f ../PATCH/addition-trans-zh/files/zzz-default-settings ./package/lean/lean-translate/files/zzz-default-settings
 # 给root用户添加vim和screen的配置文件
 mkdir -p                                    ./package/base-files/files/root/
 cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
