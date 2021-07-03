@@ -178,7 +178,7 @@ fi
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
 pushd ./package/lean/lean-translate
-  patch -p1 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
+  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
 popd
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
