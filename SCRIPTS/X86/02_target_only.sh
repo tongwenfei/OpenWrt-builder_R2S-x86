@@ -8,6 +8,11 @@ sed -i '/Rust:/d' package/lean/luci-app-ssr-plus/Makefile
 sed -i '/Rust:/d' package/new/luci-app-passwall/Makefile
 sed -i '/Rust:/d' package/lean/luci-app-vssr/Makefile
 
+# 内核加解密组件
+echo '
+CONFIG_CRYPTO_AES_NI_INTEL=y
+' >> ./target/linux/rockchip/armv8/config-5.4
+
 # MPTCP
 echo '
 CONFIG_MPTCP=y
