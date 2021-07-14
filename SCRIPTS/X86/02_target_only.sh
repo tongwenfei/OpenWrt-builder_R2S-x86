@@ -23,9 +23,9 @@ CONFIG_DEFAULT_MPTCP_PM="fullmesh"
 ' >> ./target/linux/x86/64/config-5.4
 
 # BBRv2
-#echo '
-#CONFIG_KERNEL_TCP_CONG_BBR2=y
-#' >> ./target/linux/x86/64/config-5.4
+echo '
+CONFIG_KERNEL_TCP_CONG_BBR2=y
+' >> ./target/linux/x86/64/config-5.4
 
 #Vermagic
 latest_version="$(curl -s https://github.com/openwrt/openwrt/releases |grep -Eo "v[0-9\.]+\-*r*c*[0-9]*.tar.gz" |sed -n '/21/p' |sed -n 1p |sed 's/v//g' |sed 's/.tar.gz//g')"
