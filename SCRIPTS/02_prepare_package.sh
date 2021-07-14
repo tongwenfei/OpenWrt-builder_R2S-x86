@@ -347,6 +347,11 @@ rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh package/lean/lean-translate
 
+# MPTCP
+echo '
+CONFIG_CRYPTO_SHA256=y
+' >> ./target/linux/generic/config-5.4
+
 ### 最后的收尾工作 ###
 # Lets Fuck
 mkdir package/base-files/files/usr/bin
