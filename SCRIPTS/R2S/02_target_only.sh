@@ -62,6 +62,15 @@ CONFIG_CRYPTO_SM3_ARM64_CE=y
 CONFIG_CRYPTO_SM4_ARM64_CE=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 
+# MPTCP
+echo '
+CONFIG_MPTCP=y
+CONFIG_MPTCP_PM_ADVANCED=y
+CONFIG_MPTCP_FULLMESH=y
+CONFIG_DEFAULT_FULLMESH=y
+CONFIG_DEFAULT_MPTCP_PM="fullmesh"
+' >> ./target/linux/rockchip/armv8/config-5.4
+
 # 预配置一些插件
 cp -rf ../PATCH/files ./files
 
