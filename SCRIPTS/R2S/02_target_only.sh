@@ -55,6 +55,11 @@ CONFIG_DEFAULT_FULLMESH=y
 CONFIG_DEFAULT_MPTCP_PM="fullmesh"
 ' >> ./target/linux/rockchip/armv8/config-5.4
 
+# BBRv2
+echo '
+CONFIG_KERNEL_TCP_CONG_BBR2=y
+' >> ./target/linux/rockchip/armv8/config-5.4
+
 # 预配置一些插件
 cp -rf ../PATCH/files ./files
 
