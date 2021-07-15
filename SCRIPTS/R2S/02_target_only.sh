@@ -37,13 +37,6 @@ sed -i -e 's/^\(.\).*vermagic$/\1cp $(TOPDIR)\/.vermagic $(LINUX_DIR)\/.vermagic
 
 # 内核加解密组件
 echo '
-CONFIG_CRYPTO_HW=y
-CONFIG_ARM64_CRYPTO=y
-CONFIG_CRYPTO_SHA1_ARM_CE=y
-CONFIG_CRYPTO_SHA2_ARM_CE=y
-CONFIG_CRYPTO_GHASH_ARM_CE=y
-CONFIG_CRYPTO_AES_ARM=y
-CONFIG_CRYPTO_AES_ARM_CE=y
 ' >> ./target/linux/rockchip/armv8/config-5.4
 
 # MPTCP
@@ -53,14 +46,6 @@ CONFIG_MPTCP_PM_ADVANCED=y
 CONFIG_MPTCP_FULLMESH=y
 CONFIG_DEFAULT_FULLMESH=y
 CONFIG_DEFAULT_MPTCP_PM="fullmesh"
-' >> ./target/linux/rockchip/armv8/config-5.4
-
-# BBRv2
-sed -i '/CUBIC/d' target/linux/generic/config-5.4
-echo '
-CONFIG_TCP_CONG_BBR2=y
-CONFIG_DEFAULT_BBR2=y
-CONFIG_DEFAULT_TCP_CONG="bbr2"
 ' >> ./target/linux/rockchip/armv8/config-5.4
 
 # 预配置一些插件
