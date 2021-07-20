@@ -3,7 +3,6 @@
 * 内核更新至 `5.4.132`。
 * BBR 改用 `v2alpha` 版本，另加入 [Multipath TCP (MPTCP)](https://github.com/Ysurac/openmptcprouter)。
 * 移除 subconverter、luci-app-adblock-plus 和 luci-theme-openwrt-2020。
-* 采用 GCC 11 编译。
 
 ## 变更历史 stage 7
 ### 2021/07/03 build 05
