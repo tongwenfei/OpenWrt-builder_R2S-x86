@@ -43,10 +43,34 @@ sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
 ### 2. 必要的Patch ###
+# GCC11
+rm -rf ./toolchain/gcc
+svn co https://github.com/openwrt/openwrt/trunk/toolchain/gcc                  toolchain/gcc
+rm -rf ./package/network/utils/bpftools
+svn co https://github.com/openwrt/openwrt/trunk/package/network/utils/bpftools package/network/utils/bpftools
+rm -rf ./feeds/packages/libs/dtc
+svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
+rm -rf ./package/libs/elfutils
+svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
+# MPTCP
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/690-mptcp_trunk.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/998-ndpi-netfilter.patch
+echo '
+CONFIG_CRYPTO_SHA256=y
+' >> ./target/linux/generic/config-5.4
+# BBRv2
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/692-tcp_nanqinlang.patch
+wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/693-tcp_bbr2.patch
+wget -O target/linux/generic/hack-5.4/694-tcp_bbr2.patch https://github.com/google/bbr/commit/3d76056b85feab3aade8007eb560c3451e7d3433.patch
+wget -qO - https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/patches/nanqinlang.patch | patch -p1
+wget -qO - https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/patches/bbr2.patch | patch -p1
+# OPENSSL
+wget -qO - https://github.com/mj22226/openwrt/commit/5e10633f6b69c1678e2be227d924a03ccedbb747.patch | patch -p1
+
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
-    wget -P target/linux/generic/pending-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # 添加 GPU 驱动
@@ -89,9 +113,6 @@ popd
 
 ### 3. 更新部分软件包 ###
 mkdir -p ./package/new/ ./package/lean/
-# adblock-plus
-git clone -b master --depth=1 https://github.com/small-5/luci-app-adblock-plus.git         package/new/luci-app-adblock-plus
-cp -f ../PATCH/adblock-plus_config/adblock                                               ./package/new/luci-app-adblock-plus/root/etc/config/adblock
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
@@ -142,7 +163,6 @@ git clone -b master --depth=1 https://github.com/vernesong/OpenClash            
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
-  wget -qO - https://github.com/QiuSimons/helloworld-fw876/commit/c1674ad3b83b60aeab723da1f48201929507a131.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
@@ -178,7 +198,7 @@ fi
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
 pushd ./package/lean/lean-translate
-  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
+  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier.patch
 popd
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
@@ -195,33 +215,29 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 echo 'net.netfilter.nf_conntrack_helper = 1' >> package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
-if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
+case ${MYOPENWRTTARGET} in
+  R2S)
+# MPTCP
 echo '
-CONFIG_ARM64_CRYPTO=y
-CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y
-CONFIG_ARM_PSCI_FW=y
-CONFIG_ARM_RK3328_DMC_DEVFREQ=y
-CONFIG_CRYPTO_AES_ARM64=y
-CONFIG_CRYPTO_AES_ARM64_BS=y
-CONFIG_CRYPTO_AES_ARM64_CE=y
-CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
-CONFIG_CRYPTO_AES_ARM64_CE_CCM=y
-CONFIG_CRYPTO_AES_ARM64_NEON_BLK=y
-CONFIG_CRYPTO_CHACHA20_NEON=y
-# CONFIG_CRYPTO_CRCT10DIF_ARM64_CE is not set
-CONFIG_CRYPTO_GHASH_ARM64_CE=y
-CONFIG_CRYPTO_NHPOLY1305_NEON=y
-CONFIG_CRYPTO_POLY1305_NEON=y
-CONFIG_CRYPTO_SHA1_ARM64_CE=y
-CONFIG_CRYPTO_SHA2_ARM64_CE=y
-CONFIG_CRYPTO_SHA256_ARM64=y
-CONFIG_CRYPTO_SHA3_ARM64=y
-CONFIG_CRYPTO_SHA512_ARM64=y
-# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
-CONFIG_CRYPTO_SM3_ARM64_CE=y
-CONFIG_CRYPTO_SM4_ARM64_CE=y
+CONFIG_MPTCP=y
+CONFIG_MPTCP_PM_ADVANCED=y
+CONFIG_MPTCP_FULLMESH=y
+CONFIG_DEFAULT_FULLMESH=y
+CONFIG_DEFAULT_MPTCP_PM="fullmesh"
 ' >> ./target/linux/rockchip/armv8/config-5.4
-fi
+    ;;
+  x86)
+# MPTCP and crypto
+echo '
+CONFIG_CRYPTO_AES_NI_INTEL=y
+CONFIG_MPTCP=y
+CONFIG_MPTCP_PM_ADVANCED=y
+CONFIG_MPTCP_FULLMESH=y
+CONFIG_DEFAULT_FULLMESH=y
+CONFIG_DEFAULT_MPTCP_PM="fullmesh"
+' >> ./target/linux/x86/64/config-5.4
+    ;;
+esac
 # 删除已有配置
 rm -rf .config
 # 删除.svn目录
