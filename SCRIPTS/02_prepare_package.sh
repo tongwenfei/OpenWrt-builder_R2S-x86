@@ -43,15 +43,6 @@ sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
 ### 2. 必要的Patch ###
-# GCC11
-rm -rf ./toolchain/gcc
-svn co https://github.com/openwrt/openwrt/trunk/toolchain/gcc                  toolchain/gcc
-rm -rf ./package/network/utils/bpftools
-svn co https://github.com/openwrt/openwrt/trunk/package/network/utils/bpftools package/network/utils/bpftools
-rm -rf ./feeds/packages/libs/dtc
-svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
-rm -rf ./package/libs/elfutils
-svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
 # MPTCP
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/690-mptcp_trunk.patch
 wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/998-ndpi-netfilter.patch
