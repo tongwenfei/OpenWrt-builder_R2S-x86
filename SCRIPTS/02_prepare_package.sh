@@ -117,7 +117,6 @@ git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 # Dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy                          feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy                                              ./package/feeds/packages/dnsproxy
-wget -P package/base-files/files/etc/init.d/ https://github.com/QiuSimons/OpenWrt-Add/raw/master/dnsproxy
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
