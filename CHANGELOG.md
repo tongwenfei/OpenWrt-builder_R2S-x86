@@ -3,6 +3,7 @@
 * 内核更新至 `5.4.132`。
 * 移除 subconverter、luci-app-adblock-plus 和 luci-theme-openwrt-2020。
 * 编译器采用 GCC 11。
+* GnuPG 更新至 `2.2.23`。加入 vnstat。
 
 ## 变更历史 stage 7
 ### 2021/07/03 build 05
