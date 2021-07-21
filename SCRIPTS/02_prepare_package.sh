@@ -43,18 +43,15 @@ sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
 ### 2. 必要的Patch ###
-# MPTCP
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/690-mptcp_trunk.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/998-ndpi-netfilter.patch
-echo '
-CONFIG_CRYPTO_SHA256=y
-' >> ./target/linux/generic/config-5.4
-# BBRv2
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/692-tcp_nanqinlang.patch
-wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/root/target/linux/generic/hack-5.4/693-tcp_bbr2.patch
-wget -O target/linux/generic/hack-5.4/694-tcp_bbr2.patch https://github.com/google/bbr/commit/3d76056b85feab3aade8007eb560c3451e7d3433.patch
-wget -qO - https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/patches/nanqinlang.patch | patch -p1
-wget -qO - https://raw.githubusercontent.com/Ysurac/openmptcprouter/develop/patches/bbr2.patch | patch -p1
+# GCC11
+rm -rf ./toolchain/gcc
+svn co https://github.com/openwrt/openwrt/trunk/toolchain/gcc                  toolchain/gcc
+rm -rf ./package/network/utils/bpftools
+svn co https://github.com/openwrt/openwrt/trunk/package/network/utils/bpftools package/network/utils/bpftools
+rm -rf ./feeds/packages/libs/dtc
+svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
+rm -rf ./package/libs/elfutils
+svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
 # OPENSSL
 wget -qO - https://github.com/mj22226/openwrt/commit/5e10633f6b69c1678e2be227d924a03ccedbb747.patch | patch -p1
 
@@ -189,7 +186,7 @@ fi
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
 pushd ./package/lean/lean-translate
-  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier.patch
+  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
 popd
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
@@ -206,29 +203,9 @@ cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.scr
 sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 echo 'net.netfilter.nf_conntrack_helper = 1' >> package/kernel/linux/files/sysctl-nf-conntrack.conf
 # crypto相关
-case ${MYOPENWRTTARGET} in
-  R2S)
-# MPTCP
-echo '
-CONFIG_MPTCP=y
-CONFIG_MPTCP_PM_ADVANCED=y
-CONFIG_MPTCP_FULLMESH=y
-CONFIG_DEFAULT_FULLMESH=y
-CONFIG_DEFAULT_MPTCP_PM="fullmesh"
-' >> ./target/linux/rockchip/armv8/config-5.4
-    ;;
-  x86)
-# MPTCP and crypto
-echo '
-CONFIG_CRYPTO_AES_NI_INTEL=y
-CONFIG_MPTCP=y
-CONFIG_MPTCP_PM_ADVANCED=y
-CONFIG_MPTCP_FULLMESH=y
-CONFIG_DEFAULT_FULLMESH=y
-CONFIG_DEFAULT_MPTCP_PM="fullmesh"
-' >> ./target/linux/x86/64/config-5.4
-    ;;
-esac
+if [ "${MYOPENWRTTARGET}" = 'x86' ] ; then
+  echo 'CONFIG_CRYPTO_AES_NI_INTEL=y' >> ./target/linux/x86/64/config-5.4
+fi
 # 删除已有配置
 rm -rf .config
 # 删除.svn目录
