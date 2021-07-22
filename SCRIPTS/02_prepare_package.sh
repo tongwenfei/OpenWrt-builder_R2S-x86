@@ -184,6 +184,7 @@ git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter.git package
 # Dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy ./package/feeds/packages/dnsproxy
+sed -i '/CURDIR/d' feeds/packages/net/dnsproxy/Makefile
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-dnsproxy package/new/luci-app-dnsproxy
 # Edge 主题
 git clone -b master --depth 1 https://github.com/garypang13/luci-theme-edge.git package/new/luci-theme-edge
@@ -227,9 +228,9 @@ git clone -b master --depth 1 https://github.com/destan19/OpenAppFilter.git pack
 # OLED 驱动程序
 git clone -b master --depth 1 https://github.com/NateLol/luci-app-oled.git package/new/luci-app-oled
 # OpenClash
-git clone -b master --depth 1 https://github.com/vernesong/OpenClash.git package/new/luci-app-openclash
+git clone --single-branch --depth 1 -b dev https://github.com/vernesong/OpenClash.git package/new/luci-app-openclash
 pushd package/new/luci-app-openclash
-wget -qO - https://github.com/vernesong/OpenClash/pull/1499.patch | patch -p1
+#wget -qO - https://github.com/vernesong/OpenClash/pull/1499.patch | patch -p1
 popd
 # 花生壳内网穿透
 #svn co https://github.com/QiuSimons/dragino2-teasiu/trunk/package/teasiu/luci-app-phtunnel package/new/luci-app-phtunnel
