@@ -40,8 +40,11 @@ svn co https://github.com/openwrt/packages/trunk/libs/dtc feeds/packages/libs/dt
 #' >> ./target/linux/generic/config-5.4
 
 # BBRv2
-patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
-cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
+wget -P target/linux/generic/hack-5.4/ https://github.com/Ysurac/openmptcprouter/raw/develop/root/target/linux/generic/hack-5.4/692-tcp_nanqinlang.patch
+wget -P target/linux/generic/hack-5.4/ https://github.com/Ysurac/openmptcprouter/raw/develop/root/target/linux/generic/hack-5.4/693-tcp_bbr2.patch
+wget https://github.com/google/bbr/commit/3d76056.patch -O target/linux/generic/hack-5.4/694-tcp_bbr2.patch
+wget -qO - https://github.com/Ysurac/openmptcprouter/raw/develop/patches/nanqinlang.patch | patch -p1
+wget -qO - https://github.com/Ysurac/openmptcprouter/raw/develop/patches/bbr2.patch | patch -p1
 
 # OPENSSL
 wget -qO - https://github.com/mj22226/openwrt/commit/5e1063.patch | patch -p1
@@ -182,7 +185,6 @@ git clone --depth 1 https://github.com/garypang13/luci-app-dnsfilter.git package
 # Dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy ./package/feeds/packages/dnsproxy
-sed -i '/CURDIR/d' feeds/packages/net/dnsproxy/Makefile
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-dnsproxy package/new/luci-app-dnsproxy
 # Edge 主题
 git clone -b master --depth 1 https://github.com/garypang13/luci-theme-edge.git package/new/luci-theme-edge
