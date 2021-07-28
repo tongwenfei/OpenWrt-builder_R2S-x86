@@ -2,7 +2,7 @@
 clear
 
 # 使用专属优化
-sed -i 's,-mcpu=generic,-mcpu=cortex-a53+crypto -funsafe-math-optimizations,g' include/target.mk
+sed -i 's,-mcpu=generic,-mcpu=cortex-a53+crypto+crc -funsafe-math-optimizations,g' include/target.mk
 cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
 
 # R2S_TL
