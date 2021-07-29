@@ -11,7 +11,7 @@ echo "==> Now building: ${MYOPENWRTTARGET}"
 # 使用O2级别的优化
 sed -i 's/-Os/-O2/g' include/target.mk
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  sed -i 's,-mcpu=generic,-march=armv8-a+crypto+crc -mabi=lp64,g' include/target.mk
+  sed -i 's,-mcpu=generic,-mcpu=cortex-a53+crypto,g' include/target.mk
   cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
   rm -rf ./target/linux/rockchip ./package/boot/uboot-rockchip ./package/boot/arm-trusted-firmware-rk3328
@@ -55,6 +55,11 @@ svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     p
 # OPENSSL
 wget -qO - https://github.com/mj22226/openwrt/commit/5e10633f6b69c1678e2be227d924a03ccedbb747.patch | patch -p1
 
+# BBRv2
+patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
+cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
+wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039b0e5cf4c38b88c20540c76b10eac3078d.patch | patch -p1
+
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
@@ -85,6 +90,7 @@ popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
 wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
+wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/SCRIPTS/fix_firewall_flock.patch | patch -p1
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
@@ -115,8 +121,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree 
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
 # Dnsproxy
+svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-dnsproxy                    package/new/luci-app-dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy                          feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy                                              ./package/feeds/packages/dnsproxy
+sed -i '/CURDIR/d' feeds/packages/net/dnsproxy/Makefile
+# socat
+svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
@@ -185,9 +195,6 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
 fi
 # 翻译及部分功能优化
 svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
-pushd ./package/lean/lean-translate
-  patch -p2 < ../../../../PATCH/addition-trans-zh/remove-kmod-fast-classifier-and-add-kmod-tcp-bbr.patch
-popd
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
   sed -i '/upnp/Id'        ../PATCH/addition-trans-zh/files/zzz-default-settings
