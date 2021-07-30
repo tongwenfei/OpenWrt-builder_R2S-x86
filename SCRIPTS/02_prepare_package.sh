@@ -10,6 +10,8 @@ echo "==> Now building: ${MYOPENWRTTARGET}"
 ### 1. 准备工作 ###
 # 使用O3级别的优化
 sed -i 's/-Os/-O3  -funroll-loops/g' include/target.mk
+# grub2使用O2级别优化
+wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/71d808b9efdb8635db1ae3b86f39dd25dc711811.patch | patch -p1
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-mcpu=cortex-a53+crypto,g' include/target.mk
   cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch

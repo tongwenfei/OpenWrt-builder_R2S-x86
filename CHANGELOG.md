@@ -1,6 +1,6 @@
 ## 变更历史 stage 8
 ### 2021/07/30 build 02
-* 测试O3编译。
+* 测试 O3 优化级别编译。但 grub2 采用 O2 优化级别。
 ### 2021/07/21 build 01
 * 内核更新至 `5.4.132`。
 * 移除 subconverter、luci-app-adblock-plus 和 luci-theme-openwrt-2020。
