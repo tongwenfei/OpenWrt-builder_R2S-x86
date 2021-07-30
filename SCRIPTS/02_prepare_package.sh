@@ -153,7 +153,7 @@ svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust       
 ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
 # OpenClash
-git clone -b master --depth=1 https://github.com/vernesong/OpenClash                    package/new/luci-app-openclash
+git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                       package/new/luci-app-openclash
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
