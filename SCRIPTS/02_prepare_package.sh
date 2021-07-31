@@ -8,10 +8,7 @@ alias wget="$(which wget) --https-only --retry-connrefused"
 echo "==> Now building: ${MYOPENWRTTARGET}"
 
 ### 1. 准备工作 ###
-# 使用O2级别的优化
-sed -i 's/-Os/-O2 -funroll-loops/g' include/target.mk
-# grub2使用O2级别优化
-wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/71d808b9efdb8635db1ae3b86f39dd25dc711811.patch | patch -p1
+# R2S专用
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   sed -i 's,-mcpu=generic,-mcpu=cortex-a53+crypto,g' include/target.mk
   cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
@@ -23,6 +20,8 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   # overclocking 1.5GHz
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
+# 使用O2级别的优化
+sed -i 's/-Os/-O2 -funroll-loops/g' include/target.mk
 # feed调节
 sed -i '/telephony/d' feeds.conf.default
 # 更新feed
@@ -45,23 +44,7 @@ sed -i '/182\.140\.223\.146/d' scripts/download.pl
 chmod +x scripts/download.pl
 
 ### 2. 必要的Patch ###
-# GCC11
-rm -rf ./toolchain/gcc
-svn co https://github.com/openwrt/openwrt/trunk/toolchain/gcc                  toolchain/gcc
-rm -rf ./package/network/utils/bpftools
-svn co https://github.com/openwrt/openwrt/trunk/package/network/utils/bpftools package/network/utils/bpftools
-rm -rf ./feeds/packages/libs/dtc
-svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
-rm -rf ./package/libs/elfutils
-svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
-# OPENSSL
-wget -qO - https://github.com/mj22226/openwrt/commit/5e10633f6b69c1678e2be227d924a03ccedbb747.patch | patch -p1
-
-# BBRv2
-patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
-cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
-wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039b0e5cf4c38b88c20540c76b10eac3078d.patch | patch -p1
-
+# 根据体系调整
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
@@ -79,6 +62,21 @@ case ${MYOPENWRTTARGET} in
     sed -i "s/enabled '0'/enabled '1'/g" feeds/packages/utils/irqbalance/files/irqbalance.config
     ;;
 esac
+# GCC11
+rm -rf ./toolchain/gcc
+svn co https://github.com/openwrt/openwrt/trunk/toolchain/gcc                  toolchain/gcc
+rm -rf ./package/network/utils/bpftools
+svn co https://github.com/openwrt/openwrt/trunk/package/network/utils/bpftools package/network/utils/bpftools
+rm -rf ./feeds/packages/libs/dtc
+svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
+rm -rf ./package/libs/elfutils
+svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
+# grub2强制使用O2级别优化
+wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/71d808b9efdb8635db1ae3b86f39dd25dc711811.patch | patch -p1
+# BBRv2
+patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
+cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
+wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039b0e5cf4c38b88c20540c76b10eac3078d.patch | patch -p1
 # Patch jsonc
 patch -p1 < ../PATCH/jsonc/use_json_object_new_int64.patch
 # Patch dnsmasq filter AAAA
@@ -125,6 +123,12 @@ git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 # Dnsproxy
 svn co https://github.com/immortalwrt/packages/trunk/net/dnsproxy                          feeds/packages/net/dnsproxy
 ln -sf ../../../feeds/packages/net/dnsproxy                                              ./package/feeds/packages/dnsproxy
+# Haproxy
+rm -rf ./feeds/packages/net/haproxy
+svn co https://github.com/openwrt/packages/trunk/net/haproxy                               feeds/packages/net/haproxy
+pushd feeds/packages
+  wget -qO - https://github.com/QiuSimons/packages/commit/e365bd289f51a6ab18e0a9769543c09030b7650f.patch | patch -p1
+popd
 # socat
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat
 # SSRP依赖
