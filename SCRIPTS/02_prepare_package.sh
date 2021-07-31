@@ -21,7 +21,7 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
 # 使用O2级别的优化
-sed -i 's/-Os/-O2 -funroll-loops/g' include/target.mk
+sed -i 's/ -Os / -O2 -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections /g' include/target.mk
 # feed调节
 sed -i '/telephony/d' feeds.conf.default
 # 更新feed
