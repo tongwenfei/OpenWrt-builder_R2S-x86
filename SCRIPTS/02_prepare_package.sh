@@ -28,7 +28,7 @@ cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./targ
 wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039.patch | patch -p1
 
 # Grub 2
-wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/71d808b.patch | patch -p1
+wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/e6e4c91.patch | patch -p1
 
 # Haproxy
 rm -rf ./feeds/packages/net/haproxy
