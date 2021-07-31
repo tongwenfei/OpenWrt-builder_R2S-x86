@@ -72,7 +72,7 @@ svn co https://github.com/openwrt/packages/trunk/libs/dtc                      f
 rm -rf ./package/libs/elfutils
 svn co https://github.com/neheb/openwrt/branches/elf/package/libs/elfutils     package/libs/elfutils
 # grub2强制使用O2级别优化
-wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/71d808b9efdb8635db1ae3b86f39dd25dc711811.patch | patch -p1
+patch -p1 < ../PATCH/0001-grub2-use-O2.patch
 # BBRv2
 patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
 cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
