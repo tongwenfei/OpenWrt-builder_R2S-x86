@@ -3,7 +3,7 @@ clear
 
 ### 基础部分 ###
 # 使用 O3 级别的优化
-sed -i 's/Os/O3 -funsafe-math-optimizations -funroll-loops/g' include/target.mk
+sed -i 's/Os/O3 -funsafe-math-optimizations -funroll-loops -Wno-error=unused-but-set-variable -Wno-error=unused-result -ffunction-sections -fdata-sections -Wl,--gc-sections/g' include/target.mk
 # 更新 Feeds
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -38,7 +38,7 @@ wget -qO - https://github.com/QiuSimons/packages/commit/e365bd2.patch | patch -p
 popd
 
 # OPENSSL
-wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/13bf55c.patch | patch -p1
+wget -qO - https://github.com/mj22226/openwrt/commit/5e10633.patch | patch -p1
 
 ### 必要的 Patches ###
 # Patch arm64 型号名称
