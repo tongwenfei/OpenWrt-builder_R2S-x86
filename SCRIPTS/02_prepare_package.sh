@@ -3,7 +3,7 @@ clear
 
 ### 基础部分 ###
 # 使用 O3 级别的优化
-sed -i 's/Os/O3 -funsafe-math-optimizations -funroll-loops -Wno-error=unused-but-set-variable -Wno-error=unused-result -ffunction-sections -fdata-sections -Wl,--gc-sections/g' include/target.mk
+sed -i 's/Os/O3 -funsafe-math-optimizations -funroll-loops -ffunction-sections -fdata-sections -Wl,--gc-sections/g' include/target.mk
 # 更新 Feeds
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -28,7 +28,7 @@ cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./targ
 wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039.patch | patch -p1
 
 # Grub 2
-wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/e6e4c91.patch | patch -p1
+wget -qO - https://github.com/QiuSimons/openwrt-NoTengoBattery/commit/afed16a.patch | patch -p1
 
 # Haproxy
 rm -rf ./feeds/packages/net/haproxy
