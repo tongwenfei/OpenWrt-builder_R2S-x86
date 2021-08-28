@@ -165,6 +165,8 @@ git clone -b dev --depth=1 https://github.com/vernesong/OpenClash               
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
+  wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/631.patch | patch -p1
+  wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/632.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
