@@ -71,6 +71,9 @@ rm -rf ./package/libs/elfutils
 svn co https://github.com/openwrt/openwrt/trunk/package/libs/elfutils          package/libs/elfutils
 rm -rf ./feeds/packages/libs/dtc
 svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
+#更换Golang版本
+rm -rf ./feeds/packages/lang/golang
+svn co https://github.com/openwrt/packages/trunk/lang/golang                   feeds/packages/lang/golang
 # grub2强制使用O2级别优化
 patch -p1 < ../PATCH/0001-grub2-use-O2.patch
 # BBRv2
