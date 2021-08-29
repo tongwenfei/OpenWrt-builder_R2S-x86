@@ -29,8 +29,8 @@ sed -i '/telephony/d' feeds.conf.default
 ./scripts/feeds install -a
 # something called magic
 rm -rf ./scripts/download.pl ./include/download.mk
-wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/include/download.mk
-wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/scripts/download.pl
+proxychains wget -P include/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/include/download.mk
+proxychains wget -P scripts/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/scripts/download.pl
 sed -i '/\.cn\//d'   scripts/download.pl
 sed -i '/aliyun/d'   scripts/download.pl
 sed -i '/cnpmjs/d'   scripts/download.pl
@@ -48,12 +48,12 @@ chmod +x scripts/download.pl
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
-    wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    proxychains wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # 添加 GPU 驱动
     rm -rf  package/kernel/linux/modules/video.mk
-    wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk
+    proxychains wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk
     # 交换 LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
@@ -79,7 +79,7 @@ patch -p1 < ../PATCH/0001-grub2-use-O2.patch
 # BBRv2
 patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
 cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
-wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039b0e5cf4c38b88c20540c76b10eac3078d.patch | patch -p1
+proxychains wget -qO - https://github.com/openwrt/openwrt/commit/cfaf039b0e5cf4c38b88c20540c76b10eac3078d.patch | patch -p1
 # Patch jsonc
 patch -p1 < ../PATCH/jsonc/use_json_object_new_int64.patch
 # Patch dnsmasq filter AAAA
@@ -88,12 +88,12 @@ patch -p1 < ../PATCH/dnsmasq/luci-add-filter-aaaa-option.patch
 cp  -f      ../PATCH/dnsmasq/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
-  wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+  proxychains wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
-wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
-wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/SCRIPTS/fix_firewall_flock.patch | patch -p1
+proxychains wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
+proxychains wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/31f0f2988c30433a6bbe77b3d38956435c808f4d/SCRIPTS/fix_firewall_flock.patch | patch -p1
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
@@ -130,7 +130,7 @@ ln -sf ../../../feeds/packages/net/dnsproxy                                     
 rm -rf ./feeds/packages/net/haproxy
 svn co https://github.com/openwrt/packages/trunk/net/haproxy                               feeds/packages/net/haproxy
 pushd feeds/packages
-  wget -qO - https://github.com/QiuSimons/packages/commit/e365bd289f51a6ab18e0a9769543c09030b7650f.patch | patch -p1
+  proxychains wget -qO - https://github.com/QiuSimons/packages/commit/e365bd289f51a6ab18e0a9769543c09030b7650f.patch | patch -p1
 popd
 # socat
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat
@@ -168,7 +168,7 @@ git clone -b dev --depth=1 https://github.com/vernesong/OpenClash               
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
-  wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/632.patch | patch -p1
+  proxychains wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/632.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
