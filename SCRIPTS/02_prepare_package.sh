@@ -71,9 +71,6 @@ rm -rf ./package/libs/elfutils
 svn co https://github.com/openwrt/openwrt/trunk/package/libs/elfutils          package/libs/elfutils
 rm -rf ./feeds/packages/libs/dtc
 svn co https://github.com/openwrt/packages/trunk/libs/dtc                      feeds/packages/libs/dtc
-#更换Golang版本
-rm -rf ./feeds/packages/lang/golang
-svn co https://github.com/openwrt/packages/trunk/lang/golang                   feeds/packages/lang/golang
 # grub2强制使用O2级别优化
 patch -p1 < ../PATCH/0001-grub2-use-O2.patch
 # BBRv2
@@ -168,7 +165,6 @@ git clone -b dev --depth=1 https://github.com/vernesong/OpenClash               
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
-  wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/632.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
