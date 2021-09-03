@@ -145,6 +145,7 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev     
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
 svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev                     package/lean/shadowsocksr-libev
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
+svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                           package/lean/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
@@ -153,7 +154,6 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks               
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/new/tcping
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/v2ray-plugin                 package/new/v2ray-plugin
 svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng                 package/lean/proxychains-ng
 svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
