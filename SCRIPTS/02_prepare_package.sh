@@ -81,7 +81,7 @@ popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
 wget  -P package/network/config/firewall/patches/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/network/config/firewall/patches/fullconenat.patch
-wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/SCRIPTS/fix_firewall_flock.patch | patch -p1
+wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/PATCHES/001-fix-firewall-flock.patch | patch -p1
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
