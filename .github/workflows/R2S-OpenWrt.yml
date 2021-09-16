@@ -94,8 +94,7 @@ jobs:
       run: |
         df -h
         cd openwrt
-        let Make_Process=$(nproc)*8
-        make download -j${Make_Process}
+        make download -j$(($(nproc) * 8))
         echo $?
 
     - name: Smart chmod
@@ -112,8 +111,7 @@ jobs:
       run: |
         df -h
         cd openwrt
-        let Make_Process=$(nproc)+1
-        make toolchain/install -j${Make_Process}
+        make toolchain/install -j$(($(nproc) + 1))
         echo $?
         /bin/ls -AF staging_dir/toolchain-*/bin/
 
@@ -123,8 +121,7 @@ jobs:
       run: |
         df -h
         cd openwrt
-        let Make_Process=$(nproc)+1
-        make -j${Make_Process} V=w
+        make -j$(($(nproc) + 1)) V=w
         echo $?
 
     - name: If Error

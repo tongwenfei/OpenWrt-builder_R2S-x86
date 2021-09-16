@@ -27,9 +27,5 @@ cp -rf ./openwrt_release/target/linux/                      ./openwrt_new/target
 mv ./openwrt_new/ ./openwrt/
 rm -rf ./openwrt_release/
 
-# download others' source for some packages
-git clone -b main --depth=1 https://github.com/Lienol/openwrt.git openwrt-lienol
-rm -rf ./*-lienol/.git
-
 unalias wget
 exit 0

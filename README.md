@@ -49,7 +49,7 @@ x86 版不支持此功能。
 2. 获取一键编译脚本：[onekeybuild.sh](./onekeybuild.sh)。根据具体情况修改脚本，例如第 42 行的编译工具链的并行数。
 3. 确保工作目录下没有同名目录或文件：`OpenWrt-builder_R2S-x86`、`buildtime.txt`。
 4. 通过环境变量 `MYOPENWRTTARGET` 指定编译的固件：`R2S`、`x86`；注意区分大小写，默认编译 R2S 的固件。
-5. 通过环境变量 `Make_Process` 指定编译的并行数，默认 4 并行。
+5. 通过环境变量 `MYMAKENUMBER` 指定编译的并行数，默认 4 并行。
 6. 用 bash 执行脚本，开始编译。
 
 ### 感谢

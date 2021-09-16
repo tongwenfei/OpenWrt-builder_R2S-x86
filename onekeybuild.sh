@@ -42,8 +42,8 @@ echo "Make Toolchain   $(date)" | tee -a ../../buildtime.txt
 make toolchain/install -j16
 
 echo "Compile Openwrt  $(date)" | tee -a ../../buildtime.txt
-[[ ${Make_Process} =~ ^[0-9]+$ ]] && Make_Process=4
-make -j${Make_Process} V=w
+[[ ${MYMAKENUMBER} =~ ^[0-9]+$ ]] && MYMAKENUMBER=4
+make -j${MYMAKENUMBER} V=w
 
 cd ../..
 echo "Finished         $(date)" | tee -a buildtime.txt
