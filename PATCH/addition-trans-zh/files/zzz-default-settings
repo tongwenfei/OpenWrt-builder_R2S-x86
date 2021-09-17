@@ -44,9 +44,6 @@ ln -sf /usr/libexec/wget-ssl /usr/bin/wget-ssl
 opkg flag hold dnsmasq-full
 opkg flag hold firewall
 opkg flag hold luci-app-firewall
-# disable dnsproxy
-/etc/init.d/dnsproxy stop
-/etc/init.d/dnsproxy disable
 # delete luci cache
 rm -rf /tmp/luci-modulecache
 rm  -f /tmp/luci-indexcache

@@ -11,16 +11,16 @@
 ### 常用功能
 |  |  |  |  |  |  |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| NetData 监控 | WireGuard | 释放内存 | 定时重启 | ZeroTier | 流量监控 |
-| SSRP | OpenClash | 动态 DNS | 硬盘休眠 | WOL 网络唤醒 | dnsproxy |
-| uHTTPd 配置 | Samba4 | Aria2 | UPnP 配置 | SQM QoS | CPU 占用率限制 |
+| NetData 监控 | 流量监控 | 释放内存 | 定时重启 | CPU 占用率限制 | 硬盘休眠 |
+| SSRP | OpenClash | 动态 DNS | WOL 网络唤醒 | WireGuard | ZeroTier |
+| Aria2 | Samba4 | uHTTPd 配置 | UPnP 配置 | socat | SQM QoS |
 | BBRv2 (1) | FullCone NAT (2) | Offloading (2) | - | - | - |
 
 1. BBR (v2alpha) 已默认启用。
 2. FullCone NAT 已默认启用（其选项在防火墙设置页面中）；软件 Offloading 需要在防火墙设置页面中，默认没有启用。  
 3. FTP 支持由 vsftpd-tls 提供。没用图形界面，须使用命令行手工配置。建议开启TLS以提高安全性。  
 4. 以下组件在本固件中不包含：  
-ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问时间控制、WiFi 排程、beardropper（SSH 公网访问限制）、应用过滤、三代壳 OLED 程序、Server 酱、网易云音乐解锁、USB 打印机、迅雷快鸟、pandownload-fake-server、frpc/frps 内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
+ttyd（网页终端）、Docker、单线/多线多拨、KMS 服务器、访问时间控制、WiFi 排程、beardropper（SSH 公网访问限制）、应用过滤、三代壳 OLED 程序、SmartDNS、dnsproxy、Server 酱、网易云音乐解锁、USB 打印机、迅雷快鸟、pandownload-fake-server、frpc/frps 内网穿透、OpenVPN、京东自动签到、Transmission、qBittorrent。
 
 ### 命令行特性
 * `cmp`、`find`、`grep`、`gzip`、`gunzip`、`ip`、`login`、`md5sum`、`mount`、`passwd`、`sha256sum`、`tar`、`umount`、`xargs`、`zcat` 等命令替换为 GNU 实现或其他更标准的实现。
