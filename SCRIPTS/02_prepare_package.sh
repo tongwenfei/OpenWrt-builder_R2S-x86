@@ -100,7 +100,7 @@ popd
 mkdir -p ./package/new/ ./package/lean/
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/emortal/autocore package/lean/autocore
+svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/emortal/autocore package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                        feeds/packages/utils/coremark
 # AutoReboot定时重启
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot         package/lean/luci-app-autoreboot
@@ -153,18 +153,19 @@ git clone -b dev --depth=1 https://github.com/vernesong/OpenClash               
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
-  wget -qO- https://patch-diff.githubusercontent.com/raw/fw876/helloworld/pull/653.patch | patch -p1
 popd
 # 订阅转换
 svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
 svn co https://github.com/immortalwrt/packages/trunk/libs/libcron     feeds/packages/libs/libcron
 svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   feeds/packages/libs/quickjspp
 svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   feeds/packages/libs/rapidjson
+svn co https://github.com/immortalwrt/packages/trunk/libs/toml11      feeds/packages/libs/toml11
 svn co https://github.com/immortalwrt/packages/trunk/net/subconverter feeds/packages/net/subconverter
 ln -sf ../../../feeds/packages/libs/jpcre2      ./package/feeds/packages/jpcre2
 ln -sf ../../../feeds/packages/libs/libcron     ./package/feeds/packages/libcron
 ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjspp
 ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
+ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
 # 额外DDNS脚本
 git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod               package/lean/ddns-scripts_dnspod
