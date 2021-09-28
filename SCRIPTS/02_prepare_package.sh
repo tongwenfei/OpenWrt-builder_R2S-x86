@@ -167,9 +167,6 @@ ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjs
 ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
 ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
-# 额外DDNS脚本
-git clone --depth 1 https://github.com/small-5/ddns-scripts-dnspod               package/lean/ddns-scripts_dnspod
-git clone --depth 1 https://github.com/small-5/ddns-scripts-aliyun               package/lean/ddns-scripts_aliyun
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
 svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
