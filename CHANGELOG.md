@@ -2,7 +2,6 @@
 ### 2021/09/28 build 04
 * 上游更新，修复固件更新问题。
 * zerotier 更新至 `1.6.6`。
-* 移除 ddns-scripts-dnspod 和 ddns-scripts-aliyun。
 ### 2021/09/17 build 03
 * 上游更新 golang，解决一些编译问题。
 ### 2021/09/12 build 02
