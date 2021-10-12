@@ -14,9 +14,9 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
   rm -rf ./target/linux/rockchip ./package/boot/uboot-rockchip ./package/boot/arm-trusted-firmware-rockchip-vendor
-  svn co https://github.com/immortalwrt/immortalwrt/branches/master/target/linux/rockchip                             target/linux/rockchip
-  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/uboot-rockchip                       package/boot/uboot-rockchip
-  svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/boot/arm-trusted-firmware-rockchip-vendor package/boot/arm-trusted-firmware-rockchip-vendor
+  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/target/linux/rockchip                             target/linux/rockchip
+  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/uboot-rockchip                       package/boot/uboot-rockchip
+  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/arm-trusted-firmware-rockchip-vendor package/boot/arm-trusted-firmware-rockchip-vendor
   # overclocking 1.5GHz
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
@@ -48,12 +48,12 @@ chmod +x scripts/download.pl
 case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
-    wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     patch -p1 < ../PATCH/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
     # 添加 GPU 驱动
     rm -rf  package/kernel/linux/modules/video.mk
-    wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/package/kernel/linux/modules/video.mk
+    wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/kernel/linux/modules/video.mk
     # 交换 LAN WAN
     patch -p1 < ../PATCH/R2S-swap-LAN-WAN.patch
     ;;
@@ -115,7 +115,7 @@ git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon   
 rm -rf ./feeds/packages/net/haproxy
 svn co https://github.com/openwrt/packages/trunk/net/haproxy                               feeds/packages/net/haproxy
 pushd feeds/packages
-  wget -qO - https://github.com/QiuSimons/packages/commit/e365bd289f51a6ab18e0a9769543c09030b7650f.patch | patch -p1
+  wget -qO - https://github.com/QiuSimons/packages/commit/7ffbfbe01e01866947d5a79aeb2803c7c7634c0a.patch | patch -p1
 popd
 # socat
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat

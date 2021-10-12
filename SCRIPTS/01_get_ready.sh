@@ -15,12 +15,18 @@ rm  -f ${LATESTRELEASE}.tar.gz
 
 git clone --single-branch -b openwrt-21.02 https://github.com/openwrt/openwrt.git openwrt_new
 rm  -f ./openwrt_new/include/version.mk
+rm  -f ./openwrt_new/include/kernel.mk
 rm  -f ./openwrt_new/include/kernel-version.mk
+rm  -f ./openwrt_new/include/toolchain-build.mk
+rm  -f ./openwrt_new/include/kernel-defaults.mk
 rm  -f ./openwrt_new/package/base-files/image-config.in
 rm -rf ./openwrt_new/target/linux/
 
 cp  -f ./openwrt_release/include/version.mk                 ./openwrt_new/include/version.mk
+cp  -f ./openwrt_release/include/kernel.mk                  ./openwrt_new/include/kernel.mk
 cp  -f ./openwrt_release/include/kernel-version.mk          ./openwrt_new/include/kernel-version.mk
+cp  -f ./openwrt_release/include/toolchain-build.mk         ./openwrt_new/include/toolchain-build.mk
+cp  -f ./openwrt_release/include/kernel-defaults.mk         ./openwrt_new/include/kernel-defaults.mk
 cp  -f ./openwrt_release/package/base-files/image-config.in ./openwrt_new/package/base-files/image-config.in
 cp -rf ./openwrt_release/target/linux/                      ./openwrt_new/target/linux/
 
