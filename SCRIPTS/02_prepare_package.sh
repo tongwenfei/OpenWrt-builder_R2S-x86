@@ -76,7 +76,7 @@ patch -p1 < ../PATCH/dnsmasq/luci-add-filter-aaaa-option.patch
 cp  -f      ../PATCH/dnsmasq/900-add-filter-aaaa-option.patch ./package/network/services/dnsmasq/patches/900-add-filter-aaaa-option.patch
 # Patch Kernel 以解决FullCone冲突
 pushd target/linux/generic/hack-5.4
-  wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/master/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
+  wget https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/target/linux/generic/hack-5.4/952-net-conntrack-events-support-multiple-registrant.patch
 popd
 # Patch FireWall 以增添FullCone功能
 mkdir -p package/network/config/firewall/patches
