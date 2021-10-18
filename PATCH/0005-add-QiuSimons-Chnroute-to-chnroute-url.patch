@@ -8,14 +8,14 @@ Subject: [PATCH] add QiuSimons/Chnroute to chnroute_url
  1 file changed, 1 insertion(+)
 
 diff --git a/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/advanced.lua b/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/advanced.lua
-index 4c154ec..821786c 100644
+index ce21ae6..174aaa7 100644
 --- a/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/advanced.lua
 +++ b/luci-app-ssr-plus/luasrc/model/cbi/shadowsocksr/advanced.lua
-@@ -65,6 +65,7 @@ o.default = "https://ghproxy.com/https://raw.githubusercontent.com/YW5vbnltb3Vz/
+@@ -54,6 +54,7 @@ o.default = "https://cdn.jsdelivr.net/gh/YW5vbnltb3Vz/domain-list-community@rele
  o = s:option(Value, "chnroute_url", translate("Chnroute Update url"))
  o:value("https://ispip.clang.cn/all_cn.txt", translate("Clang.CN"))
  o:value("https://ispip.clang.cn/all_cn_cidr.txt", translate("Clang.CN.CIDR"))
 +o:value("https://cdn.jsdelivr.net/gh/QiuSimons/Chnroute@master/dist/chnroute/chnroute.txt", translate("QiuSimons/Chnroute"))
  o.default = "https://ispip.clang.cn/all_cn.txt"
  
- o = s:option(Value, "nfip_url", translate("nfip_url"))
+ o = s:option(Flag, "netflix_enable", translate("Enable Netflix Mode"))
