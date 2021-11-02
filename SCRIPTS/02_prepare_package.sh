@@ -126,12 +126,12 @@ svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks        
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks               package/lean/microsocks
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2                package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs              package/lean/simple-obfs
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan                   package/lean/trojan
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
 svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev                     package/lean/shadowsocksr-libev
+svn co https://github.com/fw876/helloworld/trunk/simple-obfs                            package/lean/simple-obfs
+svn co https://github.com/fw876/helloworld/trunk/trojan                                 package/lean/trojan
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
 svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                           package/lean/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
@@ -147,6 +147,7 @@ svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                 
 svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
 ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
+sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
 # OpenClash
 git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                       package/new/luci-app-openclash
 # SSRP
@@ -167,6 +168,7 @@ ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjs
 ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
 ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
+sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun     package/lean/ddns-scripts_dnspod
 svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod     package/lean/ddns-scripts_aliyun
@@ -174,6 +176,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    
 rm -rf ./feeds/packages/net/miniupnpd
 svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
 # Zerotier
+sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
 svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier  feeds/luci/applications/luci-app-zerotier
 ln -sf ../../../feeds/luci/applications/luci-app-zerotier                      ./package/feeds/luci/luci-app-zerotier
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
