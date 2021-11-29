@@ -188,6 +188,5 @@ CONFIG_LIBCURL_OPENSSL=y
 #CONFIG_PACKAGE_kmod-fb-sys-fops=y
 #CONFIG_PACKAGE_kmod-fb-sys-ram=y
 #CONFIG_PACKAGE_kmod-drm-panfrost=y
-#CONFIG_PACKAGE_kmod-drm-lima=y
 #CONFIG_PACKAGE_kmod-multimedia-input=y
 
