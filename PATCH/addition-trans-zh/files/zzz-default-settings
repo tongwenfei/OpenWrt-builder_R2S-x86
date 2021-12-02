@@ -2,6 +2,11 @@
 # timezone
 uci set system.@system[0].timezone='CST-8'
 uci set system.@system[0].zonename='Asia/Shanghai'
+uci del system.ntp.server
+uci add_list system.ntp.server='ntp.ntsc.ac.cn'
+uci add_list system.ntp.server='time2.cloud.tencent.com'
+uci add_list system.ntp.server='ntp.aliyun.com'
+uci add_list system.ntp.server='cn.ntp.org.cn'
 uci commit system
 # feed
 sed -i '/natelol/d'                                               /etc/opkg/distfeeds.conf
@@ -32,7 +37,7 @@ uci set dhcp.lan.dhcpv6='hybrid'
 uci set dhcp.lan.ndp='hybrid'
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
-uci del dhcp.@dnsmasq[0].filteraaaa
+uci del dhcp.@dnsmasq[0].filter_aaaa
 uci commit dhcp
 # enable Packet Steering
 uci set network.globals.packet_steering='1'
