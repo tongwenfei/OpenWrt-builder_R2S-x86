@@ -64,6 +64,8 @@ case ${MYOPENWRTTARGET} in
 esac
 # grub2强制使用O2级别优化
 patch -p1 < ../PATCH/0001-grub2-use-O2.patch
+# offload bug fix
+wget -qO - https://patch-diff.githubusercontent.com/raw/openwrt/openwrt/pull/4849.patch | patch -p1
 # BBRv2
 patch -p1 < ../PATCH/BBRv2/openwrt-kmod-bbr2.patch
 cp -f ../PATCH/BBRv2/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch ./target/linux/generic/hack-5.4/693-Add_BBRv2_congestion_control_for_Linux_TCP.patch
@@ -176,9 +178,11 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    
 rm -rf ./feeds/packages/net/miniupnpd
 svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
 # Zerotier
-sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
+rm -rf ./feeds/packages/net/zerotier
+svn co https://github.com/openwrt/packages/trunk/net/zerotier                    feeds/packages/net/zerotier
 svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier  feeds/luci/applications/luci-app-zerotier
 ln -sf ../../../feeds/luci/applications/luci-app-zerotier                      ./package/feeds/luci/luci-app-zerotier
+sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # CPU限制
 svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit              feeds/packages/utils/cpulimit
