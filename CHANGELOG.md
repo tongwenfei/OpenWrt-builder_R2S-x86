@@ -1,4 +1,6 @@
 ## 变更历史 stage 9
+### 2021/12/19 build 11
+* zerotier 更新至 `1.8.4`。
 ### 2021/12/04 build 10
 * 加入组件 ip6tables-extra。
 * 更新首次启动配置。
