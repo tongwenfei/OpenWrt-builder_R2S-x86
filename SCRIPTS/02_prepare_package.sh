@@ -49,8 +49,13 @@ case ${MYOPENWRTTARGET} in
   R2S)
     # show cpu model name
     wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
+    # R8152 驱动
+    svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 package/new/r8152
+    sed -i 's,kmod-usb-net-rtl8152,kmod-usb-net-rtl8152-vendor,g' target/linux/rockchip/image/armv8.mk
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
-    patch -p1 < ../PATCH/0002-IRQ-and-disable-eth0-tcp-udp-offloading-tx-rx.patch
+    sed -i '/set_interface_core 4 "eth1"/a\\tset_interface_core 1 "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    sed -i                '/ff150000.i2c/a\\tset_interface_core 8 "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
+    wget -P target/linux/rockchip/armv8/base-files/etc/hotplug.d/iface/ https://raw.githubusercontent.com/QiuSimons/OpenWrt-Add/master/12-disable-rk3328-eth-offloading
     # 添加 GPU 驱动
     rm -rf  package/kernel/linux/modules/video.mk
     wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/kernel/linux/modules/video.mk
