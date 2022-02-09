@@ -92,7 +92,10 @@ wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/PATCHES
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
-svn co https://github.com/Lienol/openwrt/trunk/package/network/fullconenat  package/network/fullconenat
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/openwrt-fullconenat package/lean/openwrt-fullconenat
+pushd package/lean/openwrt-fullconenat
+patch -p2 <../../../../PATCH/firewall/fullcone6.patch
+popd
 # UPX
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/tools/upx tools/upx
 svn co https://github.com/immortalwrt/immortalwrt/branches/master/tools/ucl tools/ucl
@@ -151,7 +154,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go            
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng                 package/lean/proxychains-ng
 svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun
-svn co https://github.com/immortalwrt/packages/trunk/net/shadowsocks-rust               feeds/packages/net/shadowsocks-rust
+svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                       feeds/packages/net/shadowsocks-rust
 ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
 sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
@@ -177,6 +180,7 @@ ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
 sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
+sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
 svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun     package/lean/ddns-scripts_dnspod
 svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod     package/lean/ddns-scripts_aliyun
 # UPnP
