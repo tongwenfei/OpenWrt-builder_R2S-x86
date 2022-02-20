@@ -113,11 +113,11 @@ rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/emortal/autocore package/lean/autocore
 svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                        feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-autoreboot         package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-autoreboot         package/lean/luci-app-autoreboot
 # ipv6-helper
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                 package/lean/ipv6-helper
 # 清理内存
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/luci-app-ramfree            package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree            package/lean/luci-app-ramfree
 # 流量监视
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
@@ -131,26 +131,26 @@ popd
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks                package/lean/dns2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks                package/lean/ipt2socks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks               package/lean/microsocks
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt                package/lean/pdnsd
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2                package/lean/redsocks2
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
+svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2                     package/lean/redsocks2
 svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
-svn co https://github.com/fw876/helloworld/trunk/shadowsocksr-libev                     package/lean/shadowsocksr-libev
 svn co https://github.com/fw876/helloworld/trunk/simple-obfs                            package/lean/simple-obfs
-svn co https://github.com/fw876/helloworld/trunk/trojan                                 package/lean/trojan
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
 svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                           package/lean/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks                    package/lean/dns2socks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria                     package/new/hysteria
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks                    package/lean/ipt2socks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks                   package/lean/microsocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt                    package/lean/pdnsd
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev           package/lean/shadowsocksr-libev
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                       package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/new/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/new/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/lean/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan                       package/lean/trojan
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/lean/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
 svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng                 package/lean/proxychains-ng
 svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun

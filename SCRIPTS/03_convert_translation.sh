@@ -47,4 +47,11 @@ do
 	grep -q 'zh-cn' "$f" 2>/dev/null && sed -i 's/zh-cn/zh_Hans/g' "$f"
 	grep -q 'zh_Hans.lmo' "$f" 2>/dev/null && sed -i 's/zh_Hans.lmo/zh-cn.lmo/g' "$f"
 done
+
+makefile_file=$({ find package | grep Makefile | sed '/Makefile./d'; } 2>/dev/null)
+for g in ${makefile_file}; do
+	grep -q 'golang-package.mk' "$g" 2>/dev/null && sed -i "s,\../..,\$(TOPDIR)/feeds/packages,g" "$g"
+	grep -q 'luci.mk' "$g" 2>/dev/null && sed -i "s,\../..,\$(TOPDIR)/feeds/luci,g" "$g"
+done
+
 exit 0
