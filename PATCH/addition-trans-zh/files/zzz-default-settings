@@ -35,16 +35,17 @@ sed -i 's,#USE_SOFTDRIVERS = 2,USE_SOFTDRIVERS = 1,g' /etc/ssl/openssl.cnf
 uci set dhcp.lan.ra='hybrid'
 uci set dhcp.lan.dhcpv6='hybrid'
 uci set dhcp.lan.ndp='hybrid'
+uci del dhcp.@dnsmasq[0].filter_aaaa
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo 'log-facility=/dev/null' >> /etc/dnsmasq.conf
-uci del dhcp.@dnsmasq[0].filter_aaaa
 uci commit dhcp
 # enable Packet Steering
 uci set network.globals.packet_steering='1'
 uci commit network
 # symlink for ip and wget-ssl command
-ln -sf /usr/libexec/ip-full  /usr/bin/ip
-ln -sf /usr/libexec/wget-ssl /usr/bin/wget-ssl
+[ ! -f '/usr/bin/ip' ]       && [ -x '/sbin/ip' ]      && ln -sf /sbin/ip /usr/bin/ip
+[ ! -f '/usr/bin/wget-ssl' ] && [ -x '/usr/bin/wget' ] && ln -sf /usr/bin/wget /usr/bin/wget-ssl
+[ ! -f '/usr/bin/v2ray' ]    && [ -x '/usr/bin/xray' ] && ln -sf /usr/bin/xray /usr/bin/v2ray
 # opkg hold patched packages
 opkg flag hold dnsmasq-full
 opkg flag hold firewall
