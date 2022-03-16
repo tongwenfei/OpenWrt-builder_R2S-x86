@@ -56,6 +56,7 @@ case ${MYOPENWRTTARGET} in
     sed -i '/set_interface_core 4 "eth1"/a\\tset_interface_core 1 "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
     sed -i                '/ff150000.i2c/a\\tset_interface_core 8 "ff160000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
     wget -P target/linux/rockchip/armv8/base-files/etc/hotplug.d/iface/ https://raw.githubusercontent.com/QiuSimons/OpenWrt-Add/master/12-disable-rk3328-eth-offloading
+    sed -i 's,eth0,eth1,g' target/linux/rockchip/armv8/base-files/etc/hotplug.d/iface/12-disable-rk3328-eth-offloading
     # 添加 GPU 驱动
     rm -rf  package/kernel/linux/modules/video.mk
     wget -P package/kernel/linux/modules/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/package/kernel/linux/modules/video.mk
@@ -137,6 +138,7 @@ svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev     
 svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
 svn co https://github.com/fw876/helloworld/trunk/simple-obfs                            package/lean/simple-obfs
 svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
+svn co https://github.com/fw876/helloworld/trunk/v2ray-geodata                          package/new/v2ray-geodata
 svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                           package/lean/v2ray-plugin
 svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
 svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
