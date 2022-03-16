@@ -112,58 +112,58 @@ mkdir -p ./package/new/ ./package/lean/
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
 svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/emortal/autocore package/lean/autocore
-svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                        feeds/packages/utils/coremark
+svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-autoreboot         package/lean/luci-app-autoreboot
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-autoreboot package/lean/luci-app-autoreboot
 # ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper                 package/lean/ipv6-helper
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper         package/lean/ipv6-helper
 # 清理内存
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree            package/lean/luci-app-ramfree
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree    package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                       package/new/wrtbwmon
-git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon              package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # Haproxy
 rm -rf ./feeds/packages/net/haproxy
-svn co https://github.com/openwrt/packages/trunk/net/haproxy                               feeds/packages/net/haproxy
+svn co https://github.com/openwrt/packages/trunk/net/haproxy                       feeds/packages/net/haproxy
 pushd feeds/packages
   wget -qO - https://github.com/QiuSimons/packages/commit/7ffbfbe01e01866947d5a79aeb2803c7c7634c0a.patch | patch -p1
 popd
 # socat
-svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat                      package/new/luci-app-socat
+svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat              package/new/luci-app-socat
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay                   package/lean/srelay
-svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2                     package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev             package/lean/shadowsocks-libev
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                             package/lean/naiveproxy
-svn co https://github.com/fw876/helloworld/trunk/simple-obfs                            package/lean/simple-obfs
-svn co https://github.com/fw876/helloworld/trunk/v2ray-core                             package/lean/v2ray-core
-svn co https://github.com/fw876/helloworld/trunk/v2ray-geodata                          package/new/v2ray-geodata
-svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                           package/lean/v2ray-plugin
-svn co https://github.com/fw876/helloworld/trunk/xray-core                              package/lean/xray-core
-svn co https://github.com/fw876/helloworld/trunk/xray-plugin                            package/lean/xray-plugin
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                        package/new/brook
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks                    package/lean/dns2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria                     package/new/hysteria
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks                    package/lean/ipt2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks                   package/lean/microsocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt                    package/lean/pdnsd
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev           package/lean/shadowsocksr-libev
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                       package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                       package/lean/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan                       package/lean/trojan
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go                    package/lean/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus                  package/new/trojan-plus
-svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng                 package/lean/proxychains-ng
-svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                         feeds/packages/net/kcptun
-svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                       feeds/packages/net/shadowsocks-rust
-ln -sf ../../../feeds/packages/net/kcptun                                             ./package/feeds/packages/kcptun
-ln -sf ../../../feeds/packages/net/shadowsocks-rust                                   ./package/feeds/packages/shadowsocks-rust
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
+svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2                package/lean/redsocks2
+svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
+svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
+svn co https://github.com/fw876/helloworld/trunk/simple-obfs                       package/lean/simple-obfs
+svn co https://github.com/fw876/helloworld/trunk/v2ray-core                        package/lean/v2ray-core
+svn co https://github.com/fw876/helloworld/trunk/v2ray-geodata                     package/new/v2ray-geodata
+svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                      package/lean/v2ray-plugin
+svn co https://github.com/fw876/helloworld/trunk/xray-core                         package/lean/xray-core
+svn co https://github.com/fw876/helloworld/trunk/xray-plugin                       package/lean/xray-plugin
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks               package/lean/dns2socks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria                package/new/hysteria
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks               package/lean/ipt2socks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks              package/lean/microsocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt               package/lean/pdnsd
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev      package/lean/shadowsocksr-libev
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/lean/tcping
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan                  package/lean/trojan
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/lean/trojan-go
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
+svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng            package/lean/proxychains-ng
+svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                    feeds/packages/net/kcptun
+svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                  feeds/packages/net/shadowsocks-rust
+ln -sf ../../../feeds/packages/net/kcptun                                        ./package/feeds/packages/kcptun
+ln -sf ../../../feeds/packages/net/shadowsocks-rust                              ./package/feeds/packages/shadowsocks-rust
 sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
 # OpenClash
-git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                       package/new/luci-app-openclash
+git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                  package/new/luci-app-openclash
 # SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                      package/lean/luci-app-ssr-plus
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
@@ -183,23 +183,23 @@ ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconv
 sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
-svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun     package/lean/ddns-scripts_dnspod
-svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod     package/lean/ddns-scripts_aliyun
+svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun    package/lean/ddns-scripts_dnspod
+svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    package/lean/ddns-scripts_aliyun
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
-svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
+svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                  feeds/packages/net/miniupnpd
 # Zerotier
 rm -rf ./feeds/packages/net/zerotier
-svn co https://github.com/openwrt/packages/trunk/net/zerotier                    feeds/packages/net/zerotier
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier  feeds/luci/applications/luci-app-zerotier
-ln -sf ../../../feeds/luci/applications/luci-app-zerotier                      ./package/feeds/luci/luci-app-zerotier
+svn co https://github.com/openwrt/packages/trunk/net/zerotier                   feeds/packages/net/zerotier
+svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
+ln -sf ../../../feeds/luci/applications/luci-app-zerotier                     ./package/feeds/luci/luci-app-zerotier
 sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # CPU限制
-svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit              feeds/packages/utils/cpulimit
-ln -sf ../../../feeds/packages/utils/cpulimit                                  ./package/feeds/packages/cpulimit
-svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit          package/lean/luci-app-cpulimit
-cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                               ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
+svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit             feeds/packages/utils/cpulimit
+ln -sf ../../../feeds/packages/utils/cpulimit                                 ./package/feeds/packages/cpulimit
+svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit         package/lean/luci-app-cpulimit
+cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                              ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
@@ -213,9 +213,9 @@ if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
 fi
 cp -f ../PATCH/addition-trans-zh/files/zzz-default-settings ./package/lean/lean-translate/files/zzz-default-settings
 # 给root用户添加vim和screen的配置文件
-mkdir -p                                    ./package/base-files/files/root/
-cp -f ../PRECONFS/vimrc                     ./package/base-files/files/root/.vimrc
-cp -f ../PRECONFS/screenrc                  ./package/base-files/files/root/.screenrc
+mkdir -p                   ./package/base-files/files/root/
+cp -f ../PRECONFS/vimrc    ./package/base-files/files/root/.vimrc
+cp -f ../PRECONFS/screenrc ./package/base-files/files/root/.screenrc
 
 ### 4. 最后的收尾工作 ###
 # vermagic
