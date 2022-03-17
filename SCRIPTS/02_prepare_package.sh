@@ -120,8 +120,8 @@ svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper  
 # 清理内存
 svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree    package/lean/luci-app-ramfree
 # 流量监视
-git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
-git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon                   package/new/wrtbwmon
+git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon          package/new/luci-app-wrtbwmon
 # Haproxy
 rm -rf ./feeds/packages/net/haproxy
 svn export https://github.com/openwrt/packages/trunk/net/haproxy                       feeds/packages/net/haproxy
@@ -157,11 +157,11 @@ svn export https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus      
 svn export https://github.com/immortalwrt/packages/trunk/net/proxychains-ng            package/lean/proxychains-ng
 svn export https://github.com/immortalwrt/packages/trunk/net/kcptun                    feeds/packages/net/kcptun
 svn export https://github.com/fw876/helloworld/trunk/shadowsocks-rust                  feeds/packages/net/shadowsocks-rust
-ln -sf ../../../feeds/packages/net/kcptun                                        ./package/feeds/packages/kcptun
-ln -sf ../../../feeds/packages/net/shadowsocks-rust                              ./package/feeds/packages/shadowsocks-rust
+ln -sf ../../../feeds/packages/net/kcptun                                            ./package/feeds/packages/kcptun
+ln -sf ../../../feeds/packages/net/shadowsocks-rust                                  ./package/feeds/packages/shadowsocks-rust
 sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
 # OpenClash
-git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                  package/new/luci-app-openclash
+git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                      package/new/luci-app-openclash
 # SSRP
 svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
 pushd package/lean
@@ -183,27 +183,27 @@ ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconv
 sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
-svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun    package/lean/ddns-scripts_dnspod
-svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    package/lean/ddns-scripts_aliyun
-# UPnP
-rm -rf ./feeds/packages/net/miniupnpd
-svn export https://github.com/openwrt/packages/trunk/net/miniupnpd                  feeds/packages/net/miniupnpd
-# Zerotier
-rm -rf ./feeds/packages/net/zerotier
-svn export https://github.com/openwrt/packages/trunk/net/zerotier                   feeds/packages/net/zerotier
-svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
-ln -sf ../../../feeds/luci/applications/luci-app-zerotier                     ./package/feeds/luci/luci-app-zerotier
+svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun     package/lean/ddns-scripts_dnspod
+svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod     package/lean/ddns-scripts_aliyun
+# UPnP 
+rm -rf ./feeds/packages/net/miniupnpd 
+svn export https://github.com/openwrt/packages/trunk/net/miniupnpd                   feeds/packages/net/miniupnpd
+# Zerotier 
+rm -rf ./feeds/packages/net/zerotier 
+svn export https://github.com/openwrt/packages/trunk/net/zerotier                    feeds/packages/net/zerotier
+svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier  feeds/luci/applications/luci-app-zerotier
+ln -sf ../../../feeds/luci/applications/luci-app-zerotier                          ./package/feeds/luci/luci-app-zerotier
 sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # CPU限制
-svn export https://github.com/immortalwrt/packages/trunk/utils/cpulimit             feeds/packages/utils/cpulimit
-ln -sf ../../../feeds/packages/utils/cpulimit                                 ./package/feeds/packages/cpulimit
-svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit         package/lean/luci-app-cpulimit
-cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                              ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
+svn export https://github.com/immortalwrt/packages/trunk/utils/cpulimit              feeds/packages/utils/cpulimit
+ln -sf ../../../feeds/packages/utils/cpulimit                                      ./package/feeds/packages/cpulimit
+svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit          package/lean/luci-app-cpulimit
+cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                                   ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
-  ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                     ./package/feeds/luci/luci-app-cpufreq
+  ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                         ./package/feeds/luci/luci-app-cpufreq
 fi
 # 翻译及部分功能优化
 svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
