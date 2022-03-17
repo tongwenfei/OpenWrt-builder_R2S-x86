@@ -14,9 +14,9 @@ if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
   cp -f ../PATCH/mbedtls/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch ./package/libs/mbedtls/patches/100-Implements-AES-and-GCM-with-ARMv8-Crypto-Extensions.patch
   # 采用immortalwrt的优化
   rm -rf ./target/linux/rockchip ./package/boot/uboot-rockchip ./package/boot/arm-trusted-firmware-rockchip-vendor
-  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/target/linux/rockchip                             target/linux/rockchip
-  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/uboot-rockchip                       package/boot/uboot-rockchip
-  svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/arm-trusted-firmware-rockchip-vendor package/boot/arm-trusted-firmware-rockchip-vendor
+  svn export https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/target/linux/rockchip                             target/linux/rockchip
+  svn export https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/uboot-rockchip                       package/boot/uboot-rockchip
+  svn export https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/boot/arm-trusted-firmware-rockchip-vendor package/boot/arm-trusted-firmware-rockchip-vendor
   # overclocking 1.5GHz
   cp -f ../PATCH/999-RK3328-enable-1512mhz-opp.patch target/linux/rockchip/patches-5.4/991-arm64-dts-rockchip-add-more-cpu-operating-points-for.patch
 fi
@@ -50,7 +50,7 @@ case ${MYOPENWRTTARGET} in
     # show cpu model name
     wget -P target/linux/generic/hack-5.4/ https://raw.githubusercontent.com/immortalwrt/immortalwrt/openwrt-21.02/target/linux/generic/hack-5.4/312-arm64-cpuinfo-Add-model-name-in-proc-cpuinfo-for-64bit-ta.patch
     # R8152 驱动
-    svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 package/new/r8152
+    svn export https://github.com/immortalwrt/immortalwrt/branches/master/package/kernel/r8152 package/new/r8152
     sed -i 's,kmod-usb-net-rtl8152,kmod-usb-net-rtl8152-vendor,g' target/linux/rockchip/image/armv8.mk
     # IRQ and disabed rk3328 ethernet tcp/udp offloading tx/rx
     sed -i '/set_interface_core 4 "eth1"/a\\tset_interface_core 1 "ff150000.i2c"' target/linux/rockchip/armv8/base-files/etc/hotplug.d/net/40-net-smp-affinity
@@ -93,13 +93,13 @@ wget -qO- https://raw.githubusercontent.com/msylgj/R2S-R4S-OpenWrt/21.02/PATCHES
 # Patch LuCI 以增添FullCone开关
 patch -p1 < ../PATCH/firewall/luci-app-firewall_add_fullcone.patch
 # FullCone 相关组件
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/openwrt-fullconenat package/lean/openwrt-fullconenat
+svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/openwrt-fullconenat package/lean/openwrt-fullconenat
 pushd package/lean/openwrt-fullconenat
 patch -p2 <../../../../PATCH/firewall/fullcone6.patch
 popd
 # UPX
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/tools/upx tools/upx
-svn co https://github.com/immortalwrt/immortalwrt/branches/master/tools/ucl tools/ucl
+svn export https://github.com/immortalwrt/immortalwrt/branches/master/tools/upx tools/upx
+svn export https://github.com/immortalwrt/immortalwrt/branches/master/tools/ucl tools/ucl
 sed -i '/patchelf pkgconf/i\tools-y += ucl upx'                                  ./tools/Makefile
 sed -i '\/autoconf\/compile :=/i\$(curdir)/upx/compile := $(curdir)/ucl/compile' ./tools/Makefile
 # 修复由于shadow-utils引起的管理页面修改密码功能失效的问题
@@ -111,69 +111,69 @@ popd
 mkdir -p ./package/new/ ./package/lean/
 # AutoCore & coremark
 rm -rf ./feeds/packages/utils/coremark
-svn co https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/emortal/autocore package/lean/autocore
-svn co https://github.com/immortalwrt/packages/trunk/utils/coremark                feeds/packages/utils/coremark
+svn export https://github.com/immortalwrt/immortalwrt/branches/openwrt-21.02/package/emortal/autocore package/lean/autocore
+svn export https://github.com/immortalwrt/packages/trunk/utils/coremark                feeds/packages/utils/coremark
 # AutoReboot定时重启
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-autoreboot package/lean/luci-app-autoreboot
+svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-autoreboot package/lean/luci-app-autoreboot
 # ipv6-helper
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper         package/lean/ipv6-helper
+svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/ipv6-helper         package/lean/ipv6-helper
 # 清理内存
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree    package/lean/luci-app-ramfree
+svn export https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-ramfree    package/lean/luci-app-ramfree
 # 流量监视
 git clone -b master --depth=1 https://github.com/brvphoenix/wrtbwmon               package/new/wrtbwmon
 git clone -b master --depth=1 https://github.com/brvphoenix/luci-app-wrtbwmon      package/new/luci-app-wrtbwmon
 # Haproxy
 rm -rf ./feeds/packages/net/haproxy
-svn co https://github.com/openwrt/packages/trunk/net/haproxy                       feeds/packages/net/haproxy
+svn export https://github.com/openwrt/packages/trunk/net/haproxy                       feeds/packages/net/haproxy
 pushd feeds/packages
   wget -qO - https://github.com/QiuSimons/packages/commit/7ffbfbe01e01866947d5a79aeb2803c7c7634c0a.patch | patch -p1
 popd
 # socat
-svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-socat              package/new/luci-app-socat
+svn export https://github.com/Lienol/openwrt-package/trunk/luci-app-socat              package/new/luci-app-socat
 # SSRP依赖
 rm -rf ./feeds/packages/net/xray-core ./feeds/packages/net/kcptun ./feeds/packages/net/shadowsocks-libev ./feeds/packages/net/proxychains-ng ./feeds/packages/net/shadowsocks-rust
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
-svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2                package/lean/redsocks2
-svn co https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
-svn co https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
-svn co https://github.com/fw876/helloworld/trunk/simple-obfs                       package/lean/simple-obfs
-svn co https://github.com/fw876/helloworld/trunk/v2ray-core                        package/lean/v2ray-core
-svn co https://github.com/fw876/helloworld/trunk/v2ray-geodata                     package/new/v2ray-geodata
-svn co https://github.com/fw876/helloworld/trunk/v2ray-plugin                      package/lean/v2ray-plugin
-svn co https://github.com/fw876/helloworld/trunk/xray-core                         package/lean/xray-core
-svn co https://github.com/fw876/helloworld/trunk/xray-plugin                       package/lean/xray-plugin
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks               package/lean/dns2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria                package/new/hysteria
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks               package/lean/ipt2socks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks              package/lean/microsocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt               package/lean/pdnsd
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev      package/lean/shadowsocksr-libev
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/lean/tcping
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan                  package/lean/trojan
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/lean/trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
-svn co https://github.com/immortalwrt/packages/trunk/net/proxychains-ng            package/lean/proxychains-ng
-svn co https://github.com/immortalwrt/packages/trunk/net/kcptun                    feeds/packages/net/kcptun
-svn co https://github.com/fw876/helloworld/trunk/shadowsocks-rust                  feeds/packages/net/shadowsocks-rust
+svn export https://github.com/coolsnowwolf/lede/trunk/package/lean/srelay              package/lean/srelay
+svn export https://github.com/coolsnowwolf/packages/trunk/net/redsocks2                package/lean/redsocks2
+svn export https://github.com/coolsnowwolf/packages/trunk/net/shadowsocks-libev        package/lean/shadowsocks-libev
+svn export https://github.com/fw876/helloworld/trunk/naiveproxy                        package/lean/naiveproxy
+svn export https://github.com/fw876/helloworld/trunk/simple-obfs                       package/lean/simple-obfs
+svn export https://github.com/fw876/helloworld/trunk/v2ray-core                        package/lean/v2ray-core
+svn export https://github.com/fw876/helloworld/trunk/v2ray-geodata                     package/new/v2ray-geodata
+svn export https://github.com/fw876/helloworld/trunk/v2ray-plugin                      package/lean/v2ray-plugin
+svn export https://github.com/fw876/helloworld/trunk/xray-core                         package/lean/xray-core
+svn export https://github.com/fw876/helloworld/trunk/xray-plugin                       package/lean/xray-plugin
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/brook                   package/new/brook
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/dns2socks               package/lean/dns2socks
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/hysteria                package/new/hysteria
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/ipt2socks               package/lean/ipt2socks
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/microsocks              package/lean/microsocks
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/pdnsd-alt               package/lean/pdnsd
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev      package/lean/shadowsocksr-libev
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks                  package/new/ssocks
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/tcping                  package/lean/tcping
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/trojan                  package/lean/trojan
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go               package/lean/trojan-go
+svn export https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus             package/new/trojan-plus
+svn export https://github.com/immortalwrt/packages/trunk/net/proxychains-ng            package/lean/proxychains-ng
+svn export https://github.com/immortalwrt/packages/trunk/net/kcptun                    feeds/packages/net/kcptun
+svn export https://github.com/fw876/helloworld/trunk/shadowsocks-rust                  feeds/packages/net/shadowsocks-rust
 ln -sf ../../../feeds/packages/net/kcptun                                        ./package/feeds/packages/kcptun
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                              ./package/feeds/packages/shadowsocks-rust
 sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
 # OpenClash
 git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                  package/new/luci-app-openclash
 # SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
+svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
 # 订阅转换
-svn co https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
-svn co https://github.com/immortalwrt/packages/trunk/libs/libcron     feeds/packages/libs/libcron
-svn co https://github.com/immortalwrt/packages/trunk/libs/quickjspp   feeds/packages/libs/quickjspp
-svn co https://github.com/immortalwrt/packages/trunk/libs/rapidjson   feeds/packages/libs/rapidjson
-svn co https://github.com/immortalwrt/packages/trunk/libs/toml11      feeds/packages/libs/toml11
-svn co https://github.com/immortalwrt/packages/trunk/net/subconverter feeds/packages/net/subconverter
+svn export https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
+svn export https://github.com/immortalwrt/packages/trunk/libs/libcron     feeds/packages/libs/libcron
+svn export https://github.com/immortalwrt/packages/trunk/libs/quickjspp   feeds/packages/libs/quickjspp
+svn export https://github.com/immortalwrt/packages/trunk/libs/rapidjson   feeds/packages/libs/rapidjson
+svn export https://github.com/immortalwrt/packages/trunk/libs/toml11      feeds/packages/libs/toml11
+svn export https://github.com/immortalwrt/packages/trunk/net/subconverter feeds/packages/net/subconverter
 ln -sf ../../../feeds/packages/libs/jpcre2      ./package/feeds/packages/jpcre2
 ln -sf ../../../feeds/packages/libs/libcron     ./package/feeds/packages/libcron
 ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjspp
@@ -183,30 +183,30 @@ ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconv
 sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
-svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun    package/lean/ddns-scripts_dnspod
-svn co https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    package/lean/ddns-scripts_aliyun
+svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun    package/lean/ddns-scripts_dnspod
+svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-dnspod    package/lean/ddns-scripts_aliyun
 # UPnP
 rm -rf ./feeds/packages/net/miniupnpd
-svn co https://github.com/openwrt/packages/trunk/net/miniupnpd                  feeds/packages/net/miniupnpd
+svn export https://github.com/openwrt/packages/trunk/net/miniupnpd                  feeds/packages/net/miniupnpd
 # Zerotier
 rm -rf ./feeds/packages/net/zerotier
-svn co https://github.com/openwrt/packages/trunk/net/zerotier                   feeds/packages/net/zerotier
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
+svn export https://github.com/openwrt/packages/trunk/net/zerotier                   feeds/packages/net/zerotier
+svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-zerotier feeds/luci/applications/luci-app-zerotier
 ln -sf ../../../feeds/luci/applications/luci-app-zerotier                     ./package/feeds/luci/luci-app-zerotier
 sed -i '/Default,one/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(PKG_BUILD_DIR)/zerotier-one' feeds/packages/net/zerotier/Makefile
 rm -rf ./feeds/packages/net/zerotier/files/etc/init.d/zerotier
 # CPU限制
-svn co https://github.com/immortalwrt/packages/trunk/utils/cpulimit             feeds/packages/utils/cpulimit
+svn export https://github.com/immortalwrt/packages/trunk/utils/cpulimit             feeds/packages/utils/cpulimit
 ln -sf ../../../feeds/packages/utils/cpulimit                                 ./package/feeds/packages/cpulimit
-svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit         package/lean/luci-app-cpulimit
+svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/luci-app-cpulimit         package/lean/luci-app-cpulimit
 cp -f ../PATCH/luci-app-cpulimit_config/cpulimit                              ./package/lean/luci-app-cpulimit/root/etc/config/cpulimit
 # CPU主频
 if [ "${MYOPENWRTTARGET}" = 'R2S' ] ; then
-  svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
+  svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-cpufreq feeds/luci/applications/luci-app-cpufreq
   ln -sf ../../../feeds/luci/applications/luci-app-cpufreq                     ./package/feeds/luci/luci-app-cpufreq
 fi
 # 翻译及部分功能优化
-svn co https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
+svn export https://github.com/QiuSimons/OpenWrt-Add/trunk/addition-trans-zh          package/lean/lean-translate
 if [ "${MYOPENWRTTARGET}" != 'R2S' ] ; then
   sed -i '/openssl\.cnf/d' ../PATCH/addition-trans-zh/files/zzz-default-settings
   sed -i '/upnp/Id'        ../PATCH/addition-trans-zh/files/zzz-default-settings
