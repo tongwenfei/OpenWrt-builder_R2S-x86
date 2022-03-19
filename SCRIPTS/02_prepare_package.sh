@@ -180,6 +180,7 @@ ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjs
 ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
 ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
 ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
+sed -i '/-DBUILD_TESTING=OFF/a\\t-DCMAKE_REQUIRED_LIBRARIES=stdc++fs \\' feeds/packages/libs/quickjspp/Makefile
 sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
