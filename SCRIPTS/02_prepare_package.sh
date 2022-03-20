@@ -167,21 +167,6 @@ svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus          
 pushd package/lean
   patch -p1 < ../../../PATCH/0005-add-QiuSimons-Chnroute-to-chnroute-url.patch
 popd
-# 订阅转换
-svn export https://github.com/immortalwrt/packages/trunk/libs/jpcre2      feeds/packages/libs/jpcre2
-svn export https://github.com/immortalwrt/packages/trunk/libs/libcron     feeds/packages/libs/libcron
-svn export https://github.com/immortalwrt/packages/trunk/libs/quickjspp   feeds/packages/libs/quickjspp
-svn export https://github.com/immortalwrt/packages/trunk/libs/rapidjson   feeds/packages/libs/rapidjson
-svn export https://github.com/immortalwrt/packages/trunk/libs/toml11      feeds/packages/libs/toml11
-svn export https://github.com/immortalwrt/packages/trunk/net/subconverter feeds/packages/net/subconverter
-ln -sf ../../../feeds/packages/libs/jpcre2      ./package/feeds/packages/jpcre2
-ln -sf ../../../feeds/packages/libs/libcron     ./package/feeds/packages/libcron
-ln -sf ../../../feeds/packages/libs/quickjspp   ./package/feeds/packages/quickjspp
-ln -sf ../../../feeds/packages/libs/rapidjson   ./package/feeds/packages/rapidjson
-ln -sf ../../../feeds/packages/libs/toml11      ./package/feeds/packages/toml11
-ln -sf ../../../feeds/packages/net/subconverter ./package/feeds/packages/subconverter
-patch -p1 < ../PATCH/fix-quickjspp-build.patch
-sed -i '\/bin\/subconverter/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $(1)/usr/bin/subconverter' feeds/packages/net/subconverter/Makefile
 # 额外DDNS脚本
 sed -i '/boot()/,+2d' feeds/packages/net/ddns-scripts/files/etc/init.d/ddns
 svn export https://github.com/kiddin9/openwrt-packages/trunk/ddns-scripts-aliyun     package/lean/ddns-scripts_dnspod

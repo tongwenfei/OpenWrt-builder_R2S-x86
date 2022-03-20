@@ -7,7 +7,6 @@ on:
     paths:
       - 'CHANGELOG.md'
       - '.github/workflows/R2S-OpenWrt.yml'
-      - 'build_trigger/r2s'
 
 env:
   UPLOAD_FIRMWARE: true
