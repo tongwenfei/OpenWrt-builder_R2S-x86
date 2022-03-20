@@ -161,7 +161,7 @@ ln -sf ../../../feeds/packages/net/kcptun                                       
 ln -sf ../../../feeds/packages/net/shadowsocks-rust                                  ./package/feeds/packages/shadowsocks-rust
 sed -i '/Build\/Compile/a\\t$(STAGING_DIR_HOST)/bin/upx --lzma --best $$(PKG_BUILD_DIR)/$(component)' feeds/packages/net/shadowsocks-rust/Makefile
 # OpenClash
-git clone -b dev --depth=1 https://github.com/vernesong/OpenClash                      package/new/luci-app-openclash
+git clone -b master --depth=1 https://github.com/vernesong/OpenClash                   package/new/luci-app-openclash
 # SSRP
 svn export https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus                 package/lean/luci-app-ssr-plus
 pushd package/lean
