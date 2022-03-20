@@ -14,24 +14,24 @@ index 0d2897c..5583434 100644
 +++ b/feeds/packages/libs/quickjspp/Makefile
 @@ -41,6 +41,7 @@ define Package/libquickjs/description
  endef
- 
+
  CMAKE_OPTIONS+= \
-+	-DCMAKE_REQUIRED_LIBRARIES=stdc++fs \
- 	-DBUILD_SHARED_LIBS=ON \
- 	-DBUILD_TESTING=OFF \
- 	-DCMAKE_EXE_LINKER_FLAGS="-latomic"
++   -DCMAKE_REQUIRED_LIBRARIES=stdc++fs \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_EXE_LINKER_FLAGS="-latomic"
 diff --git a/feeds/packages/net/subconverter/Makefile b/feeds/packages/net/subconverter/Makefile
-index f1c16ff..5044b77 100644
+index f1c16ff..061c4ce 100644
 --- a/feeds/packages/net/subconverter/Makefile
 +++ b/feeds/packages/net/subconverter/Makefile
-@@ -35,7 +35,9 @@ define Package/subconverter
- endef
- 
- # mips(el) & glibc require it
--CMAKE_OPTIONS+= -DCMAKE_EXE_LINKER_FLAGS="-latomic"
-+CMAKE_OPTIONS+= \
-+	-DCMAKE_REQUIRED_LIBRARIES=stdc++fs \
-+	-DCMAKE_EXE_LINKER_FLAGS="-latomic"
- 
+@@ -39,7 +39,9 @@ CMAKE_OPTIONS+= -DCMAKE_EXE_LINKER_FLAGS="-latomic"
+
  TARGET_CXXFLAGS := $(filter-out -O%,$(TARGET_CXXFLAGS)) -O3
  TARGET_CXXFLAGS += -Wall -Wextra -ffunction-sections -fdata-sections -flto
+-TARGET_LDFLAGS += -Wl,--gc-sections -flto
++TARGET_LDFLAGS += \
++   -lstdc++fs \
++   -Wl,--gc-sections -flto
+
+ define Package/subconverter/install
+    $(INSTALL_DIR) $(1)/usr/bin
